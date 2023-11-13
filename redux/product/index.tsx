@@ -13,6 +13,11 @@ const initState: productType = {
 const ProductDetail = createSlice({
   name: "productDetail",
   initialState: {
+    isOpenModalPurchasedHistory: false,
+    productModalHistoryDetail: {
+      listOrder: [],
+      info: null,
+    },
     isOpenModalDetail: false,
     productDetail: initState,
     isOpenModalAddToCart: false,
@@ -39,6 +44,13 @@ const ProductDetail = createSlice({
     closeViewAddToCart(state) {
       state.isOpenModalAddToCart = false;
     },
+    openModalPurchasedHistory(state, action) {
+      state.productModalHistoryDetail = action.payload;
+      state.isOpenModalPurchasedHistory = true;
+    },
+    closeModalPurchasedHistory(state) {
+      state.isOpenModalPurchasedHistory = false;
+    },
   },
 });
 
@@ -47,5 +59,7 @@ export const {
   closeViewDetail,
   OpenViewAddToCart,
   closeViewAddToCart,
+  openModalPurchasedHistory,
+  closeModalPurchasedHistory,
 } = ProductDetail.actions;
 export default ProductDetail.reducer;

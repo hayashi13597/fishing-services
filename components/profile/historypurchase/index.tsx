@@ -8,6 +8,9 @@ import type {
 } from "antd/es/table/interface";
 import { formatMoney } from "../../../utils";
 import { cn } from "react-swisskit";
+import { useDispatch } from "react-redux";
+import { openModalPurchasedHistory } from "../../../redux/product";
+import { initialData } from "../../../constants";
 enum ESTatus {
   "s1" = "Chờ xử lý",
   "s2" = "Đã kiểm duyệt",
@@ -112,6 +115,7 @@ const HistoryPurChase: React.FC = () => {
     Record<string, FilterValue | null>
   >({});
   const [sortedInfo, setSortedInfo] = useState<SorterResult<DataType>>({});
+  const dispatch = useDispatch();
 
   const handleChange: TableProps<DataType>["onChange"] = (
     pagination,
@@ -137,6 +141,15 @@ const HistoryPurChase: React.FC = () => {
       order: "descend",
       columnKey: "age",
     });
+  };
+
+  const handleViewOrderDetail = (value) => {
+    dispatch(
+      openModalPurchasedHistory({
+        listOrder: initialData,
+        info: value,
+      })
+    );
   };
 
   const columns: ColumnsType<DataType> = [
@@ -188,8 +201,11 @@ const HistoryPurChase: React.FC = () => {
       title: "Xem chi tiết",
       key: "operation",
       width: 110,
-      render: () => (
-        <button className="bg-primary/90 hover:bg-primary text-white rounded-lg py-1 px-2">
+      render: (value) => (
+        <button
+          className="bg-primary/90 hover:bg-primary text-white rounded-lg py-1 px-2"
+          onClick={() => handleViewOrderDetail(value)}
+        >
           Chi tiết
         </button>
       ),

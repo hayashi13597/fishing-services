@@ -16,6 +16,8 @@ const GlobalInfomation = () => {
     productDetail,
     isOpenModalAddToCart,
     productAddToCart,
+    isOpenModalPurchasedHistory,
+    productModalHistoryDetail,
   } = useSelector((state: RootState) => state.productDetail);
   const dispatch: any = useDispatch();
 
@@ -53,7 +55,7 @@ const GlobalInfomation = () => {
           product={productDetail}
         />
       )}
-      {/* <ModalViewHistoryDetail /> */}
+      {isOpenModalPurchasedHistory && <ModalViewHistoryDetail />}
     </div>
   );
 };
