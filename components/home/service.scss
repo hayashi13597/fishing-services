@@ -1,0 +1,15 @@
+.support_container {
+  .support_container-image {
+    transition: transform 0.5s;
+    overflow: hidden;
+  }
+  &:hover {
+    .support_container-image {
+      transition: transform 1s;
+      transform: rotate(360deg);
+    }
+    .support_container-title {
+      color: #db4444;
+    }
+  }
+}

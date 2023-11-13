@@ -1,0 +1,20 @@
+.cart__wrapper {
+  transition: all 0.3s ease-in;
+  position: fixed;
+  top: 0;
+  right: -500px;
+  bottom: 0;
+  height: 100vh;
+  z-index: 999;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+@media screen and (min-width: 300px) and (max-width: 768px) {
+  .cart__wrapper {
+    right: -800px;
+  }
+}
+.cart__wrapper.show {
+  transition: all 0.2s ease-in;
+  right: 0;
+}

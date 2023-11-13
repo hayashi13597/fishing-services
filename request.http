@@ -1,0 +1,102 @@
+
+@domain= http://localhost:5000
+###  Đăng ký tài khoản mới
+POST {{domain}}/user/register
+Content-Type: application/json
+
+{
+
+"data":{
+  "username":"admin",
+  "email":"namanhthao59@gmail.com",
+  "password":"122112122121"
+}
+ 
+}
+/*==> trả về 
+ {
+    data:"" || [] || {},
+    statusCode:200,
+    message:"",
+ }
+ 
+*/
+###  Đăng nhập
+POST {{domain}}/user/login
+Content-Type: application/json
+
+{
+"data":{
+    "username":"admin",
+    "password":"122112122121"
+}
+}
+
+###  Đăng ký và đăng nhập firebase
+POST {{domain}}/user/firebase
+Content-Type: application/json
+
+{
+"data":{
+
+    "uid":"dsadsda",
+    "avatar":"http://image.sdasda",
+    "email":"namph2102@gmail.com",//Facebook ko có email
+    "fullname":"Phạm Hoài Nam"
+}
+}
+
+
+// lấy token để đăng nhập vào admin
+###
+POST {{domain}}/user/firstlogin
+Authorization: Bearss eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hbWFuaHRoYW81OEBnbWFpbC5jb20iLCJpYXQiOjE2OTkzNTk4NTAsImV4cCI6MTY5OTYxOTA1MH0.qj7MhQzK9YX3HyiZC4V38UFSSPnktSfSh2x1FJOmja4
+
+
+###  Thay đổi mật khẩu
+POST {{domain}}/user/changepassword
+Content-Type: application/json
+
+{
+"data":{
+    "username":"dsadsda",
+    "oldPassword":"1234567",
+    "newPassword":"123456",
+}
+}
+
+###  Xác thực tài khoản quên mật khẩu
+POST {{domain}}/user/verify
+Content-Type: application/json
+
+{
+"data":{
+   
+    "email":"admin@gmail.com",
+ 
+}
+}
+
+###  Cập nhập tài khoản
+PUT {{domain}}/user
+Content-Type: application/json
+
+{
+"data":{
+    "email":"admin@gmail.com",
+    "fullname":"1234567",
+    "phone":"0844669990",
+    "address":"Dường hồ chí minh",
+}
+}
+
+###  Cập nhập ảnh đại diện
+PUT {{domain}}/user
+Content-Type: application/json
+
+{
+"data":{
+    "username":"admin@gmail.com",
+    "avatar":"http://image.sdasda",
+}
+}

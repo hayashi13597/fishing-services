@@ -1,0 +1,61 @@
+/* namelist--- title */
+
+.namelist {
+  overflow: hidden;
+  width: 100%;
+  margin: 20px 0px;
+  position: relative;
+  border-bottom: 1px solid #c0034e;
+  border-bottom-left-radius: 30px;
+  display: flex;
+}
+
+.namelist span {
+  background: #c0034e;
+
+  font-family: roboto_b;
+  text-transform: uppercase;
+  color: #fff;
+  display: inline-block;
+  padding: 10px 40px;
+  padding-left: 57px;
+  box-sizing: border-box;
+  position: relative;
+  margin-left: 0px;
+}
+.namelist span:after {
+  content: "";
+  position: absolute;
+  background: url(/assets/tieude_25.png) no-repeat left top;
+  height: 50px;
+  width: 51px;
+  z-index: 2;
+  left: 0px;
+  top: 0px;
+}
+.namelist a {
+  background: url(/assets/xemtatacs_25.png) no-repeat left top;
+  font-family: roboto;
+  color: #fff;
+  text-transform: capitalize;
+
+  padding: 16px 60px;
+  background-size: 100% 100%;
+  padding-right: 61px;
+  padding-bottom: 10px;
+}
+.menucap2new {
+  display: block;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  z-index: 12;
+  width: 100%;
+  text-align: center;
+}
+@media screen and (max-width: 768px) {
+  .namelist {
+    border-bottom: 1px solid #c0034e;
+    border-bottom-left-radius: 6px !important;
+  }
+}

@@ -1,0 +1,25 @@
+.devvn_review_row {
+  padding-bottom: 10px;
+  position: relative;
+  -js-display: flex;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: row nowrap;
+  flex-flow: row nowrap;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  width: 100%;
+}
+span.devvn_scala_rating {
+  border-radius: 3px;
+  display: inline-block;
+  height: 15px;
+  background: #eee;
+  vertical-align: middle;
+  overflow: hidden;
+  width: 100%;
+}
+.devvn_perc_rating {
+}

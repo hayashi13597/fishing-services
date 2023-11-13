@@ -1,0 +1,244 @@
+"use client";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import {
+  BiBell,
+  BiCartAlt,
+  BiShieldAlt2,
+  BiTrash,
+  BiUpload,
+  BiUser,
+} from "react-icons/bi";
+import { BsCamera } from "react-icons/bs";
+import { FaRegListAlt } from "react-icons/fa";
+import ProfileAccount from "./infoaccount";
+import "../modal/modal.scss";
+import { cn } from "react-swisskit";
+import UserApi from "../../services/api-client/user";
+import { IUploadAvata } from "../../services/api-client/user/user.type";
+import ToastNotify from "../../services/toast";
+import ChangePassword from "./changepassword";
+import { useSearchParams } from "next/navigation";
+import NoticeContainer from "./noticecontainer/NoticeContainer";
+import HistoryPurChase from "./historypurchase";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+
+const ProfilePage = () => {
+  const [tabs, SetTab] = useState<
+    "don-mua" | "account" | "doi-mat-khau" | "thong-bao"
+  >("thong-bao");
+  const [imageUpload, setImageUpload] = useState("");
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [formData, setFromDAta] = useState<any>();
+  const account = useSelector((state: RootState) => state.user.account);
+  const searchParams = useSearchParams();
+  const currentPage = searchParams.get("page") || "account";
+
+  // gửi ảnh
+  const handleChoose = (isChoose: boolean) => {
+    if (!isChoose) {
+    } else {
+      UserApi.uploadImage(formData)
+        .then(() => ToastNotify("Cập nhập thành công").success())
+        .catch(() => ToastNotify("Cập nhập thất bại").success());
+    }
+    setIsOpenModal(false);
+  };
+
+  const handleChangeAvata = async (e: any) => {
+    const file: File = e.target.files[0];
+    const blog = URL.createObjectURL(file);
+    setImageUpload(blog);
+    const bodyFormData = new FormData();
+    bodyFormData.append("file", file);
+    bodyFormData.append("id", "iduser");
+    setFromDAta(bodyFormData);
+  };
+  useEffect(() => {
+    if (account.id) {
+      setImageUpload(account.avatar);
+    }
+  }, [account.id]);
+  useEffect(() => {
+    if (currentPage == "don-mua") {
+      SetTab(currentPage);
+    } else if (currentPage == "doi-mat-khau") {
+      SetTab(currentPage);
+    } else if (currentPage == "thong-bao") {
+      SetTab(currentPage);
+    } else {
+      SetTab("account");
+    }
+  }, [currentPage]);
+
+  return (
+    <div className="my-8">
+      {/* Modal status upload iamge */}
+      <div
+        onClick={() => {
+          handleChoose(false);
+        }}
+        className={cn(
+          "flex z-50 inset-0 fixed bg-black/50",
+          isOpenModal ? "" : "hidden"
+        )}
+      >
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="sm:w-[450px] w-[300px] m-auto  p-8  bg-white rounded-xl relative"
+        >
+          <h6 className="modal__title font-bold text-2xl text-center mb-8">
+            Thay đổi ảnh đại diện
+          </h6>
+          <div className="flex gap-4 items-center">
+            <div className="flex basis-1/2">
+              <Image
+                alt="profile"
+                width={120}
+                height={120}
+                className="object-cover rounded-full m-auto"
+                src={
+                  imageUpload
+                    ? imageUpload
+                    : "https://elearning.iigvietnam.com/images/default-avatar.jpg"
+                }
+              />
+            </div>
+            <div className="flex flex-col  gap-4 ">
+              <label
+                htmlFor="user-profile-upload"
+                className="flex items-center gap-2 hover:text-primary cursor-pointer"
+              >
+                <BiUpload /> <span>Tải ảnh đại diện lên</span>
+              </label>
+              <button className="flex items-center gap-2 hover:text-primary cursor-pointer">
+                <BiTrash /> <span>Xóa ảnh đại diện</span>
+              </button>
+            </div>
+          </div>
+          <div className="modal__btns">
+            <button
+              onClick={() => handleChoose(false)}
+              className="modal__btn modal__btn--apply bg-primary text-white hover:bg-blue-800"
+              type="button"
+            >
+              Hủy bỏ
+            </button>
+            <button
+              disabled={imageUpload == ""}
+              onClick={() => handleChoose(true)}
+              className={cn(
+                "modal__btn modal__btn--dismiss border-2 ",
+                imageUpload
+                  ? "bg-blue-800/90 hover:bg-blue-800 text-white"
+                  : "opacity-75 !text-black"
+              )}
+              type="button"
+            >
+              Cập nhập
+            </button>
+          </div>
+          <button
+            onClick={() => handleChoose(false)}
+            title="Close (Esc)"
+            type="button"
+            className="absolute top-2 right-3 text-text text-3xl hover:text-primary"
+          >
+            ×
+          </button>
+        </div>
+      </div>
+      <input
+        onChange={handleChangeAvata}
+        id="user-profile-upload"
+        type="file"
+        className="hidden"
+      />
+
+      <div className="lg:flex  gap-4 ">
+        <div className="basis-1/3 border p-3 cursor-pointer">
+          <div className="flex gap-4">
+            <div
+              onClick={() => setIsOpenModal(!isOpenModal)}
+              className="relative w-[60px] h-[60px]"
+            >
+              <Image
+                alt="profile"
+                width={60}
+                height={60}
+                className="object-cover rounded-full"
+                src={account.avatar}
+              />
+              <div className="absolute right-1 -bottom-1 p-1 text-white bg-primary rounded-full">
+                <BsCamera />
+              </div>
+            </div>
+            <div className="flex flex-col justify-center">
+              <h1 className="font-semibold text-lg capitalize">
+                {account.fullname || account.email}
+              </h1>
+              <p className="text-sm opacity-90"> {account.email}</p>
+            </div>
+          </div>
+          <section className="mt-4 pl-2 flex flex-col gap-3">
+            <div
+              onClick={() => SetTab("account")}
+              className={cn(
+                "flex gap-2 items-center hover:text-primary",
+                tabs == "account" ? "text-primary" : ""
+              )}
+            >
+              <BiUser /> <span>Thông tin cá nhân</span>
+            </div>
+            <div
+              onClick={() => SetTab("don-mua")}
+              className={cn(
+                "flex gap-2 items-center hover:text-primary",
+                tabs == "don-mua" ? "text-primary" : ""
+              )}
+            >
+              <FaRegListAlt /> <span>Lịch sử mua hàng</span>
+            </div>
+            <div
+              onClick={() => SetTab("doi-mat-khau")}
+              className={cn(
+                "flex gap-2 items-center hover:text-primary",
+                tabs == "doi-mat-khau" ? "text-primary" : ""
+              )}
+            >
+              <BiShieldAlt2 /> <span>Đổi mật khẩu</span>
+            </div>
+            <div
+              onClick={() => SetTab("thong-bao")}
+              className={cn(
+                "flex gap-2 items-center hover:text-primary",
+                tabs == "thong-bao" ? "text-primary" : ""
+              )}
+            >
+              <BiBell /> <span>Thông báo</span>
+            </div>
+          </section>
+        </div>
+        <div className="basis-2/3 border h-[70vh]">
+          {tabs == "account" && (
+            <ProfileAccount
+              address={account.address}
+              email={account.email}
+              fullname={account.fullname}
+              phone={account.phone}
+              key="accoutn-provip"
+            />
+          )}
+          {tabs == "don-mua" && <HistoryPurChase />}
+          {tabs == "thong-bao" && <NoticeContainer />}
+          {tabs == "doi-mat-khau" && (
+            <ChangePassword username={account.username} />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProfilePage;
