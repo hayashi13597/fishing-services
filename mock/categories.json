@@ -1,0 +1,46 @@
+[
+  {
+    "id": "cate1",
+    "name": "fishing rod",
+    "description": "Fishing rod, can be used in conjunction with other materials like paper paper paper",
+    "imageUrl": "/assets/category-1.png",
+    "filter": "knox",
+    "slug": "fishing-rod",
+    "visible": false,
+    "createdAt": "2022-01-01T12:00:00Z",
+    "updatedAt": "2022-01-01T12:00:00Z"
+  },
+  {
+    "id": "cate2",
+    "name": "bait",
+    "description": "bait, can be used in conjunction with other materials like paper paper paper",
+    "imageUrl": "/assets/category-1.png",
+    "filter": "knox",
+    "slug": "bait",
+    "visible": false,
+    "createdAt": "2022-01-01T12:00:00Z",
+    "updatedAt": "2022-01-01T12:00:00Z"
+  },
+  {
+    "id": "cate3",
+    "name": "food",
+    "description": "Fishing rod, can be used in conjunction with other materials like paper paper paper",
+    "imageUrl": "/assets/category-1.png",
+    "filter": "knox",
+    "slug": "food",
+    "visible": false,
+    "createdAt": "2022-01-01T12:00:00Z",
+    "updatedAt": "2022-01-01T12:00:00Z"
+  },
+  {
+    "id": "cate4",
+    "name": "drink",
+    "description": "drink can be used in conjunction with other materials like paper paper paper",
+    "imageUrl": "/assets/category-1.png",
+    "filter": "knox",
+    "slug": "drink",
+    "visible": false,
+    "createdAt": "2022-01-01T12:00:00Z",
+    "updatedAt": "2022-01-01T12:00:00Z"
+  }
+]
