@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import RadioInputComponent from "./RadioInputComponent";
 import InputFormPayment from "./InputFormPayment";
 import SelectFormPayment from "./SelectFormPayment";
@@ -12,6 +12,11 @@ import { BsBox2 } from "react-icons/bs";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import ToastNotify from "../../services/toast";
+import OrdertDetailApi from "../../services/api-client/order";
+import { ResetCart } from "../../redux/cart";
 
 interface provincesI {
   name: string;
@@ -44,7 +49,11 @@ const structurePage: structurePageType[] = [
   { page: "Thông tin giao hàng", link: "/thanh-toan", last: true },
 ];
 
-const InfoComponent = () => {
+interface InfoComponentProps {
+  setShipment;
+  shipment: number;
+}
+const InfoComponent = ({ setShipment, shipment }: InfoComponentProps) => {
   const provinces: { data: provincesI[] } = useFetchSelect("p");
   const districts = useFetchSelect("d");
   const wards = useFetchSelect("w");
@@ -52,6 +61,11 @@ const InfoComponent = () => {
   const [selectedWards, setSelectedWards] = useState<wardI[]>([]);
   const [showMethod, setShowMethod] = useState<number | string>(null);
 
+  const account = useSelector((state: RootState) => state.user.account);
+  const listCart = useSelector((state: RootState) => state.cart.cart);
+  const formRef = useRef(null);
+  const discount = useSelector((state: RootState) => state.cart.discount);
+  const dispatch = useDispatch();
   // const schema = yup
   //   .object({
   //     fullName: yup.string().required("Họ và tên không được để trống"),
@@ -114,8 +128,40 @@ const InfoComponent = () => {
       shipMethod,
       paymentMethod
     );
+    const order = {
+      fullName,
+      phone: phoneNumber,
+      address: `${address} ${province} ${district} ${ward}`,
+      shipment: shipMethod,
+      paymentMethod,
+      discount_id: discount,
+      user_id: account.id,
+    };
+    handleSubmitOrder(order);
   };
+  const handleSubmitOrder = (order) => {
+    if (!listCart.length) {
+      ToastNotify("Bạn chưa có đơn hàng nào để thanh toán").error();
+    }
+    const data = {
+      order,
 
+      order_detail: listCart.map((item) => ({
+        id: item.id,
+        quantity: item.quantity,
+      })),
+    };
+    console.log("order_----", data);
+    OrdertDetailApi.post(data)
+      .then(() => {
+        formRef.current.reset();
+        ToastNotify("Thanh toán đơn hàng thành công!").success();
+        dispatch(ResetCart());
+      })
+      .catch(() => {
+        ToastNotify("Thanh toán thất bại!").error();
+      });
+  };
   return (
     <div className="w-full order-2 md:order-1 md:w-1/2">
       <Link
@@ -142,7 +188,7 @@ const InfoComponent = () => {
         </div>
       </div>
       {/* <form onSubmit={handleSubmit(handleOnSubmit)}> */}
-      <form action={handleOnSubmit1}>
+      <form ref={formRef} action={handleOnSubmit1}>
         <InputFormPayment id="fullName" label="Họ và tên" type="text" />
         <InputFormPayment id="phoneNumber" label="Số điện thoại" type="text" />
         <InputFormPayment id="address" label="Địa chỉ" type="text" />
@@ -172,7 +218,7 @@ const InfoComponent = () => {
               name="shipMethod"
               isShipMethod={true}
               label="Nhận hàng trực tiếp"
-              setShowMethod={setShowMethod}
+              setShowMethod={setShipment}
             />
             <RadioInputComponent
               id="ship"
@@ -180,7 +226,7 @@ const InfoComponent = () => {
               name="shipMethod"
               isShipMethod={true}
               label="Giao hàng tận nơi"
-              setShowMethod={setShowMethod}
+              setShowMethod={setShipment}
             />
           </div>
         )}
@@ -188,7 +234,7 @@ const InfoComponent = () => {
         <h3 className="font-bold text-xl mb-3">Phương thức thanh toán</h3>
         <RadioInputComponent
           id="paymentMethod1"
-          value="banking"
+          value="Internet Banking"
           name="paymentMethod"
           label="Chuyển khoản"
           setShowMethod={setShowMethod}
@@ -216,7 +262,7 @@ const InfoComponent = () => {
         )}
         <RadioInputComponent
           id="paymentMethod2"
-          value="bankingToMomo"
+          value="ví điện tử"
           name="paymentMethod"
           label="Chuyển tiền đến ví điện tử"
           setShowMethod={setShowMethod}
@@ -244,7 +290,7 @@ const InfoComponent = () => {
         )}
         <RadioInputComponent
           id="paymentMethod3"
-          value="COD"
+          value="Trả tiền khi nhận hàng"
           name="paymentMethod"
           label="COD - Trả tiền khi nhận hàng"
           setShowMethod={setShowMethod}
@@ -265,11 +311,11 @@ const InfoComponent = () => {
         <div className="w-full flex justify-between items-center my-5">
           <Link
             href="/gio-hang"
-            className="transition-all hover:text-primary hover:opacity-80"
+            className="button_send  bg-white text-black border-2 border-primary hover:bg-primary/80 hover:text-white mb-4"
           >
             Giỏ hàng
           </Link>
-          <button className="py-4 px-5 bg-primary text-white rounded-lg transition-all hover:opacity-80">
+          <button type="submit" className="button_send bg-primary">
             Hoàn tất đơn hàng
           </button>
         </div>

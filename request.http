@@ -100,3 +100,96 @@ Content-Type: application/json
     "avatar":"http://image.sdasda",
 }
 }
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// coi trên link :https://dbdiagram.io/d/65462d377d8bbd646579a7d0;
+// limk website: https://fishing-services.vercel.app/
+###  Đơn hàng mua hàng
+POST {{domain}}/order
+Content-Type: application/json
+
+{
+ "order":{
+   "user_id":"xasxsxsxs",// user_id là di của tài khoảng  order
+   "address":"xxx",// địa chỉ nhận hàng
+   "discount_id":"xxx",// discount_id  là id của mã giảm giá có thể có hoặc ko => lúc người dùng nhập sẽ có api gửi lên để check mã đó tồn tại hay ko nha
+   "fullname":"xxx",// Tên người nhận
+   "paymentMethod":"Ví điện tử",//"Ví diện tử" || "COD" ||"Internet Banking"
+   "phone":"xxx",
+   "shipment":25000,// tiền ship 25000 hoặc là 0 ngàn
+ },
+ "order_detail":[
+    {"id":"xx1","quantity":4},//id là id của product
+    {"id":"xx2","quantity":4},
+ ]
+
+}
+
+## lấy dữ liệu của tài khoản khi đăng nhập , đăng ký,login với token trường nào ko có thì để "" hoặc là  []
+###  Thông tin tài khoảng
+{
+    "data":{
+        "user":{
+          "id":"xxx",
+          "fullname":"xxx",
+          "email":"xxx",
+          "address":"xxx",
+          "role":"xxx",
+          "avatar":"xxx",
+          "createAT":"xxx",
+          "updatedAt":"xxx",
+          "token":"xxx",
+        },
+        "notice":[  // danh sách thông báo 
+        {
+          "title":"xxx",
+          "content":"xxx",
+        }
+        ],
+        "order":[ // danh sách các đơn hàng đã đặt
+        {
+          "id":"xxx", // mã đơn hàng
+          "fullname":"xxx",
+          "address":"xxx",
+          "discount_id":"1232", //discount_id là di của  đơn hàng chi tiết
+          "address":"xxx",
+          "shipment":"phương thức thanh toán",
+          "createAt":"xxx",
+          "updatedAt":"xxx",
+          "status":1,// 1	Chờ xử lý 2	Đã kiểm duyệt 3	Đang giao hàng 4	thành công	5	thất bại	
+         "shipment":0,
+        }
+        ]
+        
+    }
+  
+}
+
+// khi anh click vào chi tiết đơn hàng thì em trả cho anh đơn hàng chi tiet
+
+
+POST {{domain}}/orderdetail
+Content-Type: application/json
+
+{
+    "order_detail":"string" //id đơn hnang2 chi tiết
+}
+
+
+# server trả về mảng sản phẩm có trong order đó khi xem sản phẩm chi tiết
+
+{
+    "data":
+   [
+      {
+         "id":"xxx",// mã sản phẩm
+         "name":"xxx",// tên sản phẩm
+         "quantity":5, // số luong
+         "price":1000, // giá
+         "imageUrl":"/d/sadsa",
+         "description":"sdsasa dsa sadsa" // mô tả sản phẩm
+
+     }
+    ]
+}

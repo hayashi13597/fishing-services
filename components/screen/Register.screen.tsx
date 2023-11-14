@@ -25,10 +25,10 @@ const RegisterScreen = () => {
   const dispatch = useDispatch();
   const schema = yup
     .object({
-      username: yup
+      fullname: yup
         .string()
-        .required("Tài khoản  không được để trống")
-        .min(5, "Tài khoản ít nhất 5 ký tự"),
+        .required("Họ và tên  không được để trống")
+        .min(5, "Họ và tên ít nhất 5 ký tự"),
       email: yup
         .string()
         .email("Email không đúng định dạng")
@@ -104,12 +104,12 @@ const RegisterScreen = () => {
               onSubmit={handleSubmit(handleOnSubmit)}
             >
               <FormField
-                label="Tài khoản"
+                label="Họ và tên"
                 type="text"
-                id="username"
+                id="fullname"
                 placeholder="xxxxxx"
                 register={register}
-                error={errors.username}
+                error={errors.fullname}
               />
               <FormField
                 label="Email"

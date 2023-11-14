@@ -7,7 +7,7 @@ export interface IUser {
   address: string;
   role: string;
   visiable: boolean;
-  access_token: string;
+  token: string;
   created_at: string;
   updated_at: string;
 }

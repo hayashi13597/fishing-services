@@ -6,7 +6,6 @@ import { handleAttachToken } from "../../services/api-client";
 export interface IAccount {
   id: string;
   username: string;
-  role: "admin" | "member" | "manager";
   fullname: string;
   avatar: string;
   email: string;
@@ -22,7 +21,6 @@ export interface IAccount {
 const initialState: IAccount = {
   id: "dsadsadsa",
   username: "phamhoainam",
-  role: "member",
   fullname: "Phạm hoài Nam",
   avatar: "/assets/avatar.png",
   email: "dsadsasdadsasda@gmail.com",

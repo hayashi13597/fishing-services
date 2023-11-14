@@ -2,7 +2,7 @@ import { IUploadAvata, IChangePassword } from "./user.type";
 import apiClient, { handleAttachToken } from "..";
 import cookieClient from "../../cookie";
 const UserApi = {
-  path: "/user",
+  path: "/api",
   loginWithToken() {
     const accessToken = cookieClient.get("accessToken");
     if (accessToken) {
@@ -13,7 +13,7 @@ const UserApi = {
     }
   },
   register(data: any) {
-    return apiClient.post(this.path + "/register", { data });
+    return apiClient.post(this.path + "/register", data);
   },
   login(data: any) {
     return apiClient.post(this.path + "/login", { data });
@@ -37,7 +37,6 @@ const UserApi = {
     return apiClient.post(this.path + "/verify", { data });
   },
 
-  
   deleteImage(id: string) {
     return apiClient({
       url: this.path,

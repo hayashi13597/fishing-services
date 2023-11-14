@@ -1,4 +1,5 @@
 import React from "react";
+import { formatMoney } from "../../utils";
 
 type RadioInputComponentType = {
   id: string;
@@ -37,7 +38,9 @@ const RadioInputComponent = ({
         {label}
       </label>
       {isShipMethod && (
-        <span className="mr-4 text-sm opacity-70">{value}đ</span>
+        <span className="mr-4 text-sm opacity-70">
+          {formatMoney(Number(value))}
+        </span>
       )}
     </div>
   );

@@ -48,7 +48,9 @@ const SelectFormPayment = ({
         name="province"
         className="p-4 border-2 mb-3 rounded-lg w-full md:w-1/3 text-sm outline-none"
         defaultValue="default"
-        onChange={(e) => handleSelectChange(e, "city")}
+        onChange={(e) => {
+          handleSelectChange(e, "city");
+        }}
       >
         <option value="default">Chọn tỉnh / thành</option>
         {provinces?.map((province) => (
@@ -62,7 +64,9 @@ const SelectFormPayment = ({
         name="district"
         className="p-4 border-2 mb-3 rounded-lg w-full md:w-1/3 text-sm outline-none"
         defaultValue="default"
-        onChange={(e) => handleSelectChange(e, "district")}
+        onChange={(e) => {
+          handleSelectChange(e, "district");
+        }}
       >
         <option value="default">Chọn quận / huyện</option>
         {districts &&

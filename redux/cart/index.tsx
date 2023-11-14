@@ -12,7 +12,8 @@ export interface ICartItem {
 }
 const initialState: {
   cart: ICartItem[];
-} = { cart: [] };
+  discount: string;
+} = { cart: [], discount: "" };
 const CartSlice = createSlice({
   name: "cart",
   initialState: initialState,
@@ -48,12 +49,26 @@ const CartSlice = createSlice({
         item.quantity = action.payload.quantity;
       }
     },
+
     DeleteCart(state, action) {
       state.cart = state.cart.filter((item) => item.id !== action.payload.id);
+    },
+    ResetCart(state) {
+      state.cart = [];
+      state.discount = "";
+    },
+    UpdateDiscount(state, action) {
+      state.discount = action.payload;
     },
   },
 });
 
 export default CartSlice.reducer;
-export const { AddCart, DeleteCart, CartInit, UpdateAmount } =
-  CartSlice.actions;
+export const {
+  AddCart,
+  DeleteCart,
+  CartInit,
+  UpdateAmount,
+  ResetCart,
+  UpdateDiscount,
+} = CartSlice.actions;

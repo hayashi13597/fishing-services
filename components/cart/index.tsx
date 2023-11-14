@@ -16,12 +16,14 @@ interface CartProps {
 
 const Cart = ({ setIsOpenCart, isOpenCart }: CartProps) => {
   const listProductCart = useSelector((state: RootState) => state.cart.cart);
-
+  const handleClsoeCart = () => {
+    setIsOpenCart(false);
+  };
   return (
     <>
       {isOpenCart && (
         <div
-          onClick={() => setIsOpenCart(false)}
+          onClick={handleClsoeCart}
           className="bg-black/50 fixed inset-0 z-20"
         ></div>
       )}
@@ -68,12 +70,17 @@ const Cart = ({ setIsOpenCart, isOpenCart }: CartProps) => {
           </div>
           <div className="mt-4 flex flex-col items-center">
             <Link
+              onClick={handleClsoeCart}
               className="button_send w-3/4 bg-white text-black border-2 border-primary hover:bg-primary/80 hover:text-white mb-4"
               href={"/gio-hang"}
             >
               Xem giỏ hàng
             </Link>
-            <Link className="button_send w-3/4" href={"/thanh-toan"}>
+            <Link
+              onClick={handleClsoeCart}
+              className="button_send w-3/4"
+              href={"/thanh-toan"}
+            >
               Thanh toán
             </Link>
           </div>

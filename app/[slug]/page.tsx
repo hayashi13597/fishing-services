@@ -1,5 +1,5 @@
 import ProductDetail from "../../components/productdetail";
-import { TProductDetail, initialData, listIconsSeo } from "../../constants";
+import { TProductDetail, listIconsSeo, initialData } from "../../constants";
 import { notFound } from "next/navigation";
 import ProductDetailApi from "../../services/api-client/productdetail";
 
@@ -74,6 +74,7 @@ const page = async ({ params: { slug } }: ParamsBlog) => {
   if (status >= 400) {
     return notFound();
   }
+
   const schema1 = {
     "@context": "http://schema.org",
     "@type": "BreadcrumbList",
