@@ -2,7 +2,7 @@ import { IUploadAvata, IChangePassword } from "./user.type";
 import apiClient, { handleAttachToken } from "..";
 import cookieClient from "../../cookie";
 const UserApi = {
-  path: "/user",
+  path: "user",
   loginWithToken() {
     const accessToken = cookieClient.get("accessToken");
     if (accessToken) {
@@ -34,10 +34,12 @@ const UserApi = {
   changePassword(data: IChangePassword) {
     return apiClient.post(this.path + "/changepassword", { data });
   },
-  checkAccountMissPassword(data: { username: string; email: string }) {
-    return apiClient.post(this.path + "/verify", { data });
+  checkAccountMissPassword(data: { email: string }) {
+    return apiClient.post(this.path + "/misspassword", { data });
   },
-
+  verifyCode(data: { email: string; code: string }) {
+    return apiClient.post(this.path + "/verifycode", { data });
+  },
   ResetAvatar(id: string) {
     return apiClient.post(this.path + "/resetavatar", { data: { id } });
   },

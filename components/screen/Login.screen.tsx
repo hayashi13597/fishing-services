@@ -27,7 +27,11 @@ const LoginScreen = () => {
 
   const schema = yup
     .object({
-      username: yup.string().required("Tài khoản không được để trống"),
+      email: yup
+        .string()
+        .email("Email không đúng định dạng")
+        .matches(Validator.emailRegex, "Email không đúng định dạng")
+        .required("Email không được để trống"),
       password: yup
         .string()
         .min(6, "Mật khẩu phải có ít nhất 6 ký tự")
@@ -88,12 +92,12 @@ const LoginScreen = () => {
               onSubmit={handleSubmit(handleOnSubmit)}
             >
               <FormField
-                label="Tài khoản"
-                type="username"
-                id="username"
-                placeholder="xxxxxx"
+                label="Email"
+                type="email"
+                id="email"
+                placeholder="admin@example.com"
                 register={register}
-                error={errors.username}
+                error={errors.email}
               />
               <FormField
                 label="Mật khẩu"

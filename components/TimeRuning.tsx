@@ -5,7 +5,7 @@ interface TimeRuningProps {
   setTimeOfff: (isTimeoff: boolean) => void;
 }
 function TimeRuning({ setTimeOfff }: TimeRuningProps) {
-  const [time, setTime] = useState(60);
+  const [time, setTime] = useState(60 * 2);
   useLayoutEffect(() => {
     const id = setInterval(() => {
       setTime(() => {

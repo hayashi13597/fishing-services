@@ -50,6 +50,7 @@ const MissPassword = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(schema),
@@ -59,70 +60,17 @@ const MissPassword = () => {
     },
   });
 
-  const handleUpdateAccount = (res) => {
-    const data = res.data;
-
-    if (res.statusCode >= 400) {
-      ToastNotify(res.message).error();
-    } else {
-      dispatch(updateAccount(data));
-      handleAttachToken(data.accessToken);
-      ToastNotify(res.message).success();
-      router.push("/");
-    }
-  };
   const [isOpenModalStatus, setIsOpenModalStatus] = useState(false);
   const [isOpenModalNotice, setIsOpenModalNotice] = useState(false);
   const [contentModalNotice, setContentModalNotice] = useState("");
   const [isTimeOut, setIsTimeOut] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const handleOnSubmit = async (data) => {
-    UserApi.checkAccountMissPassword({
-      email: data.email,
-      username: data.username,
-    })
-      .then(() => {
-        setIsProtecting(() => true);
-        setCodeProtect("111111");
-      })
-      .catch(() => {
-        setContentModalNotice("Email tồn tại trên hệ thống");
-        setIsOpenModalNotice(true);
-      });
-    // fetch("/api", {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   method: "POST",
-    //   body: JSON.stringify({ email: data.email, code: "21212212" }),
-    // });
-  };
-
   // nhận mã và verify
 
-  const handleSubmitVeryfire = (data) => {
-    if (isTimeOut && !isSuccess) {
-      setIsOpenModalNotice(true);
-      setContentModalNotice(`Thời gian đã hết`);
-      return;
-    }
-    setIsOpenModalNotice(true);
-    if (data.code == codeProtect) {
-      setContentModalNotice(
-        `Mã Xác nhận chính xác mật khẩu mới là <strong>123456</strong>`
-      );
-      setIsOpenModalStatus(true);
-      setIsTimeOut(true);
-      setIsSuccess(true);
-    } else {
-      setContentModalNotice(`Mã xác nhận không chính xác`);
-      setIsSuccess(false);
-    }
-  };
   const handleRedirect = (isChoose: boolean) => {
     if (isChoose && isSuccess) {
-      router.push("/dang-nhap");
+      router.push("/tai-khoan?page=doi-mat-khau");
     }
     setIsOpenModalStatus(false);
   };
@@ -141,6 +89,41 @@ const MissPassword = () => {
       setCodeProtect("");
     };
   }, []);
+  const handleOnSubmit = async (data) => {
+    if (data.code) {
+      UserApi.verifyCode(data)
+        .then((res) => {
+          dispatch(updateAccount(res.data));
+          setContentModalNotice(
+            `Mã Xác nhận chính xác mật khẩu mới là <strong>123456</strong>`
+          );
+
+          setIsOpenModalStatus(true);
+          setIsOpenModalNotice(true);
+          setIsTimeOut(true);
+          setIsSuccess(true);
+        })
+        .catch(({ message }) => {
+          ToastNotify(message).error();
+          setIsSuccess(false);
+        });
+      reset();
+      return;
+    }
+    UserApi.checkAccountMissPassword({
+      email: data.email,
+    })
+      .then((res: any) => {
+        setIsProtecting(() => true);
+        ToastNotify(res.message).success();
+      })
+      .catch(({ message }) => {
+        setContentModalNotice(message);
+        setIsOpenModalNotice(true);
+        setContentModalNotice(message);
+      });
+  };
+
   return (
     <section className="container mx-auto">
       <Breadcrumb structurePage={structurePage} title="Quên Mật khẩu" />
@@ -154,7 +137,7 @@ const MissPassword = () => {
         <ModalStatus
           btnAccept="chấp nhận"
           btnCancel="Hủy"
-          title="Bạn có muốn chuyển trang đăng nhập không?"
+          title="Bạn có muốn chuyển trang đổi mật khẩu không?"
           isCallback={handleRedirect}
         />
       )}
@@ -163,7 +146,7 @@ const MissPassword = () => {
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             {isProtecting ? (
               <form
-                onSubmit={handleSubmit(handleSubmitVeryfire)}
+                onSubmit={handleSubmit(handleOnSubmit)}
                 className="space-y-4 md:space-y-6"
               >
                 <FormField

@@ -5,9 +5,8 @@ POST {{domain}}/user/register
 Content-Type: application/json
 
 {
-
 "data":{
-  "username":"admin",
+  "fullname":"admin",
   "email":"namanhthao59@gmail.com",
   "password":"122112122121"
 }
@@ -38,7 +37,6 @@ Content-Type: application/json
 
 {
 "data":{
-
     "uid":"dsadsda",
     "avatar":"http://image.sdasda",
     "email":"namph2102@gmail.com",//Facebook ko có email
