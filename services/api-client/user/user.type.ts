@@ -16,7 +16,7 @@ export interface IUploadAvata {
   id: string;
 }
 export interface IChangePassword {
-  username: string;
+  id: string;
   oldPassword: string;
   newPassword: string;
 }

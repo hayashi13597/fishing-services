@@ -193,3 +193,6 @@ Content-Type: application/json
      }
     ]
 }
+###
+DELETE {{domain}}/user/3
+Content-Type: application/json

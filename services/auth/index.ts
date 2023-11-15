@@ -12,13 +12,13 @@ import { getFirestore } from "firebase/firestore";
 import ToastNotify from "../toast";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCUuogh8hEj9O4OraQsYE3eanaMUxs3TDA",
-  authDomain: "test-c887e.firebaseapp.com",
-  projectId: "test-c887e",
-  storageBucket: "test-c887e.appspot.com",
-  messagingSenderId: "128310947725",
-  appId: "1:128310947725:web:0c61fde9baf1011b65d7c4",
-  measurementId: "G-G05WT46T62",
+  apiKey: "AIzaSyBWslEMR9JIpHgiQFYDW6lnzkm74qT3OqM",
+  authDomain: "projectfilm-5bbac.firebaseapp.com",
+  projectId: "projectfilm-5bbac",
+  storageBucket: "projectfilm-5bbac.appspot.com",
+  messagingSenderId: "811602729224",
+  appId: "1:811602729224:web:48981d3d7e0ef011fc74bd",
+  measurementId: "G-Z9Z4ZLE99T",
 };
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();

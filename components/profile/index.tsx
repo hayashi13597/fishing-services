@@ -21,8 +21,10 @@ import ChangePassword from "./changepassword";
 import { useSearchParams } from "next/navigation";
 import NoticeContainer from "./noticecontainer/NoticeContainer";
 import HistoryPurChase from "./historypurchase";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { updateAccount } from "../../redux/user";
+import ModalStatus from "../modal/ModalStatus";
 
 const ProfilePage = () => {
   const [tabs, SetTab] = useState<
@@ -34,25 +36,33 @@ const ProfilePage = () => {
   const account = useSelector((state: RootState) => state.user.account);
   const searchParams = useSearchParams();
   const currentPage = searchParams.get("page") || "account";
-
+  const dispatch = useDispatch();
   // gửi ảnh
   const handleChoose = (isChoose: boolean) => {
     if (!isChoose) {
     } else {
-      UserApi.uploadImage(formData)
-        .then(() => ToastNotify("Cập nhập thành công").success())
-        .catch(() => ToastNotify("Cập nhập thất bại").success());
+      account.id &&
+        UserApi.ChangeAvatar(formData)
+          .then((res: any) => {
+            ToastNotify("Cập nhập ảnh đại diện thành công").success();
+            dispatch(updateAccount({ avatar: res.data.avatar }));
+          })
+          .catch(() => ToastNotify("Cập nhập thất bại").error());
     }
     setIsOpenModal(false);
   };
 
   const handleChangeAvata = async (e: any) => {
     const file: File = e.target.files[0];
+    if (file.size / 1000 > 200) {
+      ToastNotify(`Chỉ Cập nhập ảnh nhỏ hơn 200 KB`).error();
+      return;
+    }
     const blog = URL.createObjectURL(file);
     setImageUpload(blog);
     const bodyFormData = new FormData();
     bodyFormData.append("file", file);
-    bodyFormData.append("id", "iduser");
+    bodyFormData.append("id", account.id);
     setFromDAta(bodyFormData);
   };
   useEffect(() => {
@@ -71,9 +81,31 @@ const ProfilePage = () => {
       SetTab("account");
     }
   }, [currentPage]);
-
+  const [isOpenModalResetImage, setOpenModalResetImage] = useState(false);
+  const handleDelete = (isChoose: boolean) => {
+    if (isChoose) {
+      account.id &&
+        UserApi.ResetAvatar(account.id).then((res: any) => {
+          ToastNotify("Cập nhập ảnh đại diện mặt định").success();
+          dispatch(updateAccount({ avatar: res.data.avatar }));
+        });
+    }
+    setOpenModalResetImage(() => false);
+  };
+  const handleResetAvatar = () => {
+    setOpenModalResetImage(() => true);
+    handleChoose(false);
+  };
   return (
     <div className="my-8">
+      {isOpenModalResetImage && (
+        <ModalStatus
+          btnAccept="Xóa"
+          btnCancel="Hủy"
+          title="Bạn chắc chắn sẽ xóa nó?"
+          isCallback={handleDelete}
+        />
+      )}
       {/* Modal status upload iamge */}
       <div
         onClick={() => {
@@ -112,7 +144,10 @@ const ProfilePage = () => {
               >
                 <BiUpload /> <span>Tải ảnh đại diện lên</span>
               </label>
-              <button className="flex items-center gap-2 hover:text-primary cursor-pointer">
+              <button
+                onClick={handleResetAvatar}
+                className="flex items-center gap-2 hover:text-primary cursor-pointer"
+              >
                 <BiTrash /> <span>Xóa ảnh đại diện</span>
               </button>
             </div>
@@ -223,6 +258,7 @@ const ProfilePage = () => {
         <div className="basis-2/3 border h-[70vh]">
           {tabs == "account" && (
             <ProfileAccount
+              id={account.id}
               address={account.address}
               email={account.email}
               fullname={account.fullname}
@@ -232,9 +268,7 @@ const ProfilePage = () => {
           )}
           {tabs == "don-mua" && <HistoryPurChase />}
           {tabs == "thong-bao" && <NoticeContainer />}
-          {tabs == "doi-mat-khau" && (
-            <ChangePassword username={account.username} />
-          )}
+          {tabs == "doi-mat-khau" && <ChangePassword id={account.id} />}
         </div>
       </div>
     </div>

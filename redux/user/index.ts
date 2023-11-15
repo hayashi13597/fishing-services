@@ -16,15 +16,17 @@ export interface IAccount {
   uid: string | null;
   created_at: string;
   updated_at: string;
+  role: string;
 }
 
 const initialState: IAccount = {
-  id: "dsadsadsa",
-  username: "phamhoainam",
-  fullname: "Phạm hoài Nam",
+  id: "",
+  username: "",
+  fullname: "",
   avatar: "/assets/avatar.png",
-  email: "dsadsasdadsasda@gmail.com",
+  email: "",
   phone: "",
+  role: "",
   address: "",
   accessToken: "",
   visiable: false,
@@ -40,7 +42,7 @@ export const UserSlice = createSlice({
   },
   reducers: {
     updateAccount(state, action) {
-      state.account = { ...state, ...action.payload };
+      state.account = { ...state.account, ...action.payload };
     },
   },
   extraReducers(builder) {

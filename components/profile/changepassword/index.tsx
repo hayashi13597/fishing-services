@@ -18,9 +18,9 @@ interface FormChangePassword {
   confirmPassword: string;
 }
 interface ChangePasswordProps {
-  username: string;
+  id: string;
 }
-const ChangePassword = ({ username }: ChangePasswordProps) => {
+const ChangePassword = ({ id }: ChangePasswordProps) => {
   const schema = yup
     .object({
       oldPassword: yup.string().required("Mật khẩu cũ không được để trống"),
@@ -44,14 +44,20 @@ const ChangePassword = ({ username }: ChangePasswordProps) => {
   });
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [dataUpdate, setDataUpdate] = useState({
-    username,
+    id,
     newPassword: "",
     oldPassword: "",
   });
 
   const handleStatusAction = (isChoose: boolean) => {
     if (isChoose) {
-      UserApi.changePassword(dataUpdate);
+      UserApi.changePassword(dataUpdate)
+        .then(() => {
+          ToastNotify("Thay đổi mật khẩu mới  thành công").success();
+        })
+        .catch((err) => {
+          ToastNotify(err.message).error();
+        });
     }
 
     setIsOpenModal(() => false);
@@ -64,9 +70,16 @@ const ChangePassword = ({ username }: ChangePasswordProps) => {
       });
       return;
     }
+    if (data.password == data.oldPassword) {
+      setError("password", {
+        type: "manual",
+        message: "Mật khẩu mới phải khác khác mật khẩu cũ",
+      });
+      return;
+    }
     setIsOpenModal(() => true);
     setDataUpdate(() => ({
-      username,
+      id,
       newPassword: data.password,
       oldPassword: data.oldPassword,
     }));

@@ -7,18 +7,24 @@ import { useForm } from "react-hook-form";
 import FormField from "../../FormField";
 import ModalStatus from "../../modal/ModalStatus";
 import UserApi from "../../../services/api-client/user";
+import { useDispatch } from "react-redux";
+import { updateAccount } from "../../../redux/user";
+import ToastNotify from "../../../services/toast";
 interface ProfileAccountProps {
   email: string;
   fullname: string;
   address: string;
   phone: string;
+  id: string;
 }
 const ProfileAccount = ({
   email,
   phone,
   address,
   fullname,
+  id,
 }: ProfileAccountProps) => {
+  const dispatch = useDispatch();
   const schema = yup
     .object({
       email: yup
@@ -48,10 +54,23 @@ const ProfileAccount = ({
       phone,
     },
   });
-  const [dataUpdate, setDataUpdate] = useState();
+  const [dataUpdate, setDataUpdate] = useState({
+    email,
+    phone,
+    address,
+    fullname,
+    id,
+  });
   const handleStatusAction = (isChoose: boolean) => {
     if (isChoose) {
-      UserApi.updateAccount(dataUpdate);
+      UserApi.updateAccount({ ...dataUpdate, id })
+        .then((res) => {
+          dispatch(updateAccount({ ...dataUpdate }));
+          ToastNotify("Cập nhập hồ sơ  thành công!").success();
+        })
+        .catch(() => {
+          ToastNotify("Cập nhập hồ sơ   thất bại!").error();
+        });
     }
 
     setIsOpenModal(() => false);
@@ -78,8 +97,10 @@ const ProfileAccount = ({
             type="text"
             id="email"
             placeholder="email@gmail.com"
+            defaultValue={email}
             register={register}
             error={errors.email}
+            disabled
           />
           <FormField
             label="Họ và tên"
@@ -88,6 +109,7 @@ const ProfileAccount = ({
             placeholder="Ốc đảo kỳ đà"
             register={register}
             error={errors.fullname}
+            defaultValue={fullname}
           />
           <FormField
             label="Số điện thoại"
@@ -96,6 +118,7 @@ const ProfileAccount = ({
             placeholder="+84"
             register={register}
             error={errors.phone}
+            defaultValue={phone}
           />
           <FormField
             label="Địa chỉ"
@@ -104,6 +127,7 @@ const ProfileAccount = ({
             placeholder="300/34 đông hưng thuận"
             register={register}
             error={errors.address}
+            defaultValue={address}
           />
         </div>
 

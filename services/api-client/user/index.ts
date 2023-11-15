@@ -2,7 +2,7 @@ import { IUploadAvata, IChangePassword } from "./user.type";
 import apiClient, { handleAttachToken } from "..";
 import cookieClient from "../../cookie";
 const UserApi = {
-  path: "/api",
+  path: "/user",
   loginWithToken() {
     const accessToken = cookieClient.get("accessToken");
     if (accessToken) {
@@ -13,7 +13,7 @@ const UserApi = {
     }
   },
   register(data: any) {
-    return apiClient.post(this.path + "/register", data);
+    return apiClient.post(this.path + "/register", { data });
   },
   login(data: any) {
     return apiClient.post(this.path + "/login", { data });
@@ -22,6 +22,7 @@ const UserApi = {
     return apiClient.post(this.path + "/firebase", { data });
   },
   updateAccount(data: {
+    id: string;
     email: string;
     fullname: string;
     phone: string;
@@ -37,16 +38,12 @@ const UserApi = {
     return apiClient.post(this.path + "/verify", { data });
   },
 
-  deleteImage(id: string) {
-    return apiClient({
-      url: this.path,
-      method: "POST",
-      data: { id },
-    });
+  ResetAvatar(id: string) {
+    return apiClient.post(this.path + "/resetavatar", { data: { id } });
   },
-  uploadImage(data: IUploadAvata) {
+  ChangeAvatar(data: IUploadAvata) {
     return apiClient({
-      url: this.path,
+      url: this.path + "/changeavatar",
       method: "POST",
       data: data,
       headers: { "Content-Type": "multipart/form-data" },

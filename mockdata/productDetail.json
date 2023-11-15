@@ -1,0 +1,78 @@
+{
+  "product": {
+    "id": "rKeOOVX-UCI",
+    "name": "Vivamus magna justo, lacinia eget",
+    "slug": "ss-kk",
+    "price": 109900,
+    "imageUrl": "/assets/can-cau.jpg",
+    "description": "Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vivamus suscipit tortor eget felis porttitor volutpat. Nulla quis lorem ut libero malesuada feugiat. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vivamus suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Praesent sapienQuisque velit nisi, pretium ut lacinia in, elementum id enim. Vivamus suscipit tortor eget felis porttitor volutpat. Nulla quis lorem ut libero malesuada feugiat. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vivamus suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Praesent sapien1.",
+    "stock": "10",
+    "sell": 200,
+    "discount": 0,
+    "totalReview": 200,
+    "listSubImage": [
+      "./assets/cancau2.webp",
+      "./assets/cancau1.jpg",
+      "./assets/cancau2.webp",
+      "./assets/cancau1.jpg"
+    ],
+    "keywords": ["can cau xin", "sdsa", "dsadsa"],
+    "star": 4.5,
+    "rate": [60, 40, 120, 30, 50],
+    "totalRate": 300
+  },
+  "comments": [
+    {
+      "id": "saddsadsa",
+      "user": {
+        "id": "fdafdsfds",
+        "fullname": "Phạm hoài nam",
+        "avatar": "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp"
+      },
+      "product_id": "asdsadsa",
+      "comment": "asdsadsa",
+      "visiable": false,
+      "created_at": "2023-08-13T02:05:30.934+00:00",
+      "updated_at": "2023-08-13T02:05:30.934+00:00"
+    },
+    {
+      "id": "321",
+      "user": {
+        "id": "fdafdsfds",
+        "fullname": "Phạm hoài nam",
+        "avatar": "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp"
+      },
+      "product_id": "asdsadsa",
+      "comment": "asdsadsa",
+      "visiable": false,
+      "created_at": "2023-08-13T02:05:30.934+00:00",
+      "updated_at": "2023-08-13T02:05:30.934+00:00"
+    },
+    {
+      "id": "dsadsadsa",
+      "user": {
+        "id": "fdafdsfds",
+        "fullname": "Phạm hoài nam",
+        "avatar": "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp"
+      },
+      "product_id": "asdsadsa",
+      "comment": "asdsadsa",
+      "visiable": true,
+      "created_at": "2023-08-13T02:05:30.934+00:00",
+      "updated_at": "2023-08-13T02:05:30.934+00:00"
+    },
+    {
+      "id": "dsadsa3223",
+      "user": {
+        "id": "fdafdsfds",
+        "fullname": "Phạm hoài nam",
+        "avatar": "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp"
+      },
+      "product_id": "asdsadsa",
+      "comment": "asdsadsa",
+      "visiable": false,
+      "created_at": "2023-08-13T02:05:30.934+00:00",
+      "updated_at": "2023-08-13T02:05:30.934+00:00"
+    }
+  ]
+}
