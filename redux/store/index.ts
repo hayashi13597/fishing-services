@@ -4,6 +4,7 @@ import ProductDetailReducer from "../product";
 import { persistReducer } from "redux-persist";
 import cartReducer from "../cart";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+import NoticeReducer from "../notices";
 
 const createNoopStorage = () => {
   return {
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   user: UserReducer,
   productDetail: ProductDetailReducer,
   cart: cartReducer,
+  notice: NoticeReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

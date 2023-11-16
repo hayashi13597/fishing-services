@@ -17,6 +17,7 @@ import { updateAccount } from "../../redux/user";
 import cookieClient from "../../services/cookie";
 import UserApi from "../../services/api-client/user";
 import { handleAttachTokenNotSave } from "../../services/api-client";
+import { AddNotice } from "../../redux/notices";
 
 const structurePage = [{ page: "Đăng nhập", link: "/dang-nhap", last: true }];
 
@@ -48,13 +49,13 @@ const LoginScreen = () => {
   });
 
   const handleUpdateAccount = (res) => {
-    const data = res.data;
+    const { account, notices = [] } = res.data;
 
     if (res.statusCode >= 400) {
       ToastNotify(res.message).error();
     } else {
-      dispatch(updateAccount(data));
-      handleAttachTokenNotSave(data.accessToken, isCheckbox);
+      dispatch(AddNotice(notices));
+      handleAttachTokenNotSave(account.accessToken, isCheckbox);
       ToastNotify(res.message).success();
       router.push("/");
     }

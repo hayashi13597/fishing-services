@@ -10,6 +10,7 @@ import ModalViewDetailProduct from "../Products/ModalProduct";
 import { closeViewDetail } from "../../redux/product";
 import { CartInit } from "../../redux/cart";
 import ModalViewHistoryDetail from "../modal/ModalViewHistoryDetail";
+import { AddNotice } from "../../redux/notices";
 const GlobalInfomation = () => {
   const {
     isOpenModalDetail,
@@ -26,7 +27,11 @@ const GlobalInfomation = () => {
     if (accessToken) {
       apiClient.defaults.headers.common["Authorization"] =
         "Bearer " + accessToken;
-      dispatch(FetchFirstLoginWithToken());
+      dispatch(FetchFirstLoginWithToken()).then((res) => {
+        if (res?.payload?.notices) {
+          dispatch(AddNotice(res.payload.notices));
+        }
+      });
     }
 
     if (typeof window !== "undefined") {

@@ -4,17 +4,23 @@ import { Badge, Button, Dropdown } from "antd";
 import Link from "next/link";
 import Cart from "../cart";
 import NoticeContainer from "../notice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { notFound, useRouter } from "next/navigation";
 import Image from "next/image";
 import cookieClient from "../../services/cookie";
+import { LogOutNotice, UploadIsViewNotice } from "../../redux/notices";
+import NoticeApi from "../../services/api-client/notice";
+import { LogoutAccount } from "../../redux/user";
 const AccountMenu = () => {
   const account = useSelector((state: RootState) => state.user.account);
-
+  const { numberView, notice } = useSelector(
+    (state: RootState) => state.notice
+  );
   const [isOpenCart, setIsOpenCart] = useState(false);
   const [isOpenNotice, setIsOpenNotice] = useState(false);
   const router = useRouter();
+  const disPatch = useDispatch();
   const TotalCart =
     useSelector((state: RootState) => state.cart.cart).length || 0;
   const [items, setItems] = useState([
@@ -29,6 +35,9 @@ const AccountMenu = () => {
   ]);
   const handleLogout = () => {
     cookieClient.remove("accessToken");
+    disPatch(LogOutNotice());
+    disPatch(LogoutAccount());
+
     if (typeof window) {
       window.location.reload();
     }
@@ -52,12 +61,16 @@ const AccountMenu = () => {
       ];
     });
   }, [account.id]);
-
+  const hanldeOpenNotice = () => {
+    setIsOpenNotice(() => true);
+    disPatch(UploadIsViewNotice());
+    NoticeApi.updateStatusView({ id: account.id });
+  };
   return (
     <div className="cart-container order-3 flex items-center gap-4 text-text ">
-      <Badge size="small" count={5}>
+      <Badge size="small" count={numberView}>
         <span
-          onClick={() => setIsOpenNotice(true)}
+          onClick={hanldeOpenNotice}
           className=" hover:text-second cursor-pointer text-2xl"
         >
           <BiBell />
@@ -87,6 +100,7 @@ const AccountMenu = () => {
       <NoticeContainer
         isOpenNotice={isOpenNotice}
         setIsOpenNotice={setIsOpenNotice}
+        listnotices={notice}
       />
     </div>
   );

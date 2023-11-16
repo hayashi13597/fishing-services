@@ -66,8 +66,8 @@ const SwipperContainer = ({
             swiper.navigation.destroy();
             swiper.navigation.init();
             swiper.navigation.update();
-          });
-          clearTimeout(idTimeout);
+            clearTimeout(idTimeout);
+          }, 100);
         }}
         className="mySwiper w-full"
       >

@@ -5,7 +5,11 @@ const NoticeApi = {
   add(data: IInfoAdd) {
     return apiClient.post(this.path, { data });
   },
-
-  edit() {},
+  updateStatusView(data: { id: string }) {
+    return apiClient.put(this.path, { data });
+  },
+  getAll(data: { id: string }) {
+    return apiClient.post(this.path, { data });
+  },
 };
 export default NoticeApi;

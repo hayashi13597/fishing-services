@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import UserApi from "../../services/api-client/user";
 import { handleAttachToken } from "../../services/api-client";
+import { AddNotice, INotice } from "../notices";
 
 export interface IAccount {
   id: string;
@@ -44,6 +45,9 @@ export const UserSlice = createSlice({
     updateAccount(state, action) {
       state.account = { ...state.account, ...action.payload };
     },
+    LogoutAccount(state) {
+      state.account = initialState;
+    },
   },
   extraReducers(builder) {
     builder.addCase(FetchFirstLoginWithToken.fulfilled, (state, action) => {
@@ -56,16 +60,19 @@ export const FetchFirstLoginWithToken = createAsyncThunk(
   "users/loginWithToken",
   async () => {
     const res = await UserApi.loginWithToken();
-    if (res && res.data) {
-      const account: IAccount = res.data;
+
+    if (res && res.data && res.data) {
+      const account: IAccount = res.data.account;
+      const notices: INotice = res.data.notices;
+
       handleAttachToken(account.accessToken);
-      return { account };
+      return { account, notices };
     } else {
       return Promise.reject("dont have token");
     }
   }
 );
 
-export const { updateAccount } = UserSlice.actions;
+export const { updateAccount, LogoutAccount } = UserSlice.actions;
 
 export default UserSlice.reducer;

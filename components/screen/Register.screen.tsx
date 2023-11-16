@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { updateAccount } from "../../redux/user";
 import { handleAttachToken } from "../../services/api-client";
+import { AddNotice } from "../../redux/notices";
 const structurePage = [{ page: "Đăng ký", link: "/dang-ky", last: true }];
 
 const RegisterScreen = () => {
@@ -54,11 +55,11 @@ const RegisterScreen = () => {
     resolver: yupResolver(schema),
   });
   const handleUpdateAccount = (res) => {
-    const data = res.data;
+    const { account, notices = [] } = res.data;
+    dispatch(AddNotice(notices));
+    dispatch(updateAccount(account));
 
-    dispatch(updateAccount(data));
-
-    handleAttachToken(data.accessToken);
+    handleAttachToken(account.accessToken);
     ToastNotify(res.message).success();
     setTimeout(() => {
       router.push("/");

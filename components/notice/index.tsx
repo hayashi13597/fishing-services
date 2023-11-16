@@ -4,13 +4,18 @@ import { RiCloseFill } from "react-icons/ri";
 import { cn } from "react-swisskit";
 import NoticeItem from "./NoticeItem";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { INotice } from "../../redux/notices";
 interface NoticeContainerProps {
   isOpenNotice: boolean;
   setIsOpenNotice: (isOpenCart: boolean) => void;
+  listnotices: INotice[];
 }
 const NoticeContainer = ({
   isOpenNotice,
   setIsOpenNotice,
+  listnotices = [],
 }: NoticeContainerProps) => {
   return (
     <>
@@ -36,21 +41,26 @@ const NoticeContainer = ({
           </button>
         </section>
         <section className="h-[70vh]  overflow-y-auto scroll_y">
-          <NoticeItem />
-          <NoticeItem />
-          <NoticeItem />
-          <NoticeItem />
-          <NoticeItem />
-          <NoticeItem />
+          {listnotices.length > 0 ? (
+            listnotices.map((notice) => (
+              <NoticeItem key={`notice-${notice.id}`} {...notice} />
+            ))
+          ) : (
+            <p className="text-primary text-xl py-2 text-center">
+              Chưa có thông báo nào!
+            </p>
+          )}
         </section>
-        <div className="mt-4 flex flex-col items-center">
-          <Link
-            className="button_send w-3/4"
-            href={"/tai-khoan?page=thong-bao"}
-          >
-            Xem thêm...
-          </Link>
-        </div>
+        {listnotices.length > 5 && (
+          <div className="mt-4 flex flex-col items-center">
+            <Link
+              className="button_send w-3/4"
+              href={"/tai-khoan?page=thong-bao"}
+            >
+              Xem thêm...
+            </Link>
+          </div>
+        )}
       </div>
     </>
   );
