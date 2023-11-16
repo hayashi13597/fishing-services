@@ -35,8 +35,6 @@ const ModalProduct: React.FC<{
     };
   }, []);
   const handleAddTocart = () => {
-    console.log("quantity", quantity);
-
     dispatch(AddCart({ name, price, imageUrl, slug, id, quantity: quantity }));
     dispatch(OpenViewAddToCart({ name, price, imageUrl, slug }));
     dispatch(closeViewDetail());

@@ -12,6 +12,7 @@ const ModalViewHistoryDetail = () => {
   const listOrders = useSelector(
     (state: RootState) => state.productDetail.productModalHistoryDetail
   );
+
   const itemPerPage = 3;
   const [pageCurrent, setPageCurrent] = useState(1);
   console.log(listOrders);

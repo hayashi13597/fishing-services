@@ -50,6 +50,7 @@ const GlobalInfomation = () => {
       }
     }
   }, []);
+  console.log("isOpenModalDetail", isOpenModalDetail);
   return (
     <div>
       {isOpenModalAddToCart && <ModalAddProduct product={productAddToCart} />}

@@ -7,7 +7,7 @@ const OrdertDetailApi = {
     // return apiClient.get(this.path, { params: { id } });
   },
   post(data: any) {
-    return apiClient.post(this.path, data);
+    return apiClient.post(this.path + "/create", data);
   },
   patch() {},
   delete() {},

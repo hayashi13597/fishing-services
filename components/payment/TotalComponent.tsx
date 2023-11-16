@@ -58,7 +58,7 @@ const TotalComponent = ({ shipment }: TotalComponentProps) => {
         <p className="font-medium">Tổng cộng</p>
         <p className="text-2xl">
           <span className="mr-3 text-base opacity-70">VND</span>
-          {formatMoney(total + shipment)}
+          {formatMoney(total > 0 ? total + shipment : 0)}
         </p>
       </div>
     </div>

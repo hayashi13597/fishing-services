@@ -56,6 +56,7 @@ const RegisterScreen = () => {
   });
   const handleUpdateAccount = (res) => {
     const { account, notices = [] } = res.data;
+
     dispatch(AddNotice(notices));
     dispatch(updateAccount(account));
 

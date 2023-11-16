@@ -17,6 +17,8 @@ import { RootState } from "../../redux/store";
 import ToastNotify from "../../services/toast";
 import OrdertDetailApi from "../../services/api-client/order";
 import { ResetCart } from "../../redux/cart";
+import { LogoutAccount } from "../../redux/user";
+import { LogOutNotice } from "../../redux/notices";
 
 interface provincesI {
   name: string;
@@ -129,11 +131,12 @@ const InfoComponent = ({ setShipment, shipment }: InfoComponentProps) => {
       paymentMethod
     );
     const order = {
-      fullName,
+      fullname: fullName,
       phone: phoneNumber,
       address: `${address} ${province} ${district} ${ward}`,
       shipment: shipMethod,
       paymentMethod,
+      email: account.email,
       discount_id: discount,
       user_id: account.id,
     };
@@ -145,22 +148,26 @@ const InfoComponent = ({ setShipment, shipment }: InfoComponentProps) => {
     }
     const data = {
       order,
-
       order_detail: listCart.map((item) => ({
         id: item.id,
         quantity: item.quantity,
+        price: item.price,
       })),
     };
-    console.log("order_----", data);
+
     OrdertDetailApi.post(data)
-      .then(() => {
+      .then((res: any) => {
         formRef.current.reset();
-        ToastNotify("Thanh toán đơn hàng thành công!").success();
+        ToastNotify(res?.message || "Thanh toán đơn hàng thành công").success();
         dispatch(ResetCart());
       })
-      .catch(() => {
-        ToastNotify("Thanh toán thất bại!").error();
+      .catch(({ message }) => {
+        ToastNotify(message).error();
       });
+  };
+  const handlelogout = () => {
+    dispatch(LogoutAccount());
+    dispatch(LogOutNotice());
   };
   return (
     <div className="w-full order-2 md:order-1 md:w-1/2">
@@ -173,25 +180,41 @@ const InfoComponent = ({ setShipment, shipment }: InfoComponentProps) => {
       <Breadcrumb structurePage={structurePage} isHidden={true} />
       <h3 className="font-bold text-xl">Thông tin giao hàng</h3>
       <div className="my-5 flex items-center gap-3">
-        <Image
-          src="/assets/user-avt.png"
-          alt="user avatar"
-          width={50}
-          height={50}
-        />
+        <Image src={account.avatar} alt="user avatar" width={50} height={50} />
         {/* <AiOutlineUser className="text-5xl bg-gray-400 text-white opacity-80 p-2" /> */}
         <div>
-          <div className="text-text opacity-80">Hồ Phúc Lâm</div>
-          <a href="#" className="hover:text-primary text-sm">
-            Đăng xuất
-          </a>
+          <div className="text-text opacity-80">
+            {account.fullname || account.email}
+          </div>
+          <Link
+            href={account.id ? "" : "/dang-nhap"}
+            onClick={handlelogout}
+            className="hover:text-primary text-sm"
+          >
+            {account.id ? "Đăng xuất" : "Đăng nhập ngay"}
+          </Link>
         </div>
       </div>
       {/* <form onSubmit={handleSubmit(handleOnSubmit)}> */}
       <form ref={formRef} action={handleOnSubmit1}>
-        <InputFormPayment id="fullName" label="Họ và tên" type="text" />
-        <InputFormPayment id="phoneNumber" label="Số điện thoại" type="text" />
-        <InputFormPayment id="address" label="Địa chỉ" type="text" />
+        <InputFormPayment
+          defaultValue={account.fullname}
+          id="fullName"
+          label="Họ và tên"
+          type="text"
+        />
+        <InputFormPayment
+          defaultValue={account.phone}
+          id="phoneNumber"
+          label="Số điện thoại"
+          type="text"
+        />
+        <InputFormPayment
+          defaultValue={account.address}
+          id="address"
+          label="Địa chỉ"
+          type="text"
+        />
         <div className="flex flex-col md:flex-row justify-between gap-2 mb-5">
           <SelectFormPayment
             id="provinces"
@@ -315,7 +338,7 @@ const InfoComponent = ({ setShipment, shipment }: InfoComponentProps) => {
           >
             Giỏ hàng
           </Link>
-          <button type="submit" className="button_send bg-primary">
+          <button type="submit" className="button_send bg-primary -mt-4">
             Hoàn tất đơn hàng
           </button>
         </div>

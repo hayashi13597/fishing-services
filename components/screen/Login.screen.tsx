@@ -55,6 +55,7 @@ const LoginScreen = () => {
       ToastNotify(res.message).error();
     } else {
       dispatch(AddNotice(notices));
+      dispatch(updateAccount(account));
       handleAttachTokenNotSave(account.accessToken, isCheckbox);
       ToastNotify(res.message).success();
       router.push("/");

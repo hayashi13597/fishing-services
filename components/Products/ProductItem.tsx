@@ -23,6 +23,7 @@ const ProductItem: React.FC<{ product: productType }> = ({ product }) => {
   };
   const AddProductIntoCart = () => {
     dispatch(AddCart({ name, price, imageUrl, slug, id, quantity: 1 }));
+
     dispatch(OpenViewAddToCart({ name, price, imageUrl, slug }));
   };
 
