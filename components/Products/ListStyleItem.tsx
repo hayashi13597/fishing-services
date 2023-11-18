@@ -5,7 +5,7 @@ import { productType } from "../../common.types";
 import { formatMoney } from "../../utils";
 
 const ListStyleItem: React.FC<{ product: productType }> = ({ product }) => {
-  const { name, price, description, imageUrl, stock } = product;
+  const { name, price, description, imageUrl } = product;
 
   return (
     <div className="w-full border rounded-xl p-5 flex mb-5 bg-white group">
@@ -41,7 +41,7 @@ const ListStyleItem: React.FC<{ product: productType }> = ({ product }) => {
         </Link>
       </div>
       <div className="w-1/5 border-l-2 px-5 py-3 flex flex-col justify-center gap-3">
-        <p>Còn: {stock}</p>
+        <p>Còn: 12</p>
         <p className="text-primary font-semibold">{formatMoney(price)}</p>
         <button className="bg-primary rounded-full text-white py-2 hover:opacity-80">
           Thêm vào giỏ hàng

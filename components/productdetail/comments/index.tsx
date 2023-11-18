@@ -5,17 +5,17 @@ import CommentTextBox from "./CommentTextBox";
 import { initChat } from "./comment.type";
 import { BiSolidStar } from "react-icons/bi";
 import StarReview from "../starReview";
-const account = {
-  id: "dsacsacasd",
-  fullname: "Lam Hương",
-  avatar: "https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp",
-};
+import { RootState } from "../../../redux/store";
+import { useSelector } from "react-redux";
+
 const CommentContainer = () => {
+  const account = useSelector((state: RootState) => state.user.account);
   const [listComment, setListComment] = useState(initChat);
+
   const handleSubmit = (message: string) => {
     setListComment((prev) => [
       {
-        id: "saddsadsa" + Math.random(),
+        id: account.id + Math.random(),
         user: {
           ...account,
         },

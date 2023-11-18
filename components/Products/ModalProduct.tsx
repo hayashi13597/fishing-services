@@ -20,7 +20,7 @@ const ModalProduct: React.FC<{
 }> = ({ handleClose, product }) => {
   const modalRef = useRef(null);
   const [quantity, setQuantity] = useState(1);
-  const { name, price, stock, imageUrl, slug, id } = product;
+  const { name, price, imageUrl, slug, id } = product;
   const dispatch = useDispatch();
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -124,7 +124,7 @@ const ModalProduct: React.FC<{
                 </div>
               </div>
               <div className="flex flex-col gap-4 mt-5 py-5 border-t border-gray-200">
-                <p>Tồn kho: {stock}</p>
+                <p>Tồn kho: 20</p>
                 <p>Danh mục: Cần câu, Câu cá</p>
                 <Link
                   href={`/${slug}`}

@@ -9,15 +9,19 @@ const LableProductItem = ({
 }: LableProductItemProps) => {
   return (
     <div className="absolute top-4 left-1 gap-1 md:left-4 flex md:gap-2">
-      {isNew && (
+      {isNew ? (
         <div className="text-xs bg-green-500 py-1 px-2 font-bold text-white rounded-sm">
           New
         </div>
+      ) : (
+        ""
       )}
-      {discount && (
+      {discount ? (
         <div className="text-xs bg-blue-500 py-1 px-2 font-bold text-white rounded-sm">
           -{discount}%
         </div>
+      ) : (
+        ""
       )}
     </div>
   );

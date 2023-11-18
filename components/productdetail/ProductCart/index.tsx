@@ -4,18 +4,27 @@ import { ConfigProvider, Rate } from "antd";
 import CartUpdateAmount from "../../cart/cartUpdateAmmount";
 import { useMediaQuery } from "react-responsive";
 import { ProductDetail } from "../../../constants";
-import { formatQuantity } from "../../../utils";
+import { formatMoney, formatQuantity } from "../../../utils";
 import ShareSocial from "../../ShareSocial";
 import DescriptionItem from "../review/DesItem";
 import ImageZoomOnHover from "../ImageZoomOnHover";
 import ListSubImage from "../ListSubImage";
-
-const ProductCart = ({ isShow = true }: { isShow?: boolean }) => {
+const ProductCart = ({
+  isShow = true,
+  product,
+}: {
+  isShow?: boolean;
+  product: any;
+}) => {
   const [quatity, setQuantity] = useState(3);
-  const [current, setCurrent] = useState("/assets/can-cau.jpg");
+  const [current, setCurrent] = useState(product.imageUrl);
   const isDesktopOrLaptop = useMediaQuery({
     query: "(min-width: 768px)",
   });
+  let listImage = [];
+  try {
+    listImage = JSON.parse(product.listSubimages);
+  } catch (error) {}
 
   return (
     <div className="lg:gap-12 md:gap-8 flex md:flex-row flex-col md:justify-start md:items-start justify-center items-center mt-3">
@@ -32,14 +41,14 @@ const ProductCart = ({ isShow = true }: { isShow?: boolean }) => {
             <ListSubImage
               handleChange={setCurrent}
               current={current}
-              listImage={ProductDetail.product.listSubImage}
+              listImage={listImage ? listImage : []}
             />
           </div>
         )}
       </div>
       <div className="basis-full  md:block flex flex-col justify-center items-center">
         <h1 className="title-pro-detail text-2xl md:mt-0  mt-4 md:text-left text-center">
-          {ProductDetail.product.name}
+          {product.name}
         </h1>
 
         <div>
@@ -47,7 +56,7 @@ const ProductCart = ({ isShow = true }: { isShow?: boolean }) => {
             <section className="flex  gap-4 relative z-[0] mt-2">
               <div className="cursor-pointer flex sm:flex-row flex-col sm:items-start  items-center ">
                 <span className="text-second underline mr-1 inline-block ">
-                  4.6
+                  4.8
                 </span>
                 <ConfigProvider
                   theme={{
@@ -63,15 +72,15 @@ const ProductCart = ({ isShow = true }: { isShow?: boolean }) => {
                 </ConfigProvider>
               </div>
               <div className="border-x-[1px] px-4 pb-1 cursor-pointer  flex sm:flex-row flex-col sm:items-start  items-center">
-                <span className="underline mr-1 ">
-                  {formatQuantity(235542)}
-                </span>
+                <span className="underline mr-1 ">{formatQuantity(1)}</span>
                 <span className="text-[#767676] capitalize text-sm">
                   Đánh giá
                 </span>
               </div>
               <div className="flex sm:flex-row flex-col sm:items-start  items-center">
-                <span className=" mr-1">{formatQuantity(120)}</span>
+                <span className=" mr-1">
+                  {formatQuantity(Number(product.sell))}
+                </span>
                 <span className="text-[#767676] capitalize text-sm">
                   đã bán
                 </span>
@@ -80,12 +89,18 @@ const ProductCart = ({ isShow = true }: { isShow?: boolean }) => {
           )}
           <section className="flex items-center my-2" aria-live="polite">
             <div className="flex items-center nmrSND">
-              <div className="text-[#929292] mr-2 line-through">₫199.000</div>
+              <div className="text-[#929292] mr-2 line-through">
+                {product.selloff
+                  ? formatMoney((1 + product.selloff / 100) * product.price)
+                  : ""}
+              </div>
               <div className="flex items-center">
                 <div className=" text-primary font-semibold text-xl">
-                  ₫169.000
+                  {formatMoney(product.price)}
                 </div>
-                <div className="discount bg-second">15% giảm</div>
+                <div className="discount bg-second">
+                  {product.selloff}% giảm
+                </div>
               </div>
             </div>
           </section>
@@ -105,9 +120,9 @@ const ProductCart = ({ isShow = true }: { isShow?: boolean }) => {
             <button className="button_send">Thêm giỏ hàng</button>
           </div>
         )}
-        <DescriptionItem des={ProductDetail.product.description} />
+        <DescriptionItem des={product.description} />
         <div>
-          <ShareSocial link="/" />
+          <ShareSocial link={`/${product.slug}`} />
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Breadcrumb from "../Breadcrumb";
 import { structurePageType } from "../../common.types";
@@ -9,17 +9,29 @@ import DidiveSpace from "../DidiveSpace";
 import FooterProductDetail from "./review";
 import StarReview from "./starReview";
 import ProductContainer from "../home/ProductContainer";
+import ProductsApi from "../../services/api-client/product";
+import { initialData } from "../../constants";
 
-const structurePage: structurePageType[] = [
-  { page: "Sản phẩm", link: "/san-pham", last: false },
-  { page: "ss-ss-ss", link: "/san-pham", last: true },
-];
-
-const productDetail = () => {
+const productDetail = ({ slug }: { slug: string }) => {
+  const [product, setproduct] = useState(initialData[0]);
+  const [listProductSame, setListProductSame] = useState([]);
+  useEffect(() => {
+    ProductsApi.getOne(slug).then((res) => {
+      console.log(res.data);
+      setproduct(() => res.data.ProductDetail);
+      setListProductSame(() => res.data.listProductSamee);
+    });
+  }, []);
+  console.log(listProductSame);
+  const structurePage: structurePageType[] = [
+    { page: "Sản phẩm", link: "/san-pham", last: false },
+    { page: "slug", link: `/${slug}`, last: true },
+  ];
+  console.log(product);
   return (
     <div className="container mx-auto">
       <Breadcrumb structurePage={structurePage} />
-      <ProductCart />
+      <ProductCart product={product} />
       <DidiveSpace coefficient={8} />
       <FooterProductDetail />
       <DidiveSpace coefficient={8} />
@@ -39,11 +51,14 @@ const productDetail = () => {
       <Support />
 
       <div>
-        <ProductContainer
-          isShowBtn={true}
-          title="Sản phẩm tương tự"
-          link="/san-pham"
-        />
+        {listProductSame.length && (
+          <ProductContainer
+            isShowBtn={true}
+            title="Sản phẩm tương tự"
+            link="/san-pham"
+            listProducts={listProductSame}
+          />
+        )}
       </div>
       <DidiveSpace coefficient={8} />
     </div>

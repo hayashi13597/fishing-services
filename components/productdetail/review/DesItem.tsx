@@ -15,9 +15,8 @@ const DescriptionItem = ({ des }: DescriptionItemProps) => {
           "ease-out duration-200",
           !isShowFull ? "max-h-20 overflow-hidden" : "max-h-auto"
         )}
-      >
-        {des}
-      </div>
+        dangerouslySetInnerHTML={{ __html: des }}
+      />
       <p
         className="cursor-pointer hover:text-primary font-medium text-sm opacity-95  mt-2"
         onClick={() => setShowFull(!isShowFull)}

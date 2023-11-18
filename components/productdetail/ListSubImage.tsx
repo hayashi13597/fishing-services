@@ -16,21 +16,21 @@ const ListSubImage = ({
 }: ListSubImageProps) => {
   return (
     <SwipperContainer responsive={[4, 4, 4]}>
-      {listImage.map((limkImagge, index) => (
-        <SwiperSlide key={`sss-${limkImagge} - ${index}`}>
+      {listImage.map((image: any, index) => (
+        <SwiperSlide key={`sss - ${index}`}>
           <div
             className={cn(
               "w-20 h-20 hover:border p-1 hover:border-gray-300 cursor-pointer",
-              current == limkImagge ? "border border-gray-300 " : ""
+              current == image.imageUrl ? "border border-gray-300 " : ""
             )}
           >
             <img
-              onClick={() => handleChange(limkImagge)}
+              onClick={() => handleChange(image.imageUrl)}
               alt="Anh test 2 "
               width={80}
               height={80}
-              src={limkImagge}
-              className="object-cover w-auto h-auto cursor-pointer "
+              src={image.imageUrl}
+              className="object-contain  cursor-pointer "
             />
           </div>
         </SwiperSlide>

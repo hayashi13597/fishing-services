@@ -49,7 +49,7 @@ const LoginScreen = () => {
   });
 
   const handleUpdateAccount = (res) => {
-    const { account, notices = [] } = res.data;
+    const { account, notices } = res.data;
 
     if (res.statusCode >= 400) {
       ToastNotify(res.message).error();
@@ -97,7 +97,7 @@ const LoginScreen = () => {
                 label="Email"
                 type="email"
                 id="email"
-                placeholder="admin@example.com"
+                placeholder="xxxxxx"
                 register={register}
                 error={errors.email}
               />

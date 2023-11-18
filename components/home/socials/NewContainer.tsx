@@ -1,20 +1,21 @@
 import React from "react";
 import NewItem from "../../news/NewItem";
 import HeaderTitle from "../../HeaderTitle";
-import PopularItem from "../../NewsPage/Popular/PopularItem";
+import PopularItem, {
+  IPopularItemProps,
+} from "../../NewsPage/Popular/PopularItem";
 import Link from "next/link";
-
-const NewContainer = () => {
+interface NewContainerPros {
+  listNews: IPopularItemProps[];
+}
+const NewContainer = ({ listNews }: NewContainerPros) => {
   return (
     <section>
       <HeaderTitle title="Tin tức mới" />
       <div className="lg:grid-cols-2 grid-cols-1 grid gap-4">
-        <PopularItem />
-        <PopularItem />
-
-        {/* <NewItem />
-        <NewItem />
-        <NewItem /> */}
+        {listNews.map((news) => (
+          <PopularItem key={news.id} {...news} />
+        ))}
       </div>
       <div className="flex">
         <Link

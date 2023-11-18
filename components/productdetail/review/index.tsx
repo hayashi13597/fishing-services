@@ -10,14 +10,14 @@ const FooterProductDetail = () => {
 
   const items: TabsProps["items"] = [
     {
-      key: "1",
-      label: "Đánh giá",
-      children: <CommentContainer />,
-    },
-    {
       key: "2",
       label: "Bình luận Facebook",
       children: <FacebookComment />,
+    },
+    {
+      key: "1",
+      label: "Đánh giá",
+      children: <CommentContainer />,
     },
   ];
   return (
@@ -34,7 +34,7 @@ const FooterProductDetail = () => {
         },
       }}
     >
-      <Tabs defaultActiveKey="1" items={items} onChange={handleChangeTabs} />
+      <Tabs defaultActiveKey="2" items={items} onChange={handleChangeTabs} />
     </ConfigProvider>
   );
 };

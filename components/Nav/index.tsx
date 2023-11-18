@@ -8,15 +8,22 @@ import { AccountMenu } from "../";
 import { usePathname } from "next/navigation";
 import "./nav.scss";
 import { RiCloseFill } from "react-icons/ri";
+import ProductsApi from "../../services/api-client/product";
 const Nav = () => {
   const currentPage = usePathname();
   const [isOpenDropMenu, setIsOpenDropMenu] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
-
+  const [listCateGory, setListCategory] = useState([]);
   const handleClose = () => {
     setIsOpenMenu(() => false);
     setIsOpenDropMenu(() => false);
   };
+  useEffect(() => {
+    ProductsApi.GetCategory().then((res: any) => {
+      setListCategory(() => res.data.categories);
+    });
+  }, []);
+
   useEffect(() => {
     handleClose();
   }, [currentPage]);
@@ -85,14 +92,14 @@ const Nav = () => {
                   isOpenDropMenu ? "menu_mobile-hidden" : "height_effect"
                 )}
               >
-                {menuDropdown.map((menu) => (
-                  <li key={menu.title + "-mobile"}>
+                {listCateGory.map((menu) => (
+                  <li key={menu.name + "-mobile"}>
                     <Link
-                      href={menu.link}
+                      href={`/${menu.slug}`}
                       className="block p-3 rounded-lg hover:bg-gray-200"
                     >
-                      <div className="font-medium pl-4 text-sm text-[#6f6e6e] ">
-                        {menu.title}
+                      <div className="font-medium pl-4 text-sm text-[#6f6e6e] capitalize ">
+                        {menu.name}
                       </div>
                     </Link>
                   </li>
@@ -139,15 +146,15 @@ const Nav = () => {
             aria-labelledby="mega-menu-full-dropdown-button"
             className="grid  lg:grid-cols-3 sm:grid-cols-2 grid-cols-1"
           >
-            {menuDropdown.map((menu) => (
-              <li key={menu.title}>
+            {listCateGory.map((menu) => (
+              <li key={menu.name}>
                 <Link
-                  href={menu.link}
+                  href={`/${menu.slug}`}
                   className="block p-3 rounded-lg hover:bg-gray-200"
                 >
-                  <div className="font-semibold text-black  ">{menu.title}</div>
+                  <div className="font-semibold text-black  ">{menu.name}</div>
                   <span className="text-sm text-gray-500 dark:text-gray-400">
-                    {menu.des}
+                    {menu.description}
                   </span>
                 </Link>
               </li>

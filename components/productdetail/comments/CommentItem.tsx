@@ -31,13 +31,7 @@ const CommentItem = ({ comment }: CommentItemProps) => {
               </span>
             </p>
           </div>
-          <p className="text-sm mb-0">
-            {comment.comment} Lorem ipsum dolor sit amet consectetur,
-            adipisicing elit. Labore placeat, eveniet dignissimos assumenda
-            praesentium rerum, natus tempore quod repellendus temporibus officia
-            adipisci eligendi repudiandae ipsa sit consequuntur totam similique
-            tempora.
-          </p>
+          <p className="text-sm mb-0">{comment.comment}</p>
         </div>
       </div>
     </div>

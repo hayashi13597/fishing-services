@@ -40,6 +40,5 @@ export interface productType {
   price: number;
   imageUrl: string;
   description: string;
-  stock: string;
   category?: string;
 }

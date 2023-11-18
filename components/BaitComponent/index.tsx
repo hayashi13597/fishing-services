@@ -6,6 +6,7 @@ import useFetchBait from "../../hooks/useFetchBait";
 import Loading from "../../app/san-pham/Loading";
 import ProductItem from "../Products/ProductItem";
 import { Pagination } from "antd";
+import { initialData } from "../../constants";
 
 const structurePage = [
   {
@@ -38,7 +39,7 @@ const BaitComponent = () => {
         {data
           ?.slice((pageCurrent - 1) * itemPerPage, pageCurrent * itemPerPage)
           .map((product) => (
-            <ProductItem product={product} key={product.name} />
+            <ProductItem product={initialData[0]} key={product.name} />
           ))}
       </div>
       {data?.length > 0 && (

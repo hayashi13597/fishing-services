@@ -8,7 +8,6 @@ const initState: productType = {
   price: 0,
   imageUrl: "/assets/can-cau.jpg",
   description: "",
-  stock: "",
 };
 const ProductDetail = createSlice({
   name: "productDetail",

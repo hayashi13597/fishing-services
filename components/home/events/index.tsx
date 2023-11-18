@@ -29,32 +29,44 @@ export const bannerContent = [
     href: "/san-pham",
   },
 ];
-const Event = () => {
+export interface IEventItem {
+  description: string;
+  isEvent: boolean;
+  imageUrl: string;
+  visiable: string;
+  views: string;
+  timeEvent: number;
+  title: string;
+  createdAt: string;
+  slug: string;
+}
+const Event = ({ ListEvent }: { ListEvent: IEventItem[] }) => {
   return (
     <div className="flex items-center flex-col w-full xl:max-w-[2100px] my-4 md:my-8 mx-auto">
       <TitleFormat title="Sự kiện mới nhất" link="/san-pham" />
       <div className="grid gap-4 grid-cols-6 lg:grid-cols-12">
-        {bannerContent.map(
-          ({
-            title,
-            description,
-            numberOfDiscountDate,
-            href,
-            imgHeight,
-            imgSrc,
-            imgWidth,
-            buttonText,
-          }) => {
+        {ListEvent.map(
+          (
+            {
+              title,
+              description,
+              timeEvent,
+              slug,
+
+              imageUrl,
+            },
+            index
+          ) => {
             return (
               <EventBox
                 title={title}
                 description={description}
-                numberOfDiscountDate={numberOfDiscountDate}
-                href={href}
-                imgSrc={imgSrc}
-                imgWidth={imgWidth}
-                imgHeight={imgHeight}
-                buttonText={buttonText}
+                numberOfDiscountDate={timeEvent}
+                href={`/tin-tuc/${slug}`}
+                imgSrc={bannerContent[index].imgSrc}
+                imgWidth={980}
+                imgHeight={500}
+                buttonText={"Xem sự kiện"}
                 key={title}
               />
             );
