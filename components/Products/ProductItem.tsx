@@ -12,8 +12,12 @@ import CartServices from "../../services/cart";
 import Image from "next/image";
 
 import { AddCart } from "../../redux/cart";
-const ProductItem: React.FC<{ product: productType }> = ({ product }) => {
-  const { name, price, imageUrl, slug, id, category } = product;
+import { IProduct } from "../home/ProductContainer";
+const ProductItem: React.FC<{ product: IProduct; isNew?: boolean }> = ({
+  product,
+  isNew = false,
+}) => {
+  const { name, price, imageUrl, slug, id, selloff, Category } = product;
   const dispatch = useDispatch();
   const showModal = () => {
     dispatch(openViewDetail({ productDetail: product }));
@@ -29,11 +33,7 @@ const ProductItem: React.FC<{ product: productType }> = ({ product }) => {
   return (
     <div className="bg-white group border rounded-xl flex justify-between flex-col relative">
       <Link
-        href={
-          category === "food" || category === "drink"
-            ? `/mon-nhau/${slug}`
-            : `/${slug}`
-        }
+        href={`/${Category.slug}/${slug}`}
         className="w-full flex justify-center items-center rounded-tl-xl rounded-tr-xl overflow-hidden"
       >
         <div
@@ -49,21 +49,18 @@ const ProductItem: React.FC<{ product: productType }> = ({ product }) => {
         </div>
       </Link>
       <div className="p-3 rounded-bl-xl rounded-br-xl">
-        <Link
-          href={
-            category === "food" || category === "drink"
-              ? `/mon-nhau/${slug}`
-              : `/${slug}`
-          }
-          className="hover:text-primary"
-        >
+        <Link href={"/"} className="hover:text-primary">
           <h3 className="text-base font-medium mb-3 line-clamp-1">{name}</h3>
         </Link>
         <p className="text-primary font-semibold">
-          <span>{formatMoney(price - (price * 20) / 100)}</span>
-          <span className="text-sm ml-2 text-black opacity-40 line-through">
-            {formatMoney(price)}
-          </span>
+          <span>{formatMoney(price)}</span>
+          {selloff ? (
+            <span className="text-sm ml-2 text-black opacity-40 line-through">
+              {formatMoney((1 + selloff / 100) * price)}
+            </span>
+          ) : (
+            ""
+          )}
         </p>
       </div>
       <div className="z-10 border-x border-b rounded-bl-xl rounded-br-xl absolute bottom-0 -left-[1px] -right-[1px] opacity-0 group-hover:opacity-100 group-hover:translate-y-12 transition-all duration-300">
@@ -90,7 +87,7 @@ const ProductItem: React.FC<{ product: productType }> = ({ product }) => {
       >
         <FaShareSquare />
       </div>
-      <LableProductItem isNew discount={20} />
+      <LableProductItem isNew={isNew} discount={selloff} />
     </div>
   );
 };

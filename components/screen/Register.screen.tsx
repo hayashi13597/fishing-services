@@ -54,7 +54,7 @@ const RegisterScreen = () => {
     resolver: yupResolver(schema),
   });
   const handleUpdateAccount = (res) => {
-    const data = res.data;
+    const data = res.data.account;
 
     dispatch(updateAccount(data));
 

@@ -57,7 +57,7 @@ export const FetchFirstLoginWithToken = createAsyncThunk(
   async () => {
     const res = await UserApi.loginWithToken();
     if (res && res.data) {
-      const account: IAccount = res.data;
+      const account: IAccount = res.data.account;
       handleAttachToken(account.accessToken);
       return { account };
     } else {

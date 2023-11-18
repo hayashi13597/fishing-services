@@ -8,27 +8,46 @@ import ProductItem from "../../Products/ProductItem";
 import TitleFormat from "../UI/title";
 import Link from "next/link";
 
+export interface IProduct {
+  description: string;
+  name: string;
+  price: number;
+  sell: string;
+  selloff: number;
+  slug: string;
+  imageUrl: string;
+  id: string;
+  Category: {
+    id: string;
+    name: string;
+    slug: string;
+  };
+}
 interface ProductContainerPros {
   title: string;
   link: string;
   isShowBtn?: boolean;
+  isNew?: boolean;
+  listProducts: IProduct[];
 }
 const ProductContainer = ({
   title,
   link,
   isShowBtn = true,
+  listProducts,
+  isNew = false,
 }: ProductContainerPros) => {
   return (
     <section>
       <TitleFormat title={title} link={link} />
-      <SwipperContainer responsive={[2, 2, 5]} isShowBtn={isShowBtn}>
-        {initialData.map((product, index) => (
+      <SwipperContainer responsive={[2, 2, 4]} isShowBtn={isShowBtn}>
+        {listProducts.map((product, index) => (
           <SwiperSlide
             key={`product-${product} - ${index}`}
             className="text-center pt-2 support_container pb-10"
           >
             <div>
-              <ProductItem product={product} key={product.name} />
+              <ProductItem isNew={isNew} product={product} key={product.name} />
             </div>
           </SwiperSlide>
         ))}

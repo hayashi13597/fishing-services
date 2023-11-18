@@ -27,7 +27,11 @@ const LoginScreen = () => {
 
   const schema = yup
     .object({
-      username: yup.string().required("Tài khoản không được để trống"),
+      email: yup
+        .string()
+        .email("Email không đúng định dạng")
+        .matches(Validator.emailRegex, "Email không đúng định dạng")
+        .required("Email không được để trống"),
       password: yup
         .string()
         .min(6, "Mật khẩu phải có ít nhất 6 ký tự")
@@ -44,7 +48,7 @@ const LoginScreen = () => {
   });
 
   const handleUpdateAccount = (res) => {
-    const data = res.data;
+    const data = res.data.account;
 
     if (res.statusCode >= 400) {
       ToastNotify(res.message).error();
@@ -88,12 +92,12 @@ const LoginScreen = () => {
               onSubmit={handleSubmit(handleOnSubmit)}
             >
               <FormField
-                label="Tài khoản"
-                type="username"
-                id="username"
+                label="Email"
+                type="email"
+                id="email"
                 placeholder="xxxxxx"
                 register={register}
-                error={errors.username}
+                error={errors.email}
               />
               <FormField
                 label="Mật khẩu"

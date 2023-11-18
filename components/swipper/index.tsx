@@ -39,7 +39,7 @@ const SwipperContainer = ({
         pagination={{
           clickable: true,
         }}
-        spaceBetween={2}
+        spaceBetween={4}
         autoplay
         breakpoints={{
           // when window width is >= 320px
@@ -53,6 +53,9 @@ const SwipperContainer = ({
           },
           1024: {
             slidesPerView: responsive[2],
+          },
+          1440: {
+            slidesPerView: 5,
           },
         }}
         slidesPerView={4}
