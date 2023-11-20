@@ -24,16 +24,18 @@ const CartSlice = createSlice({
     AddCart(state, action: { payload: ICartItem }) {
       const item = state.cart.find((item) => item.id == action.payload.id);
 
-      if (item?.name) {
+      if (item?.id) {
         item.quantity += action.payload.quantity;
+
         state.cart = [
-          ...state.cart.filter((item) => item.id != action.payload.id),
           item,
+          ...state.cart.filter((item) => item.id != action.payload.id),
         ];
+        ToastNotify("Cập nhập giỏ hàng thành công").success();
       } else {
         state.cart.push(action.payload);
+        ToastNotify("Thêm vào giỏ hàng thành công").success();
       }
-      ToastNotify("Thêm vào giỏ hàng thành công").success();
     },
     UpdateAmount(
       state,

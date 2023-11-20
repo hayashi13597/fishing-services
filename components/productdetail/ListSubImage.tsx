@@ -20,7 +20,7 @@ const ListSubImage = ({
         <SwiperSlide key={`sss - ${index}`}>
           <div
             className={cn(
-              "w-20 h-20 hover:border p-1 hover:border-gray-300 cursor-pointer",
+              "w-20 h-20 hover:border p-1 hover:border-gray-300 cursor-pointer overflow-hidden hover:scale-105",
               current == image.imageUrl ? "border border-gray-300 " : ""
             )}
           >
@@ -30,7 +30,7 @@ const ListSubImage = ({
               width={80}
               height={80}
               src={image.imageUrl}
-              className="object-contain  cursor-pointer "
+              className="object-cover  cursor-pointer "
             />
           </div>
         </SwiperSlide>

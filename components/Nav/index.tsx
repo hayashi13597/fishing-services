@@ -8,7 +8,7 @@ import { AccountMenu } from "../";
 import { usePathname } from "next/navigation";
 import "./nav.scss";
 import { RiCloseFill } from "react-icons/ri";
-import ProductsApi from "../../services/api-client/product";
+import CateApi from "../../services/api-client/cate";
 const Nav = () => {
   const currentPage = usePathname();
   const [isOpenDropMenu, setIsOpenDropMenu] = useState(false);
@@ -19,7 +19,7 @@ const Nav = () => {
     setIsOpenDropMenu(() => false);
   };
   useEffect(() => {
-    ProductsApi.GetCategory().then((res: any) => {
+    CateApi.GetAllCate().then((res: any) => {
       setListCategory(() => res.data.categories);
     });
   }, []);
@@ -92,7 +92,7 @@ const Nav = () => {
                   isOpenDropMenu ? "menu_mobile-hidden" : "height_effect"
                 )}
               >
-                {listCateGory.map((menu) => (
+                {listCateGory?.map((menu) => (
                   <li key={menu.name + "-mobile"}>
                     <Link
                       href={`/${menu.slug}`}

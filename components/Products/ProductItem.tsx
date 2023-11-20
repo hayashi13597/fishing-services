@@ -13,7 +13,7 @@ import Image from "next/image";
 
 import { AddCart } from "../../redux/cart";
 import { IProduct } from "../home/ProductContainer";
-const ProductItem: React.FC<{ product: any; isNew?: boolean }> = ({
+const ProductItem: React.FC<{ product: IProduct; isNew?: boolean }> = ({
   product,
   isNew = false,
 }) => {
@@ -27,18 +27,13 @@ const ProductItem: React.FC<{ product: any; isNew?: boolean }> = ({
   };
   const AddProductIntoCart = () => {
     dispatch(AddCart({ name, price, imageUrl, slug, id, quantity: 1 }));
-
     dispatch(OpenViewAddToCart({ name, price, imageUrl, slug }));
   };
 
   return (
     <div className="bg-white group border rounded-xl flex justify-between flex-col relative">
       <Link
-        href={`/${
-          Category.slug == "can-cau" || Category.slug == "moi-cau"
-            ? slug
-            : `${Category.slug}/${slug}`
-        }`}
+        href={`/${Category.slug}/${slug}`}
         className="w-full flex justify-center items-center rounded-tl-xl rounded-tr-xl overflow-hidden"
       >
         <div
@@ -54,14 +49,7 @@ const ProductItem: React.FC<{ product: any; isNew?: boolean }> = ({
         </div>
       </Link>
       <div className="p-3 rounded-bl-xl rounded-br-xl">
-        <Link
-          href={`/${
-            Category.slug == "can-cau" || Category.slug == "moi-cau"
-              ? slug
-              : `${Category.slug}/${slug}`
-          }`}
-          className="hover:text-primary"
-        >
+        <Link href={`/${Category.slug}/${slug}`} className="hover:text-primary">
           <h3 className="text-base font-medium mb-3 line-clamp-1">{name}</h3>
         </Link>
         <p className="text-primary font-semibold">

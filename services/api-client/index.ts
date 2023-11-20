@@ -1,7 +1,8 @@
 import axios from "axios";
 import cookieClient from "../cookie";
+const DOMAIN_HOST = process.env.DOMAIN_SERVER || "http://localhost:5000/";
 const apiClient = axios.create({
-  baseURL: process.env.DOMAIN_SERVER,
+  baseURL: DOMAIN_HOST,
   timeout: 4000,
   headers: { "Content-Type ": "application/json" },
 });

@@ -12,12 +12,13 @@ import ListSubImage from "../ListSubImage";
 import { useDispatch } from "react-redux";
 import { AddCart } from "../../../redux/cart";
 import { OpenViewAddToCart, closeViewDetail } from "../../../redux/product";
+import { IProduct } from "../../home/ProductContainer";
 const ProductCart = ({
   isShow = true,
   product,
 }: {
   isShow?: boolean;
-  product: any;
+  product: IProduct;
 }) => {
   const dispatch = useDispatch();
   const [quatity, setQuantity] = useState(1);
@@ -40,21 +41,23 @@ const ProductCart = ({
     <div className="lg:gap-12 md:gap-8 flex md:flex-row flex-col md:justify-start md:items-start justify-center items-center mt-3">
       <div className="w-[320px]">
         <div className="z-10">
-          <ImageZoomOnHover
-            src={current}
-            zoomPosition={isDesktopOrLaptop ? "right" : "original"}
-            href="san-pham-chi-tiet"
-          />
-        </div>
-        {isShow && (
-          <div className="mt-[1px] relative">
-            <ListSubImage
-              handleChange={setCurrent}
-              current={current}
-              listImage={listImage ? listImage : []}
+          <div className="z-10">
+            <ImageZoomOnHover
+              src={current}
+              zoomPosition={isDesktopOrLaptop ? "right" : "original"}
+              href="san-pham-chi-tiet"
             />
           </div>
-        )}
+          {isShow && (
+            <div className="mt-[1px] ">
+              <ListSubImage
+                handleChange={setCurrent}
+                current={current}
+                listImage={listImage ? listImage : []}
+              />
+            </div>
+          )}
+        </div>
       </div>
       <div className="basis-full  md:block flex flex-col justify-center items-center">
         <h1 className="title-pro-detail text-2xl md:mt-0  mt-4 md:text-left text-center">
@@ -66,7 +69,7 @@ const ProductCart = ({
             <section className="flex  gap-4 relative z-[0] mt-2">
               <div className="cursor-pointer flex sm:flex-row flex-col sm:items-start  items-center ">
                 <span className="text-second underline mr-1 inline-block ">
-                  4.8
+                  {product.stars}
                 </span>
                 <ConfigProvider
                   theme={{

@@ -19,6 +19,7 @@ const Cart = ({ setIsOpenCart, isOpenCart }: CartProps) => {
   const handleClsoeCart = () => {
     setIsOpenCart(false);
   };
+  console.log(listProductCart);
   return (
     <>
       {isOpenCart && (
@@ -43,10 +44,10 @@ const Cart = ({ setIsOpenCart, isOpenCart }: CartProps) => {
           </button>
         </section>
         <section className="h-[60vh]  overflow-y-auto scroll_y">
-          {listProductCart!.length >= 0 &&
+          {listProductCart.length > 0 ? (
             listProductCart.map((item) => (
               <CartItem
-                key={item.id}
+                key={item.id + item.quantity}
                 id={item.id}
                 imageUrl={item.imageUrl}
                 name={item.name}
@@ -54,7 +55,10 @@ const Cart = ({ setIsOpenCart, isOpenCart }: CartProps) => {
                 quantity={item.quantity}
                 slug={item.slug}
               />
-            ))}
+            ))
+          ) : (
+            <CartEmpty />
+          )}
         </section>
         <div>
           <div className="flex justify-between mt-2">

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import Breadcrumb from "../Breadcrumb";
 import { structurePageType } from "../../common.types";
@@ -8,23 +8,21 @@ import ProductCart from "./ProductCart";
 import DidiveSpace from "../DidiveSpace";
 import FooterProductDetail from "./review";
 import StarReview from "./starReview";
-import ProductContainer from "../home/ProductContainer";
-import ProductsApi from "../../services/api-client/product";
-import { initialData } from "../../constants";
+import ProductContainer, { IProduct } from "../home/ProductContainer";
 
-const productDetail = ({ slug }: { slug: string }) => {
-  const [product, setproduct] = useState(initialData[0]);
-  const [listProductSame, setListProductSame] = useState([]);
-  useEffect(() => {
-    ProductsApi.getOne(slug).then((res) => {
-      console.log(res.data);
-      setproduct(() => res.data.ProductDetail);
-      setListProductSame(() => res.data.listProductSamee);
-    });
-  }, []);
-  console.log(listProductSame);
+const ProductDetail = ({
+  slug,
+  category,
+  product,
+  listProductSame,
+}: {
+  slug: string;
+  category: string;
+  product: IProduct;
+  listProductSame: IProduct[];
+}) => {
   const structurePage: structurePageType[] = [
-    { page: "Sản phẩm", link: "/san-pham", last: false },
+    { page: product.Category.name, link: `/${category}`, last: false },
     { page: product.name, link: `/${slug}`, last: true },
   ];
   console.log(product);
@@ -65,4 +63,4 @@ const productDetail = ({ slug }: { slug: string }) => {
   );
 };
 
-export default productDetail;
+export default ProductDetail;

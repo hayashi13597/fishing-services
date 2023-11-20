@@ -2,23 +2,16 @@ import apiClient from "..";
 import { ProductDetail, initialData } from "../../../constants";
 
 const ProductDetailApi = {
-  path: "/product-detail",
-  // Lấy tát cả route sản phẩm
-  get() {
-    return initialData.map(({ slug }) => slug);
-    // return apiClient.get(this.path, { params: { id } });
+  path: "/product/",
+  async GetSeoProduct(slug: string) {
+    const res = await apiClient.get(this.path + "seo/" + slug);
+    const product = await res.data.product;
+    return product;
   },
-  post(slug: string) {
-    return {
-      status: 200,
-      message: "oke",
-      data:
-        initialData.find((item: any) => item.slug == slug) ||
-        ProductDetail.product,
-    };
-    // return apiClient.post(this.path, { data: { slug } });
+  async ListProductDetail(slug: string) {
+    const res = await apiClient.get(this.path + slug);
+    const data = await res.data;
+    return data;
   },
-  patch() {},
-  delete() {},
 };
 export default ProductDetailApi;

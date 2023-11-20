@@ -10,7 +10,7 @@ type DataType = {
   data: TProductDetail;
   status: number;
 };
-const DOMAIN_HOST = process.env.DOMAIN_HOST || "http://localhost:3000/";
+const DOMAIN_HOST = process.env.DOMAIN_HOST;
 export async function generateMetadata({ params: { slug } }: ParamsBlog) {
   const dataResponse: any = await ProductDetailApi.post(slug);
   const { data, status } = dataResponse;
