@@ -25,7 +25,7 @@ const productDetail = ({ slug }: { slug: string }) => {
   console.log(listProductSame);
   const structurePage: structurePageType[] = [
     { page: "Sản phẩm", link: "/san-pham", last: false },
-    { page: "slug", link: `/${slug}`, last: true },
+    { page: product.name, link: `/${slug}`, last: true },
   ];
   console.log(product);
   return (
