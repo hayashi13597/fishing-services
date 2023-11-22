@@ -126,3 +126,17 @@ body {
 .bg_hsla {
   background-color: rgba(0, 0, 0, 0.8);
 }
+
+.new-container p {
+  margin: 4px 0;
+}
+.new-container p:has(img) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1;
+}
+.new-container img {
+  margin: 0 auto;
+}

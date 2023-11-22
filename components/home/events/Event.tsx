@@ -42,7 +42,7 @@ const EventBox: React.FC<Props> = ({
         <h3 className="text-palette-secondary capitalize shadow-sm text-xl font-bold sm:text-2xl sm:font-normal md:text-2xl 2xl:text-3xl ltr:mr-4  sm:pt-8 lg:pt-2 xl:pt-8">
           {title}
         </h3>
-        <p className="hidden shadow sm:block text-palette-secondary/80  leading-6 lg:text-[12px] xl:text-base my-2 sm:my-4 lg:my-2 2xl:my-4 rtl:2xl:mt-6">
+        <p className="hidden shadow sm:block text-palette-secondary/80  leading-6 lg:text-[12px] xl:text-base my-2 sm:my-4 lg:my-2 2xl:my-4 rtl:2xl:mt-6 text-ellipsis overflow-hidden max-h-[52px] line-clamp-2">
           {description}
         </p>
         <Link

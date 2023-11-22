@@ -152,7 +152,9 @@ const Nav = () => {
                   href={`/${menu.slug}`}
                   className="block p-3 rounded-lg hover:bg-gray-200"
                 >
-                  <div className="font-semibold text-black  ">{menu.name}</div>
+                  <div className="font-semibold text-black  capitalize">
+                    {menu.name}
+                  </div>
                   <span className="text-sm text-gray-500 dark:text-gray-400">
                     {menu.description}
                   </span>

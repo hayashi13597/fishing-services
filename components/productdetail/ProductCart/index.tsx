@@ -92,7 +92,7 @@ const ProductCart = ({
               </div>
               <div className="flex sm:flex-row flex-col sm:items-start  items-center">
                 <span className=" mr-1">
-                  {formatQuantity(Number(product.sell))}
+                  {formatQuantity(Number(product.sales))}
                 </span>
                 <span className="text-[#767676] capitalize text-sm">
                   đã bán
@@ -103,8 +103,8 @@ const ProductCart = ({
           <section className="flex items-center my-2" aria-live="polite">
             <div className="flex items-center nmrSND">
               <div className="text-[#929292] mr-2 line-through">
-                {product.selloff
-                  ? formatMoney((1 + product.selloff / 100) * product.price)
+                {product.sale_off
+                  ? formatMoney((1 + product.sale_off / 100) * product.price)
                   : ""}
               </div>
               <div className="flex items-center">
@@ -112,7 +112,7 @@ const ProductCart = ({
                   {formatMoney(product.price)}
                 </div>
                 <div className="discount bg-second">
-                  {product.selloff}% giảm
+                  {product.sale_off}% giảm
                 </div>
               </div>
             </div>
@@ -135,9 +135,9 @@ const ProductCart = ({
             </button>
           </div>
         )}
-        <DescriptionItem des={product.description} />
+        <DescriptionItem des={product.content} />
         <div>
-          <ShareSocial link={`/${product.slug}`} />
+          <ShareSocial link={`/${product.Category.slug}/${product.slug}`} />
         </div>
       </div>
     </div>

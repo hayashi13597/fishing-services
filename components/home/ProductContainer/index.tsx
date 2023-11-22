@@ -12,15 +12,16 @@ export interface IProduct {
   description: string;
   name: string;
   price: number;
-  sell: number;
-  selloff: number;
+  sales: number;
+  sale_off: number;
   slug: string;
   imageUrl: string;
   view: number;
   stars: number;
+  content: string;
   visiable: boolean;
   listSubimages: string; // DẠNG json nha anh
-  id: string;
+  id: string | number;
   Category: {
     id: string;
     name: string;

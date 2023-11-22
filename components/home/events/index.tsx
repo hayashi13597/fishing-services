@@ -39,6 +39,7 @@ export interface IEventItem {
   title: string;
   createdAt: string;
   slug: string;
+  time_end: string;
 }
 const Event = ({ ListEvent }: { ListEvent: IEventItem[] }) => {
   return (
@@ -50,9 +51,9 @@ const Event = ({ ListEvent }: { ListEvent: IEventItem[] }) => {
             {
               title,
               description,
-              timeEvent,
+              timeEvent = 10,
+              time_end = 2,
               slug,
-
               imageUrl,
             },
             index
@@ -61,7 +62,7 @@ const Event = ({ ListEvent }: { ListEvent: IEventItem[] }) => {
               <EventBox
                 title={title}
                 description={description}
-                numberOfDiscountDate={timeEvent}
+                numberOfDiscountDate={(timeEvent = 10)}
                 href={`/tin-tuc/${slug}`}
                 imgSrc={bannerContent[index].imgSrc}
                 imgWidth={980}

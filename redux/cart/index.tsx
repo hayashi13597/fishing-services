@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import ToastNotify from "../../services/toast";
 
 export interface ICartItem {
-  id: string;
+  id: string | number;
   name: string;
   slug: string;
   price: number;

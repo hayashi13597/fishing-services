@@ -17,6 +17,12 @@ export function formatQuantity(quantity: number) {
     return (quantity / 1_000_000_000).toFixed(1) + "B";
   return quantity;
 }
+export function formatDate(date: string) {
+  return moment(date).format("DD/MM/YYYY");
+}
+export function formatDateTime(date: string) {
+  return moment(date).format("DD/MM/YYYY  HH:mm:ss");
+}
 export function ScroolToBottom(element: HTMLElement, time = 1000) {
   if (time == 0) {
     element.scrollTo({ top: element.scrollHeight, behavior: "smooth" });

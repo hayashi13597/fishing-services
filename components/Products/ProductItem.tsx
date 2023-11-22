@@ -17,7 +17,7 @@ const ProductItem: React.FC<{ product: IProduct; isNew?: boolean }> = ({
   product,
   isNew = false,
 }) => {
-  const { name, price, imageUrl, slug, id, selloff, Category } = product;
+  const { name, price, imageUrl, slug, id, sale_off = 0, Category } = product;
   const dispatch = useDispatch();
   const showModal = () => {
     dispatch(openViewDetail({ productDetail: product }));
@@ -54,9 +54,9 @@ const ProductItem: React.FC<{ product: IProduct; isNew?: boolean }> = ({
         </Link>
         <p className="text-primary font-semibold">
           <span>{formatMoney(price)}</span>
-          {selloff ? (
+          {sale_off ? (
             <span className="text-sm ml-2 text-black opacity-40 line-through">
-              {formatMoney((1 + selloff / 100) * price)}
+              {formatMoney(Math.floor((1 + sale_off * 0.01) * price))}
             </span>
           ) : (
             ""
@@ -87,7 +87,7 @@ const ProductItem: React.FC<{ product: IProduct; isNew?: boolean }> = ({
       >
         <FaShareSquare />
       </div>
-      <LableProductItem isNew={isNew} discount={selloff} />
+      <LableProductItem isNew={isNew} discount={sale_off} />
     </div>
   );
 };
