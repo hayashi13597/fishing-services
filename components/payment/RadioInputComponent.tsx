@@ -7,7 +7,7 @@ type RadioInputComponentType = {
   name: string;
   label: string;
   isShipMethod?: boolean;
-  setShowMethod: (value: number | string) => void;
+  setShowMethod: (value:  any ) => void;
 };
 
 const RadioInputComponent = ({

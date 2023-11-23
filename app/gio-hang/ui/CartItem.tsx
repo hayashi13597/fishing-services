@@ -8,16 +8,17 @@ import { formatMoney } from "../../../utils";
 import Link from "next/link";
 import { DeleteCart, ICartItem, UpdateAmount } from "../../../redux/cart";
 import { useDispatch } from "react-redux";
+import { coverSlug } from "react-swisskit";
 
 const CartItem = ({
-  id = "",
-  name = "",
-  slug = "",
+  id ,
+  name ,
+  slug,
   price = 0,
-  imageUrl = "",
+  imageUrl,
   quantity = 1,
 }: ICartItem) => {
-  const [amount, setAmount] = useState(1);
+  const [amount, setAmount] = useState(quantity);
   const dispatch = useDispatch();
   const DeleteCartItem = useCallback(() => {
     setAmount(() => -2);
@@ -42,7 +43,7 @@ const CartItem = ({
   return (
     <div className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
       {amount == 0 && <ModalStatus isCallback={handleCallbackDelete} />}
-      <Link href={`/${slug}`}>
+      <Link href={`/${coverSlug(name)}/${slug}`}>
         <Image
           src={imageUrl}
           alt={`product-item/${name}`}
@@ -55,7 +56,7 @@ const CartItem = ({
       <div className="sm:ml-4 sm:flex sm:w-full">
         <div className="sm:w-4/5 mt-5 sm:mt-0">
           <Link
-            href={`/${slug}`}
+            href={`/${coverSlug(name)}/${slug}`}
             className="font-bold text-gray-900 hover:text-primary capitalize"
           >
             {name}
@@ -68,7 +69,7 @@ const CartItem = ({
           </div>
           <div className="w-full flex items-center justify-end md:pr-5 space-x-4">
             <p className="text-base font-semibold">
-              {formatMoney(amount * 30000)}
+              {formatMoney(amount * price)}
             </p>
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -2,7 +2,7 @@ import React from "react";
 import ProductItem from "../Products/ProductItem";
 import { Pagination } from "antd";
 import { productType } from "../../common.types";
-import Loading from "../../app/san-pham/Loading";
+import Loading from "../Loading";
 import useFetchDrink from "../../hooks/useFetchDrink";
 
 type FoodPropsType = {

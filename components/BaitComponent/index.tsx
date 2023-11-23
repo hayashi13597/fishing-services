@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Breadcrumb from "../Breadcrumb";
 import { productType } from "../../common.types";
 import useFetchBait from "../../hooks/useFetchBait";
-import Loading from "../../app/san-pham/Loading";
+import Loading from "../Loading";
 import ProductItem from "../Products/ProductItem";
 import { Pagination } from "antd";
 import { initialData } from "../../constants";

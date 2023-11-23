@@ -24,6 +24,10 @@ const NoticeSlice = createSlice({
         (item) => item.isSee == false
       ).length;
     },
+    AddNewNotice(state, action) {
+      state.notice.unshift(action.payload);
+      state.numberView += 1;
+    },
     UpdateNotice(state, action) {
       const findItem = state.notice.find(
         (item) => item.id == action.payload.id
@@ -47,6 +51,11 @@ const NoticeSlice = createSlice({
 });
 
 const NoticeReducer = NoticeSlice.reducer;
-export const { UpdateNotice, AddNotice, UploadIsViewNotice, LogOutNotice } =
-  NoticeSlice.actions;
+export const {
+  UpdateNotice,
+  AddNotice,
+  UploadIsViewNotice,
+  LogOutNotice,
+  AddNewNotice,
+} = NoticeSlice.actions;
 export default NoticeReducer;

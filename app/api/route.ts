@@ -1,34 +1,7 @@
 import nodemailer from "nodemailer";
 
 import { NextResponse } from "next/server";
-import { initialDataTest } from "../../constants/fuldlata";
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const sortType = searchParams.get("sort") || "all";
-  const filterPrice = searchParams.get("price") || "all";
-  switch (sortType) {
-    case "asc":
-      initialDataTest.sort((a, b) => a.price - b.price);
-      break;
-    case "desc":
-      initialDataTest.sort((a, b) => b.price - a.price);
-      break;
-    case "az":
-      initialDataTest.sort((a, b) => {
-        if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
-      });
-      break;
-    case "za":
-      initialDataTest.sort((a, b) => {
-        if (b.name.toLowerCase() < a.name.toLowerCase()) return -1;
-      });
-      break;
-    default:
-      break;
-  }
 
-  return Response.json({ data: initialDataTest });
-}
 export async function POST(req) {
   const transporter = nodemailer.createTransport({
     service: "Gmail",

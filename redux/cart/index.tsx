@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import ToastNotify from "../../services/toast";
 
 export interface ICartItem {
-  id: string | number;
+  id: number  ;
   name: string;
   slug: string;
   price: number;
@@ -27,10 +27,10 @@ const CartSlice = createSlice({
       if (item?.id) {
         item.quantity += action.payload.quantity;
 
-        state.cart = [
-          item,
-          ...state.cart.filter((item) => item.id != action.payload.id),
-        ];
+        // state.cart = [
+        //   item,
+        //   ...state.cart.filter((item) => item.id != action.payload.id),
+        // ];
         ToastNotify("Cập nhập giỏ hàng thành công").success();
       } else {
         state.cart.push(action.payload);
@@ -42,7 +42,7 @@ const CartSlice = createSlice({
       action: {
         payload: {
           quantity: number;
-          id: string;
+          id: number;
         };
       }
     ) {

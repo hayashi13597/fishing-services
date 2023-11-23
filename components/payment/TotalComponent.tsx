@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { formatMoney } from "../../utils";
 import { UpdateDiscount } from "../../redux/cart";
+import DiscountApi from "../../services/api-client/discount";
+import ToastNotify from "../../services/toast";
+import { Debounced } from "react-swisskit";
 interface TotalComponentProps {
   shipment: number;
 }
@@ -19,8 +22,16 @@ const TotalComponent = ({ shipment }: TotalComponentProps) => {
     0
   );
   const handleUseDiscount = () => {
-    dispatch(UpdateDiscount(discount));
+    DiscountApi.verify(discount)
+      .then((res: any) => {
+        ToastNotify(res.message).success();
+        dispatch(UpdateDiscount(discount));
+      })
+      .catch((res) => {
+        ToastNotify(res.message).error();
+      });
   };
+
   return (
     <div className="w-full order-1 md:w-1/2 md:order-2 md:border-l-2 md:px-10">
       <div className="border-b-2">
@@ -29,7 +40,10 @@ const TotalComponent = ({ shipment }: TotalComponentProps) => {
         ))}
       </div>
 
-      <div className="flex items-center gap-5 mt-5 border-b-2">
+      <form
+        action={Debounced(handleUseDiscount, 1000)}
+        className="flex items-center gap-5 mt-5 border-b-2"
+      >
         <InputFormPayment
           id="discount"
           label="Mã giảm giá"
@@ -38,12 +52,12 @@ const TotalComponent = ({ shipment }: TotalComponentProps) => {
           onChange={(e) => setDiscount(e.target.value)}
         />
         <button
-          onClick={handleUseDiscount}
+          type="submit"
           className="w-2/5 md:w-1/5 p-4 bg-primary pointer-events-auto text-sm text-white rounded-lg mb-5 transition-all hover:opacity-70"
         >
           Sử dụng
         </button>
-      </div>
+      </form>
       <div className="flex flex-col gap-2 py-5 opacity-70 border-b-2">
         <div className="w-full flex justify-between items-center">
           <p>Tạm tính</p>

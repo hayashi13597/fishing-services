@@ -21,7 +21,7 @@ export interface IProduct {
   content: string;
   visiable: boolean;
   listSubimages: string; // DẠNG json nha anh
-  id: string | number;
+  id: number;
   Category: {
     id: string;
     name: string;
