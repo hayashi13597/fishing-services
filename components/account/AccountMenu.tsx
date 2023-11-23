@@ -19,7 +19,7 @@ const AccountMenu = () => {
   );
   const [isOpenCart, setIsOpenCart] = useState(false);
   const [isOpenNotice, setIsOpenNotice] = useState(false);
-  const router = useRouter();
+
   const disPatch = useDispatch();
   const TotalCart =
     useSelector((state: RootState) => state.cart.cart).length || 0;

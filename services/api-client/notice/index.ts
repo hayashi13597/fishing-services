@@ -11,5 +11,8 @@ const NoticeApi = {
   getAll(data: { id: string }) {
     return apiClient.post(this.path, { data });
   },
+  getNoticeAccount({ id, limit, skip }) {
+    return apiClient.get(this.path, { params: { id, limit, skip } });
+  },
 };
 export default NoticeApi;

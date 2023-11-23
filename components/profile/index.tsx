@@ -15,7 +15,6 @@ import ProfileAccount from "./infoaccount";
 import "../modal/modal.scss";
 import { cn } from "react-swisskit";
 import UserApi from "../../services/api-client/user";
-import { IUploadAvata } from "../../services/api-client/user/user.type";
 import ToastNotify from "../../services/toast";
 import ChangePassword from "./changepassword";
 import { useSearchParams } from "next/navigation";

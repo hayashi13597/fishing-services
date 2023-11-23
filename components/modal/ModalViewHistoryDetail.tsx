@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModalPurchasedHistory } from "../../redux/product";
@@ -5,22 +6,37 @@ import { RootState } from "../../redux/store";
 import Image from "next/image";
 import { Pagination } from "antd";
 import { formatMoney } from "../../utils";
+import OrdertDetailApi from "../../services/api-client/order";
 
 const ModalViewHistoryDetail = () => {
   const dispatch = useDispatch();
   const modalRef = useRef(null);
-  const listOrders = useSelector(
+  const { idOrder, info } = useSelector(
     (state: RootState) => state.productDetail.productModalHistoryDetail
   );
-
-  const itemPerPage = 3;
-  const [pageCurrent, setPageCurrent] = useState(1);
-  console.log(listOrders);
+  const [listOrderDetail, setListOrderDetail] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [currentPage, setcurrentPage] = useState(1);
+  const itemPerPage = 2;
 
   const handleClose = () => {
     dispatch(closeModalPurchasedHistory());
   };
+  useEffect(() => {
+    if (!idOrder) return;
+    OrdertDetailApi.GetDetail(idOrder).then((res) => {
+      const listData = res.data.orderdetails || [];
+      console.log("info", info);
+      setListOrderDetail(() => listData);
 
+      setTotalPrice(() =>
+        listData.reduce(
+          (total, item) => total + item.quantity * item.price,
+          info.shipping_fee
+        )
+      );
+    });
+  }, [idOrder]);
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -42,7 +58,7 @@ const ModalViewHistoryDetail = () => {
           {/* Modal header */}
           <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
             <h3 className="text-xl font-semibold text-gray-900">
-              Thông tin đơn hàng #{listOrders?.info.id}
+              Thông tin đơn hàng # {info?.codebill}
             </h3>
             <button
               type="button"
@@ -88,18 +104,21 @@ const ModalViewHistoryDetail = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {listOrders?.listOrder
-                    ?.slice(
-                      (pageCurrent - 1) * itemPerPage,
-                      pageCurrent * itemPerPage
+                  {listOrderDetail
+                    .slice(
+                      (currentPage - 1) * itemPerPage,
+                      currentPage * itemPerPage
                     )
                     .map((order) => (
-                      <tr className="bg-white border-b" key={order.id}>
+                      <tr
+                        className="bg-white border-b"
+                        key={`order-${order.id}`}
+                      >
                         <th
                           scope="row"
-                          className="px-6 py-4 font-medium text-text"
+                          className="px-6 py-4 font-medium text-text min-w-[120px]"
                         >
-                          {order.name}
+                          {order.Product.name}
                         </th>
                         <td className="px-6 py-4">
                           <div
@@ -110,15 +129,15 @@ const ModalViewHistoryDetail = () => {
                             }}
                           >
                             <Image
-                              src={order.imageUrl}
-                              alt={order.name}
+                              src={order.Product.imageUrl}
+                              alt={order.Product.name}
                               fill
                               className="object-cover"
                             />
                           </div>
                         </td>
-                        <td className="px-6 py-4 line-clamp-2">
-                          {order.description}
+                        <td className="px-6 py-4 line-clamp-2 min-w-[120px]">
+                          {order.Product.description}
                         </td>
                         <td className="px-6 py-4">
                           {formatMoney(order.price)}
@@ -126,28 +145,39 @@ const ModalViewHistoryDetail = () => {
                       </tr>
                     ))}
                 </tbody>
+                <tfoot>
+                  <td colSpan={3}>
+                    <span className="block font-bold text-lg ml-4">
+                      Tổng tiền
+                    </span>
+                  </td>
+                  <td>
+                    <span className="block font-bold text-lg mr-4">
+                      {formatMoney(totalPrice)}
+                    </span>
+                  </td>
+                </tfoot>
               </table>
-              {listOrders?.listOrder.length > 0 && (
-                <div
-                  className={`flex justify-center py-5 md:py-4 S${
-                    itemPerPage >= listOrders?.listOrder.length ? "hidden" : ""
-                  }`}
-                >
-                  <Pagination
-                    defaultCurrent={4}
-                    total={listOrders?.listOrder.length}
-                    pageSize={itemPerPage}
-                    current={pageCurrent}
-                    onChange={(page) => setPageCurrent(page)}
-                  />
-                </div>
-              )}
             </div>
+            {listOrderDetail.length > 0 && (
+              <div
+                className={`flex justify-center py-5 md:py-4 S${
+                  itemPerPage >= listOrderDetail.length ? "hidden" : ""
+                }`}
+              >
+                <Pagination
+                  total={listOrderDetail.length}
+                  pageSize={itemPerPage}
+                  onChange={(page) => setcurrentPage(page)}
+                  current={currentPage}
+                />
+              </div>
+            )}
           </div>
           {/* Modal footer */}
           <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
-            <span className="font-semibold">Địa chỉ nhận hàng:</span>
-            {listOrders?.info.address}
+            <span className="font-semibold mr-1">Địa chỉ nhận hàng: </span>{" "}
+            {info?.address}
           </div>
         </div>
       </div>

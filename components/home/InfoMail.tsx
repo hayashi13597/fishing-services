@@ -9,6 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Validator } from "react-swisskit";
 import ToastNotify from "../../services/toast";
 import NoticeApi from "../../services/api-client/notice";
+import ContactApi from "../../services/api-client/contact";
 const { TextArea } = Input;
 const InfoMail = () => {
   const [message, setMessage] = useState("");
@@ -40,12 +41,19 @@ const InfoMail = () => {
   });
 
   const handleOnSubmit = (data) => {
-    data.message = message;
-    NoticeApi.add(data)
-      .then(() => ToastNotify("Đăng ký nhận sự kiện thành công").success())
-      .catch(() => ToastNotify("Đăng ký nhận sự kiện thất bại").error());
-    reset();
-    setMessage("");
+    if (!message) {
+      ToastNotify("Vui lòng điền nội dung liên hệ").error();
+      return;
+    }
+    data.content = message;
+
+    ContactApi.create(data)
+      .then(() => {
+        ToastNotify("Liên hệ thành công").success();
+        reset();
+        setMessage(() => "");
+      })
+      .catch(() => ToastNotify("Liên hệ thất bại").error());
   };
   return (
     <div className="bg-[url('/assets/info.png')] lg:h-400 bg-cover py-10">

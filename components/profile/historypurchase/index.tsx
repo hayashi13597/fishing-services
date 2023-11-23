@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { TableProps } from "antd";
 import { Button, ConfigProvider, Space, Table } from "antd";
 import type {
@@ -6,11 +6,13 @@ import type {
   FilterValue,
   SorterResult,
 } from "antd/es/table/interface";
-import { formatMoney } from "../../../utils";
+import { formatDate, formatMoney } from "../../../utils";
 import { cn } from "react-swisskit";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openModalPurchasedHistory } from "../../../redux/product";
 import { initialData } from "../../../constants";
+import OrdertDetailApi from "../../../services/api-client/order";
+import { RootState } from "../../../redux/store";
 enum ESTatus {
   "s1" = "Chờ xử lý",
   "s2" = "Đã kiểm duyệt",
@@ -111,43 +113,36 @@ const data: DataType[] = [
 ];
 
 const HistoryPurChase: React.FC = () => {
-  const [filteredInfo, setFilteredInfo] = useState<
-    Record<string, FilterValue | null>
-  >({});
-  const [sortedInfo, setSortedInfo] = useState<SorterResult<DataType>>({});
+  const account = useSelector((state: RootState) => state.user.account);
+
+  const [listOrder, setListOrder] = useState([]);
+
+  const [pagesize] = useState(3);
+  const [total, setTotal] = useState(1);
+  const [pageCurrent, setPageCurrent] = useState(1);
+
+  useEffect(() => {
+    if (!account.id) {
+      return;
+    }
+    OrdertDetailApi.get(
+      account.id,
+      pagesize,
+      (pageCurrent - 1) * pagesize
+    ).then((res) => {
+      setListOrder(() => res.data.listOrder);
+      setTotal(() => res.data.total);
+    });
+  }, [account.id, pageCurrent]);
   const dispatch = useDispatch();
 
-  const handleChange: TableProps<DataType>["onChange"] = (
-    pagination,
-    filters,
-    sorter
-  ) => {
-    console.log("Various parameters", pagination, filters, sorter);
-    setFilteredInfo(filters);
-    setSortedInfo(sorter as SorterResult<DataType>);
-  };
-
-  const clearFilters = () => {
-    setFilteredInfo({});
-  };
-
-  const clearAll = () => {
-    setFilteredInfo({});
-    setSortedInfo({});
-  };
-
-  const setAgeSort = () => {
-    setSortedInfo({
-      order: "descend",
-      columnKey: "age",
-    });
-  };
-
   const handleViewOrderDetail = (value) => {
+    console.log(value);
+
     dispatch(
       openModalPurchasedHistory({
-        listOrder: initialData,
         info: value,
+        idOrder: value.id,
       })
     );
   };
@@ -155,8 +150,8 @@ const HistoryPurChase: React.FC = () => {
   const columns: ColumnsType<DataType> = [
     {
       title: "Mã đơn",
-      dataIndex: "id",
-      key: "id",
+      dataIndex: "codebill",
+      key: "codebill",
       render(value, record, index) {
         return <span className="font-semibold">#{value}</span>;
       },
@@ -166,11 +161,7 @@ const HistoryPurChase: React.FC = () => {
       dataIndex: "phone",
       key: "phone",
     },
-    // {
-    //   title: "Địa chỉ",
-    //   dataIndex: "address",
-    //   key: "address",
-    // },
+
     {
       title: "Trạng thái",
       dataIndex: "status",
@@ -179,22 +170,22 @@ const HistoryPurChase: React.FC = () => {
         return (
           <span
             className={cn(
-              value == 4 ? "text-green-500" : "",
-              value == 5 ? "text-red-500" : "",
+              value == "s4" ? "text-green-500" : "",
+              value == "s5" ? "text-red-500" : "",
               "font-semibold"
             )}
           >
-            {ESTatus[`s${value}`]}
+            {ESTatus[value]}
           </span>
         );
       },
     },
     {
-      title: "Tổng tiền",
-      dataIndex: "totalPrice",
-      key: "totalPrice",
+      title: "Ngày mua",
+      dataIndex: "createdAt",
+      key: "createdAt",
       render(value, record, index) {
-        return formatMoney(value * 1000);
+        return formatDate(value);
       },
     },
     {
@@ -236,12 +227,14 @@ const HistoryPurChase: React.FC = () => {
       >
         <Table
           pagination={{
-            defaultPageSize: 3,
             className: "hover:text-primary",
+            onChange: (page) => setPageCurrent(page),
+            total,
+            current: pageCurrent,
+            pageSize: pagesize,
           }}
           columns={columns}
-          dataSource={data}
-          onChange={handleChange}
+          dataSource={listOrder}
           className="overflow-auto scroll_y"
         />
       </ConfigProvider>

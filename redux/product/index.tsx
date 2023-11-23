@@ -14,8 +14,12 @@ const ProductDetail = createSlice({
   initialState: {
     isOpenModalPurchasedHistory: false,
     productModalHistoryDetail: {
-      listOrder: [],
-      info: null,
+      idOrder: "",
+      info: {
+        address: "",
+        codebill: "",
+        shipping_fee: 0,
+      },
     },
     isOpenModalDetail: false,
     productDetail: initState,

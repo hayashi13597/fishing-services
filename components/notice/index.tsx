@@ -51,11 +51,13 @@ const NoticeContainer = ({
             </p>
           )}
         </section>
-        {listnotices.length > 5 && (
+        {listnotices.length > 4 && (
           <div className="mt-4 flex flex-col items-center">
             <Link
               className="button_send w-3/4"
+              onClick={() => setIsOpenNotice(false)}
               href={"/tai-khoan?page=thong-bao"}
+              target="_blank"
             >
               Xem thêm...
             </Link>
