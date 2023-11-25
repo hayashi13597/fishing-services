@@ -78,7 +78,9 @@ const RegisterScreen = () => {
     // mình sẽ nới sẵn đata như này
     UserApi.authenWithFirebase({ uid, avatar, email, fullname })
       .then(handleUpdateAccount)
-      .catch(ToastNotify().showError);
+      .catch((err) => {
+        ToastNotify(err?.message || "Đăng nhập thất bại").error();
+      });
   };
 
   const handleOnSubmit = async (data: FormState) => {
@@ -92,7 +94,9 @@ const RegisterScreen = () => {
     // tạo tài khoảng
     UserApi.register(data)
       .then(handleUpdateAccount)
-      .catch(ToastNotify().showError);
+      .catch((err) => {
+        ToastNotify(err?.message || "Đăng nhập thất bại").error();
+      });
   };
 
   return (

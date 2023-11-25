@@ -73,14 +73,18 @@ const LoginScreen = () => {
     // mình sẽ nới sẵn đata như này
     UserApi.authenWithFirebase({ uid, avatar, email, fullname })
       .then(handleUpdateAccount)
-      .catch(ToastNotify().showError);
+      .catch(() => {
+        ToastNotify("Đăng nhập thất bại").error();
+      });
   };
 
   const handleOnSubmit = async (data) => {
     // tạo tài khoảng
     UserApi.login(data)
       .then(handleUpdateAccount)
-      .catch(ToastNotify().showError);
+      .catch(() => {
+        ToastNotify("Đăng nhập thất bại").error();
+      });
   };
 
   return (
