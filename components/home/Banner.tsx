@@ -5,6 +5,7 @@ import Image from "next/image";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import "./custom.css";
 import { listBanners } from "./service";
+
 const contentStyle: React.CSSProperties = {
   color: "#fff",
   textAlign: "center",
@@ -34,17 +35,17 @@ const Banner = () => {
         onClick={() => {
           carouselRef.current && carouselRef.current.prev();
         }}
-        className="button_slider  left-4"
+        className="button_slider left-4"
       >
-        <BiChevronLeft />
+        <BiChevronLeft className="text-3xl" />
       </button>
       <button
         onClick={() => {
           carouselRef.current && carouselRef.current.next();
         }}
-        className="button_slider  right-4 "
+        className="button_slider right-4 "
       >
-        <BiChevronRight />
+        <BiChevronRight className="text-3xl" />
       </button>
     </div>
   );

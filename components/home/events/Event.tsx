@@ -26,8 +26,8 @@ const EventBox: React.FC<Props> = ({
   buttonText,
   href,
 }) => {
-  const isDestop = useMediaQuery({ query: "(min-width:200px)" });
-  let imageWidth = isDestop ? 1300 : imgWidth;
+  const isDesktop = useMediaQuery({ query: "(min-width:200px)" });
+  let imageWidth = isDesktop ? 1300 : imgWidth;
   return (
     <div className="col-span-6  lg:col-span-6 flex text-white/80  justify-center  shadow-2xl relative rounded-lg overflow-hidden dark:bg-gray-500/70 !dark:bg-blend-multiply">
       <Image
@@ -35,7 +35,7 @@ const EventBox: React.FC<Props> = ({
         width={imageWidth}
         height={imgHeight}
         alt={title}
-        className="drop-shadow-lg blur-sm  object-cover w-full object-center hover:scale-110 transition duration-1000"
+        className="drop-shadow-lg object-cover w-full object-center hover:scale-110 transition duration-1000"
       />
 
       <div className="flex justify-between items-center sm:block absolute top-[25%] ltr:top-[15%] ltr:sm:top-3 sm:top-3 ltr:md:top-8 md:top-8 ltr:lg:top-2 lg:top-2 ltr:2xl:top-6 2xl:top-6 sm:left-6 sm:w-[55%] md:w-3/4 lg:w-[60%] xl:w-1/2">

@@ -1,46 +1,68 @@
 [
   {
     "id": "cate1",
-    "name": "fishing rod",
+    "name": "cần câu tay",
     "description": "Fishing rod, can be used in conjunction with other materials like paper paper paper",
-    "imageUrl": "/assets/category-1.png",
+    "imageUrl": "/assets/can-cau.jpg",
     "filter": "knox",
-    "slug": "fishing-rod",
-    "visible": false,
+    "slug": "can-cau-tay",
+    "visible": true,
     "createdAt": "2022-01-01T12:00:00Z",
     "updatedAt": "2022-01-01T12:00:00Z"
   },
   {
     "id": "cate2",
-    "name": "bait",
+    "name": "Dây câu",
     "description": "bait, can be used in conjunction with other materials like paper paper paper",
-    "imageUrl": "/assets/category-1.png",
+    "imageUrl": "/assets/can-cau.jpg",
     "filter": "knox",
-    "slug": "bait",
-    "visible": false,
-    "createdAt": "2022-01-01T12:00:00Z",
-    "updatedAt": "2022-01-01T12:00:00Z"
+    "slug": "day-cau",
+    "visible": true,
+    "createdAt": "2022-01-010T12:00:00Z",
+    "updatedAt": "2022-01-010T12:00:00Z"
   },
   {
     "id": "cate3",
-    "name": "food",
+    "name": "Phụ kiện đồ câu",
     "description": "Fishing rod, can be used in conjunction with other materials like paper paper paper",
-    "imageUrl": "/assets/category-1.png",
+    "imageUrl": "/assets/can-cau.jpg",
     "filter": "knox",
-    "slug": "food",
-    "visible": false,
-    "createdAt": "2022-01-01T12:00:00Z",
-    "updatedAt": "2022-01-01T12:00:00Z"
+    "slug": "phu-kien-do-cau",
+    "visible": true,
+    "createdAt": "2022-01-014T12:00:00Z",
+    "updatedAt": "2022-01-014T12:00:00Z"
   },
   {
     "id": "cate4",
-    "name": "drink",
+    "name": "Mồi câu",
     "description": "drink can be used in conjunction with other materials like paper paper paper",
-    "imageUrl": "/assets/category-1.png",
+    "imageUrl": "/assets/can-cau.jpg",
     "filter": "knox",
-    "slug": "drink",
-    "visible": false,
-    "createdAt": "2022-01-01T12:00:00Z",
-    "updatedAt": "2022-01-01T12:00:00Z"
+    "slug": "moi-cau",
+    "visible": true,
+    "createdAt": "2022-01-011T12:00:00Z",
+    "updatedAt": "2022-01-011T12:00:00Z"
+  },
+  {
+    "id": "cate5",
+    "name": "Máy câu",
+    "description": "drink can be used in conjunction with other materials like paper paper paper",
+    "imageUrl": "/assets/can-cau.jpg",
+    "filter": "knox",
+    "slug": "may-cau",
+    "visible": true,
+    "createdAt": "2022-01-012T12:00:00Z",
+    "updatedAt": "2022-01-012T12:00:00Z"
+  },
+  {
+    "id": "cate6",
+    "name": "Cần câu máy",
+    "description": "drink can be used in conjunction with other materials like paper paper paper",
+    "imageUrl": "/assets/can-cau.jpg",
+    "filter": "knox",
+    "slug": "can-cau-may",
+    "visible": true,
+    "createdAt": "2022-01-013T12:00:00Z",
+    "updatedAt": "2022-01-013T12:00:00Z"
   }
 ]

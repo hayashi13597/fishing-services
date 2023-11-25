@@ -38,7 +38,7 @@ module.exports = {
     extend: {
       colors: {
         primary: "#DB4444",
-        second: "#C0034E",
+        second: "#ccf0f0",
         white: "#f8f5f5",
         menu: "#F2F2F6",
         text: "#222222",

@@ -309,3 +309,26 @@ export const goToUSList = [
     image: "/assets/clock.png",
   },
 ];
+
+export const aboutUs = [
+  {
+    title: "Giải thưởng hấp dẫn",
+    content:
+      "Sự kiện diễn ra hàng tuần với hàng trăm cần thủ từ mọi miền tổ quốc cùng với giải thưởng đáng giá",
+  },
+  {
+    title: "Đi tay không về có cá",
+    content:
+      "Chỉ cần bạn đặt chân đến, chúng tôi sẽ lo cùng nhiều dịch vụ cho thuê cần câu mua thức cám cá",
+  },
+  {
+    title: "Hoàn vốn siêu nhanh",
+    content:
+      "Chúng tôi thu mua cá với mức giá cao nhất thị trường tính theo kg, đây cũng là nghề thu nhập mới",
+  },
+  {
+    title: "Mở cửa xuyên đêm",
+    content:
+      "Cung cấp dịch vụ 24/24 để thỏa mãn niềm đam mê của cần thủ khắp mọi miền đất nước",
+  },
+];
