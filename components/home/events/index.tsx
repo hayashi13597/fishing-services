@@ -40,13 +40,18 @@ export interface IEventItem {
   createdAt: string;
   slug: string;
   time_end: string;
+  id?: string;
+  user_id?: string;
+  updatedAt?: string;
+  content?: string;
 }
-const Event = ({ ListEvent }: { ListEvent: IEventItem[] }) => {
+const Event = ({ ListEvent }: { ListEvent?: IEventItem[] }) => {
   return (
-    <div className="flex items-center flex-col w-full xl:max-w-[2100px] my-4 md:my-8 mx-auto">
-      <TitleFormat title="Sự kiện mới nhất" link="/san-pham" />
+    <div className="flex flex-col w-full xl:max-w-[2100px] my-4 md:my-8 mx-auto">
+      {/* <TitleFormat title="Sự kiện mới nhất" link="/san-pham" /> */}
+      <h1 className="text-text/80 text-4xl mb-5">Sự kiện mới nhất</h1>
       <div className="grid gap-4 grid-cols-6 lg:grid-cols-12">
-        {ListEvent.map(
+        {ListEvent?.slice(0, 2).map(
           (
             {
               title,
@@ -64,7 +69,7 @@ const Event = ({ ListEvent }: { ListEvent: IEventItem[] }) => {
                 description={description}
                 numberOfDiscountDate={(timeEvent = 10)}
                 href={`/tin-tuc/${slug}`}
-                imgSrc={bannerContent[index].imgSrc}
+                imgSrc={bannerContent[index]?.imgSrc}
                 imgWidth={980}
                 imgHeight={500}
                 buttonText={"Xem sự kiện"}

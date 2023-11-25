@@ -2,6 +2,7 @@
 import React from "react";
 import YouTube, { YouTubeProps } from "react-youtube";
 import "./youtube.scss";
+import { useMediaQuery } from "react-responsive";
 interface YoutubeItemPros {
   videoId: string;
 }
@@ -11,8 +12,12 @@ const YoutubeItem: React.FC<YoutubeItemPros> = ({ videoId }) => {
     event.target.pauseVideo();
   };
 
+  const isDesktop = useMediaQuery({ query: "(max-width:500px)" });
+
+  console.log("isDesktop: " + isDesktop);
+
   const opts: YouTubeProps["opts"] = {
-    height: "360",
+    height: isDesktop ? "380" : "600",
     width: "500",
 
     playerVars: {

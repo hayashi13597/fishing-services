@@ -12,6 +12,7 @@ import cookieClient from "../../services/cookie";
 import { LogOutNotice, UploadIsViewNotice } from "../../redux/notices";
 import NoticeApi from "../../services/api-client/notice";
 import { LogoutAccount } from "../../redux/user";
+
 const AccountMenu = () => {
   const account = useSelector((state: RootState) => state.user.account);
   const { numberView, notice } = useSelector(
@@ -61,7 +62,7 @@ const AccountMenu = () => {
       ];
     });
   }, [account.id]);
-  const hanldeOpenNotice = () => {
+  const handleOpenNotice = () => {
     setIsOpenNotice(() => true);
     disPatch(UploadIsViewNotice());
     NoticeApi.updateStatusView({ id: account.id });
@@ -70,8 +71,8 @@ const AccountMenu = () => {
     <div className="cart-container order-3 flex items-center gap-4 text-text ">
       <Badge size="small" count={numberView}>
         <span
-          onClick={hanldeOpenNotice}
-          className=" hover:text-second cursor-pointer text-2xl"
+          onClick={handleOpenNotice}
+          className=" hover:text-primary cursor-pointer text-2xl"
         >
           <BiBell />
         </span>
@@ -79,16 +80,16 @@ const AccountMenu = () => {
       <Badge size="small" count={TotalCart}>
         <span
           onClick={() => setIsOpenCart(true)}
-          className=" hover:text-second cursor-pointer text-2xl"
+          className=" hover:text-primary cursor-pointer text-2xl"
         >
           <BiCartAlt />
         </span>
       </Badge>
       <Dropdown menu={{ items }} placement="bottomRight">
-        <div className=" hover:text-second cursor-pointer text-2xl">
+        <div className=" hover:text-primary cursor-pointer text-2xl">
           {/* <BiUserCircle /> */}
           <Image
-            alt="avata"
+            alt="avatar"
             src={account.avatar}
             width={30}
             height={30}

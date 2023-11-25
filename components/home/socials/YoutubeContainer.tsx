@@ -10,6 +10,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { listVideo } from "../../../constants";
 import SwipperContainer from "../../swipper";
+
 const YoutubeContainer = () => {
   const [videoIdCurrent, setVideoIdCurrent] = useState("9syCuc93OV0");
   return (
@@ -29,8 +30,8 @@ const YoutubeContainer = () => {
                 <Image
                   src={item.img}
                   alt="Hồ câu"
-                  width={120}
-                  height={120}
+                  width={500}
+                  height={500}
                   className="object-cover w-full h-auto cursor-pointer"
                 />
               </SwiperSlide>
