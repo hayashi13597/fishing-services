@@ -8,7 +8,6 @@ const ContactApi = {
     phone: string;
     content: string;
   }) {
-    console.log("cate get all");
     return apiClient.post(this.path, {
       data,
     });
