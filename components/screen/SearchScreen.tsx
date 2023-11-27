@@ -33,6 +33,7 @@ const SearchScreen = () => {
       <ProductScreen
         total={listProduct.length}
         listProductDefault={listProduct}
+        search={search}
       />
     </div>
   );

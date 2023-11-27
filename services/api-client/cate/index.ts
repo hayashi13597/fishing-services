@@ -3,7 +3,6 @@ import apiClient from "..";
 const CateApi = {
   path: "/cate/",
   GetAllCate() {
-    console.log("cate get all");
     return apiClient.get(this.path);
   },
   async GetOneCate(slug: string, limit = 12, skip = 0) {

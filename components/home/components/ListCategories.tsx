@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import categories from "../../../mock/categories.json";
+
 import Image from "next/image";
 import Link from "next/link";
 import CateApi from "../../../services/api-client/cate";

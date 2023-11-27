@@ -3,12 +3,26 @@ import React, { useEffect, useState } from "react";
 import { IProduct } from "../home/ProductContainer";
 import SearchProduct from "../SearchPage/SearchProduct";
 import { Pagination, Select } from "antd";
+import CateApi from "../../services/api-client/cate";
+import ProductsApi from "../../services/api-client/product";
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
 interface IProductScreen {
   listProductDefault: IProduct[];
   total: number;
+  cate?: string;
+  search?: string;
+  isPageProduct?: boolean;
 }
-const itemPerPage: number = 8;
-const ProductScreen = ({ listProductDefault = [], total }: IProductScreen) => {
+
+const ProductScreen = ({
+  listProductDefault = [],
+  total,
+  cate,
+  search,
+  isPageProduct,
+}: IProductScreen) => {
+  const itemPerPage = 8;
   const [listProduct, setListProduct] =
     useState<IProduct[]>(listProductDefault);
   const [pageCurrent, setPageCurrent] = useState(1);
@@ -16,18 +30,55 @@ const ProductScreen = ({ listProductDefault = [], total }: IProductScreen) => {
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
   };
-
+  const listCateGory = useSelector(
+    (state: RootState) => state.productDetail.listCate
+  );
   useEffect(() => {
     if (!listProductDefault.length) return;
-
-    setListProduct(() => listProductDefault);
-  }, [listProductDefault.length]);
+    if (cate) {
+      CateApi.GetOneCate(
+        cate,
+        itemPerPage,
+        itemPerPage * (pageCurrent - 1)
+      ).then((res) => {
+        setListProduct(() => res.listProducts);
+        setTotalPage(() => res.total);
+      });
+    } else if (search) {
+      ProductsApi.search(search).then((res) => {
+        const listProductSearch = res.data.products;
+        if (listProductSearch) {
+          setListProduct(() => listProductSearch);
+          setTotalPage(() => listProductSearch.length);
+        }
+      });
+    }
+  }, [listProductDefault.length, pageCurrent]);
   return (
     <div className="container mx-auto">
       <div className="flex items-center justify-between">
-        <p className="text-sm">
-          Kết quả tìm kiếm cho <span className="font-bold">Cần câu</span> là:
-        </p>
+        <div className="text-sm">
+          {!isPageProduct ? (
+            search ? (
+              <p>
+                Kết quả tìm kiếm cho <span className="font-bold">{search}</span>{" "}
+                là:
+              </p>
+            ) : (
+              ""
+            )
+          ) : (
+            <Select
+              defaultValue="Danh mục"
+              style={{ width: 200 }}
+              onChange={handleChange}
+              options={listCateGory.map((cate) => ({
+                value: cate.slug,
+                label: cate.name,
+              }))}
+            />
+          )}
+        </div>
         <Select
           defaultValue="Sắp xếp"
           style={{ width: 200 }}

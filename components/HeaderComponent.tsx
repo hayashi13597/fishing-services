@@ -11,17 +11,16 @@ import { Debounced } from "react-swisskit";
 import SearchComponent from "./home/components/SearchComponent";
 import NavComponent from "./home/components/NavComponent";
 import CateApi from "../services/api-client/cate";
+import { RootState } from "../redux/store";
+import { useSelector } from "react-redux";
 
 const { Search } = Input;
 
 const HeaderComponent = () => {
-  const [listCateGory, setListCategory] = useState([]);
+  const listCateGory = useSelector(
+    (state: RootState) => state.productDetail.listCate
+  );
 
-  useEffect(() => {
-    CateApi.GetAllCate().then((res: any) => {
-      setListCategory(() => res.data.categories);
-    });
-  }, []);
   const items: MenuProps["items"] = listCateGory.map((item) => ({
     key: item.slug,
     label: (

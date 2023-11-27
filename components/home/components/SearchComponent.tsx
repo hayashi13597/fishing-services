@@ -6,23 +6,24 @@ import SearchItem from "./SearchItem";
 import { Drawer } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import CateApi from "../../../services/api-client/cate";
+
 import { IProduct } from "../ProductContainer";
 import ProductsApi from "../../../services/api-client/product";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 const SearchComponent = () => {
   const searchRef = useRef<HTMLInputElement>(null);
   const [showResults, setShowResults] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  const [listCateGory, setListCategory] = useState([]);
+
+  const listCateGory = useSelector(
+    (state: RootState) => state.productDetail.listCate
+  );
   const [search, setSearch] = useState("");
   const [ListProduct, setListProduct] = useState<IProduct[]>([]);
-  useEffect(() => {
-    CateApi.GetAllCate().then((res: any) => {
-      setListCategory(() => res.data.categories);
-    });
-  }, []);
+
   const showDrawer = () => {
     setOpen(true);
   };
@@ -66,7 +67,7 @@ const SearchComponent = () => {
                 href={`/${category.slug}`}
                 className="text-2xl hover:underline hover:text-primary capitalize"
               >
-                {category.title}
+                {category.name}
               </Link>
             </li>
           ))}

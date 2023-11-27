@@ -7,10 +7,11 @@ import cookieClient from "../../services/cookie";
 import apiClient from "../../services/api-client";
 import ModalAddProduct from "../modal/AddProduct";
 import ModalViewDetailProduct from "../Products/ModalProduct";
-import { closeViewDetail } from "../../redux/product";
+import { UpdateListCate, closeViewDetail } from "../../redux/product";
 import { CartInit } from "../../redux/cart";
 import ModalViewHistoryDetail from "../modal/ModalViewHistoryDetail";
 import { AddNotice } from "../../redux/notices";
+import CateApi from "../../services/api-client/cate";
 const GlobalInfomation = () => {
   const {
     isOpenModalDetail,
@@ -23,6 +24,16 @@ const GlobalInfomation = () => {
   const dispatch: any = useDispatch();
 
   useEffect(() => {
+    CateApi.GetAllCate().then((res) => {
+      if (res.data?.categories) {
+        const listCate = res.data.categories.map((cate) => ({
+          name: cate.name,
+          slug: cate.slug,
+          description: cate.description,
+        }));
+        dispatch(UpdateListCate(listCate));
+      }
+    });
     const accessToken = cookieClient.get("accessToken");
     if (accessToken) {
       apiClient.defaults.headers.common["Authorization"] =
