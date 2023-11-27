@@ -1,7 +1,7 @@
 import React from "react";
 import LatestItem from "./LatestItem";
 import { Pagination } from "antd";
-import { INewItem } from "../../../app/tin-tuc/page";
+import { INewItem } from "../../screen/NewScreen";
 
 interface latestType {
   title: string;

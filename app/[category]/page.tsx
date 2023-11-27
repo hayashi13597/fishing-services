@@ -5,7 +5,6 @@ import { listIconsSeo } from "../../constants";
 import CateApi from "../../services/api-client/cate";
 import { DOMAIN_HOST } from "../../utils";
 export const revalidate = 3600;
-
 interface ISlugCateProduct {
   slug: string;
   Category: {

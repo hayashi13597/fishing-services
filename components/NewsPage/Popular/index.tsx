@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import PopularItem from "./PopularItem";
 import { useSelector } from "react-redux";
 import EventApi from "../../../services/api-client/events";
-import { INewItem } from "../../../app/tin-tuc/page";
+import { INewItem } from "../../screen/NewScreen";
+
 interface PopularProps {
   title: string;
   ListEvents: INewItem[];

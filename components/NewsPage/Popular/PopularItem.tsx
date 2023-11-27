@@ -2,8 +2,9 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 import { HandleTimeDiff, formatQuantity } from "../../../utils";
-import { INewItem } from "../../../app/tin-tuc/page";
+
 import Link from "next/link";
+import { INewItem } from "../../screen/NewScreen";
 export interface IPopularItemProps extends INewItem {}
 const PopularItem = (props: IPopularItemProps) => {
   return (

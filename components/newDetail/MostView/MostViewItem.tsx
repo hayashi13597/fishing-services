@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { INewItem } from "../../../app/tin-tuc/page";
+
 import { formatDate } from "../../../utils";
+import { INewItem } from "../../screen/NewScreen";
 interface MostViewPros {
   newDetail: INewItem;
 }

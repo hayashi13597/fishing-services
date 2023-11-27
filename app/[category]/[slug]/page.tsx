@@ -5,6 +5,7 @@ import ProductDetail from "../../../components/productdetail";
 import { DOMAIN_HOST } from "../../../utils";
 import { listIconsSeo } from "../../../constants";
 import { IProduct } from "../../../components/home/ProductContainer";
+export const revalidate = 3600;
 interface ParamsBlog {
   params: { category: string; slug: string };
 }

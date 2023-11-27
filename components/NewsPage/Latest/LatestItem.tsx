@@ -2,9 +2,10 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { INewItem } from "../../../app/tin-tuc/page";
+
 import { HandleTimeDiff, formatDate } from "../../../utils";
 import Link from "next/link";
+import { INewItem } from "../../screen/NewScreen";
 interface LatestItemProps {
   newItem: INewItem;
 }

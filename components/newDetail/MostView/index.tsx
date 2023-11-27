@@ -1,6 +1,6 @@
 import React from "react";
 import MostViewItem from "./MostViewItem";
-import { INewItem } from "../../../app/tin-tuc/page";
+import { INewItem } from "../../screen/NewScreen";
 interface MostViewPros {
   ListNews: INewItem[];
 }

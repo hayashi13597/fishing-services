@@ -1,5 +1,4 @@
 import React from "react";
-import NewItem from "../../news/NewItem";
 import HeaderTitle from "../../HeaderTitle";
 import PopularItem, {
   IPopularItemProps,

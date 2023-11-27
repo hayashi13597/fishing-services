@@ -4,10 +4,11 @@ import MostView from "../../../components/newDetail/MostView";
 import NewContent from "../../../components/newDetail/NewContent";
 import { DOMAIN_HOST } from "../../../utils";
 import EventApi from "../../../services/api-client/events";
-import { INewItem } from "../page";
+
 import { listIconsSeo } from "../../../constants";
 import { notFound } from "next/navigation";
-const revalidate = 3600;
+import { INewItem } from "../../../components/screen/NewScreen";
+export const revalidate = 3600;
 interface ParamsBlog {
   params: { slug: string };
 }

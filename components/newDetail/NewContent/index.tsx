@@ -3,8 +3,9 @@ import React from "react";
 import { BiArrowBack } from "react-icons/bi";
 import ShareSocial from "../../ShareSocial";
 import { useRouter } from "next/navigation";
-import { INewItem } from "../../../app/tin-tuc/page";
+
 import { formatDateTime } from "../../../utils";
+import { INewItem } from "../../screen/NewScreen";
 
 interface NewContentPros {
   newDetail: INewItem;

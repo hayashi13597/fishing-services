@@ -3,7 +3,8 @@ import Link from "next/link";
 import React from "react";
 import news from "../../../mock/news_events.json";
 import { formatDateTime } from "../../../utils";
-import { INewItem } from "../../../app/tin-tuc/page";
+import { INewItem } from "../../screen/NewScreen";
+
 interface NewsProps {
   listNews: INewItem[];
 }

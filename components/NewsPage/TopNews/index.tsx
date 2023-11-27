@@ -2,9 +2,10 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 import NewItem from "./NewItem";
-import { INewItem } from "../../../app/tin-tuc/page";
+
 import { formatDate } from "../../../utils";
 import Link from "next/link";
+import { INewItem } from "../../screen/NewScreen";
 interface TopNewsProps {
   itemHost: INewItem;
   listSubItem: INewItem[];
