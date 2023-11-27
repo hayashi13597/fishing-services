@@ -28,7 +28,7 @@ const News = ({ listNews = [] }: NewsProps) => {
             className="relative group border rounded-md overflow-hidden hover:shadow-2xl transition-all duration-300"
             key={newItem.id}
           >
-            <Link href={`/`}>
+            <Link href={`/tin-tuc/${newItem.slug}`}>
               <Image
                 src={newItem.imageUrl}
                 alt={newItem.title}

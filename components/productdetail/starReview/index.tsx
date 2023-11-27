@@ -23,7 +23,7 @@ const StarReview = ({
           className="bg-primary rounded-full"
         ></div>
       </div>
-      <div className="text-base text-second">
+      <div className="text-base text-primary">
         <span className="font-semibold ">{percent}%</span> | {totalReview}{" "}
         <span>đánh giá</span>
       </div>

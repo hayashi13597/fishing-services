@@ -49,13 +49,15 @@ const ProductDetail = ({
       <Support />
 
       <div>
-        {listProductSame.length && (
+        {listProductSame.length ? (
           <ProductContainer
             isShowBtn={true}
             title="Sản phẩm tương tự"
             link="/san-pham"
             listProducts={listProductSame}
           />
+        ) : (
+          ""
         )}
       </div>
       <DidiveSpace coefficient={8} />
