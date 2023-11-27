@@ -54,7 +54,7 @@ const News = ({ listNews = [] }: NewsProps) => {
                     }}
                   >
                     <Image
-                      src={newItem.User.avatar}
+                      src={newItem.User?.avatar || "/assets/avatar.png"}
                       alt="user image"
                       fill
                       className="w-full object-cover"
