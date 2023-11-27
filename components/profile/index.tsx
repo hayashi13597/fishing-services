@@ -10,7 +10,7 @@ import {
   BiUser,
 } from "react-icons/bi";
 import { BsCamera } from "react-icons/bs";
-import { FaRegListAlt } from "react-icons/fa";
+import { FaRegListAlt, FaStar } from "react-icons/fa";
 import ProfileAccount from "./infoaccount";
 import "../modal/modal.scss";
 import { cn } from "react-swisskit";
@@ -24,10 +24,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { updateAccount } from "../../redux/user";
 import ModalStatus from "../modal/ModalStatus";
+import Reviews from "./Reviews";
 
 const ProfilePage = () => {
   const [tabs, SetTab] = useState<
-    "don-mua" | "account" | "doi-mat-khau" | "thong-bao"
+    "don-mua" | "account" | "doi-mat-khau" | "thong-bao" | "danh-gia"
   >("thong-bao");
   const [imageUpload, setImageUpload] = useState("");
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -235,6 +236,15 @@ const ProfilePage = () => {
               <FaRegListAlt /> <span>Lịch sử mua hàng</span>
             </div>
             <div
+              onClick={() => SetTab("danh-gia")}
+              className={cn(
+                "flex gap-2 items-center hover:text-primary",
+                tabs == "danh-gia" ? "text-primary" : ""
+              )}
+            >
+              <FaStar /> <span>Đánh giá</span>
+            </div>
+            <div
               onClick={() => SetTab("doi-mat-khau")}
               className={cn(
                 "flex gap-2 items-center hover:text-primary",
@@ -254,7 +264,12 @@ const ProfilePage = () => {
             </div>
           </section>
         </div>
-        <div className="basis-2/3 border h-[70vh]">
+        <div
+          className={cn(
+            "basis-2/3 border h-[70vh]",
+            tabs === "danh-gia" ? "bg-white h-[100vh] overflow-auto" : ""
+          )}
+        >
           {tabs == "account" && (
             <ProfileAccount
               id={account.id}
@@ -266,6 +281,7 @@ const ProfilePage = () => {
             />
           )}
           {tabs == "don-mua" && <HistoryPurChase />}
+          {tabs == "danh-gia" && <Reviews />}
           {tabs == "thong-bao" && <NoticeContainer />}
           {tabs == "doi-mat-khau" && <ChangePassword id={account.id} />}
         </div>
