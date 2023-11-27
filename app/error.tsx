@@ -556,7 +556,7 @@ export default function Custom500() {
             </p>
             <div className="flex justify-center items-center">
               <Link
-                className="button_send w-3/4 bg-white text-second border-2 border-primary hover:bg-primary/80 hover:text-white mb-4"
+                className="button_send w-3/4 bg-white text-primary border-2 border-primary hover:bg-primary/80 hover:text-white mb-4"
                 href={"/"}
               >
                 Về Trang chủ

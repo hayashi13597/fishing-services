@@ -2,6 +2,7 @@
 import React from "react";
 import EventBox from "./Event";
 import TitleFormat from "../UI/title";
+import { TimeDiff, isTimeEnd } from "../../../utils";
 
 export const bannerContent = [
   {
@@ -46,6 +47,7 @@ export interface IEventItem {
   content?: string;
 }
 const Event = ({ ListEvent }: { ListEvent?: IEventItem[] }) => {
+  console.log(ListEvent);
   return (
     <div className="flex flex-col w-full xl:max-w-[2100px] my-4 md:my-8 mx-auto">
       {/* <TitleFormat title="Sự kiện mới nhất" link="/san-pham" /> */}
@@ -67,7 +69,11 @@ const Event = ({ ListEvent }: { ListEvent?: IEventItem[] }) => {
               <EventBox
                 title={title}
                 description={description}
-                numberOfDiscountDate={(timeEvent = 10)}
+                numberOfDiscountDate={
+                  Number(TimeDiff(time_end)) <= 0
+                    ? 0
+                    : Number(TimeDiff(time_end))
+                }
                 href={`/tin-tuc/${slug}`}
                 imgSrc={bannerContent[index]?.imgSrc}
                 imgWidth={980}

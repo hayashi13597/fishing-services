@@ -1,6 +1,7 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import type { MenuProps } from "antd";
 import { Button, Dropdown, Input } from "antd";
 import { IoMenu } from "react-icons/io5";
@@ -9,37 +10,27 @@ import AccountMenu from "./account/AccountMenu";
 import { Debounced } from "react-swisskit";
 import SearchComponent from "./home/components/SearchComponent";
 import NavComponent from "./home/components/NavComponent";
+import CateApi from "../services/api-client/cate";
 
 const { Search } = Input;
 
-const items: MenuProps["items"] = [
-  {
-    key: "can-cau",
-    label: (
-      <Link href="/can-cau" className="hover:underline">
-        Cần câu
-      </Link>
-    ),
-  },
-  {
-    key: "moi-cau",
-    label: (
-      <Link className="hover:underline" href="/moi-cau">
-        Mồi câu
-      </Link>
-    ),
-  },
-  {
-    key: "day-cau",
-    label: (
-      <Link className="hover:underline" href="/day-cau">
-        Dây câu
-      </Link>
-    ),
-  },
-];
-
 const HeaderComponent = () => {
+  const [listCateGory, setListCategory] = useState([]);
+
+  useEffect(() => {
+    CateApi.GetAllCate().then((res: any) => {
+      setListCategory(() => res.data.categories);
+    });
+  }, []);
+  const items: MenuProps["items"] = listCateGory.map((item) => ({
+    key: item.slug,
+    label: (
+      <Link href="/can-cau" className="hover:underline capitalize">
+        {item.name}
+      </Link>
+    ),
+  }));
+
   return (
     <header className="container mx-auto py-4">
       <div className="flex justify-between items-center flex-wrap">

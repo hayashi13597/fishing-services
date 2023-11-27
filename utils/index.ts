@@ -71,6 +71,12 @@ export function HandleTimeDiff(timestamp: any, timeEnd = "") {
 }
 
 export const DOMAIN_HOST = process.env.DOMAIN_HOST;
+export function isTimeEnd(timecreate) {
+  return new Date(timecreate).getTime() - new Date(Date.now()).getTime() > 0;
+}
+export function TimeDiff(timecreate) {
+  return new Date(timecreate).getTime() - new Date(Date.now()).getTime();
+}
 export const handleOpenNewWindown = (link: string, name: string) => {
   if (!link) return;
   const url = `https://www.facebook.com/sharer/sharer.php?u=${`${DOMAIN_HOST}+${link}`}&hashtag=${name},ocdaokyda,caucalanhthuong`;

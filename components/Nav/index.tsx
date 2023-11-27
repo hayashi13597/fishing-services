@@ -14,16 +14,16 @@ const Nav = () => {
   const [isOpenDropMenu, setIsOpenDropMenu] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [listCateGory, setListCategory] = useState([]);
-  const handleClose = () => {
-    setIsOpenMenu(() => false);
-    setIsOpenDropMenu(() => false);
-  };
+
   useEffect(() => {
     CateApi.GetAllCate().then((res: any) => {
       setListCategory(() => res.data.categories);
     });
   }, []);
-
+  const handleClose = () => {
+    setIsOpenMenu(() => false);
+    setIsOpenDropMenu(() => false);
+  };
   useEffect(() => {
     handleClose();
   }, [currentPage]);

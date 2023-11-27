@@ -19,7 +19,7 @@ const NoticeItem = (props: NoticeItem) => {
           {props.link ? (
             <Link
               className="block cursor-pointer hover:text-primary"
-              href={"/" + props.link}
+              href={`/${props.link}`}
             >
               {props.title}
             </Link>

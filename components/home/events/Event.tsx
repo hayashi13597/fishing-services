@@ -27,6 +27,7 @@ const EventBox: React.FC<Props> = ({
   href,
 }) => {
   const isDesktop = useMediaQuery({ query: "(min-width:200px)" });
+
   let imageWidth = isDesktop ? 1300 : imgWidth;
   return (
     <div className="col-span-6  lg:col-span-6 flex text-white/80  justify-center  shadow-2xl relative rounded-lg overflow-hidden dark:bg-gray-500/70 !dark:bg-blend-multiply">
@@ -58,7 +59,9 @@ const EventBox: React.FC<Props> = ({
       >
         {buttonText}
       </Link>
-      <DiscountFlipCountdown targetDate={numberOfDiscountDate} />
+      {numberOfDiscountDate > 0 && (
+        <DiscountFlipCountdown targetDate={numberOfDiscountDate} />
+      )}
     </div>
   );
 };
