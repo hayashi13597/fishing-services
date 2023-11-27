@@ -6,13 +6,15 @@ const CateApi = {
     console.log("cate get all");
     return apiClient.get(this.path);
   },
-  GetOneCate(slug: string, limit = 12, skip = 0) {
-    return apiClient.post(this.path + slug, {
+  async GetOneCate(slug: string, limit = 12, skip = 0) {
+    const res = await apiClient.post(this.path + slug, {
       params: {
         limit,
         skip,
       },
     });
+    const data = await res.data;
+    return data;
   },
   async GetOneCateSeo(slug: string) {
     const res = await apiClient.post(this.path + "seo/" + slug);

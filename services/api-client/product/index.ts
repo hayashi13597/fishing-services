@@ -1,11 +1,8 @@
-import axios from "axios";
 import apiClient from "..";
 
 const ProductsApi = {
   path: "/product/",
-  search(searchValue: String) {
-    return apiClient.post(this.path + "search", { text: searchValue });
-  },
+
   getAll() {
     return apiClient.get(this.path + "admin");
   },
@@ -22,6 +19,13 @@ const ProductsApi = {
   },
   GetCategory() {
     return apiClient.get("/cate");
+  },
+  search(search: string) {
+    return apiClient.post(this.path + "search", {
+      data: {
+        search: search,
+      },
+    });
   },
 };
 

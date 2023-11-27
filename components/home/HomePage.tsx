@@ -27,7 +27,7 @@ const HomePage = () => {
       }
     });
   }, []);
-  console.log("listDataHome", listDataHome);
+
   return (
     <>
       <Banner />

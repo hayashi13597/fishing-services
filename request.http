@@ -1,33 +1,34 @@
 
-@domain= http://localhost:5000
+@domain= https://fishing-service-server-production.up.railway.app
+
+###  lấy tất cả tài khoảng
+GET {{domain}}/user
+Content-Type: application/json
+###  lấy thong tin cho trang dashboard
+GET {{domain}}/user/dashboard
+Content-Type: application/json
+
+
 ###  Đăng ký tài khoản mới
 POST {{domain}}/user/register
 Content-Type: application/json
 
 {
-"data":{
-  "fullname":"admin",
-  "email":"namanhthao59@gmail.com",
-  "password":"122112122121"
+ "data":{
+"fullname":"Quản trị viên",
+"email":"admin@gmail.com",
+"password":"123456"
+  }
 }
- 
-}
-/*==> trả về 
- {
-    data:"" || [] || {},
-    statusCode:200,
-    message:"",
- }
- 
-*/
+
 ###  Đăng nhập
 POST {{domain}}/user/login
 Content-Type: application/json
 
 {
 "data":{
-    "username":"admin",
-    "password":"122112122121"
+    "email":"admin@gmail.com",
+    "password":"123456"
 }
 }
 
@@ -37,6 +38,7 @@ Content-Type: application/json
 
 {
 "data":{
+
     "uid":"dsadsda",
     "avatar":"http://image.sdasda",
     "email":"namph2102@gmail.com",//Facebook ko có email
@@ -103,6 +105,21 @@ Content-Type: application/json
 
 // coi trên link :https://dbdiagram.io/d/65462d377d8bbd646579a7d0;
 // limk website: https://fishing-services.vercel.app/
+
+
+###  danh sách Đơn hàng mua hàng
+GET {{domain}}/order?limit=5&skip=0
+
+
+###  Đơn hàng mua hàng
+POST {{domain}}/order
+Content-Type: application/json
+
+{
+   "data":{
+      "order_id":1
+   }
+}
 ###  Đơn hàng mua hàng
 POST {{domain}}/order
 Content-Type: application/json
@@ -166,17 +183,21 @@ Content-Type: application/json
 
 // khi anh click vào chi tiết đơn hàng thì em trả cho anh đơn hàng chi tiet
 
-
-POST {{domain}}/orderdetail
+###
+POST {{domain}}/order
 Content-Type: application/json
 
 {
-    "order_detail":"string" //id đơn hnang2 chi tiết
+    "data":{
+      "order_id":"5"
+    } 
 }
 
 
 # server trả về mảng sản phẩm có trong order đó khi xem sản phẩm chi tiết
-
+###
+POST {{domain}}/order
+Content-Type: application/json
 {
     "data":
    [
@@ -192,5 +213,278 @@ Content-Type: application/json
     ]
 }
 ###
-DELETE {{domain}}/user/3
+DELETE {{domain}}/user/1
 Content-Type: application/json
+
+
+
+//------------------------------------------------ Danh mục--------------------------------------------------------------
+
+
+
+### Lấy tất cả danh much
+GET {{domain}}/cate/
+
+### Lấy 1 danh much
+GET {{domain}}/cate/3
+
+
+### Lấy 1 danh much theo slug
+POST {{domain}}/cate/can-cau
+
+### Lấy 1 danh much theo slug
+POST {{domain}}/cate/seo/do-uong
+
+
+### Tạo danh mục
+POST {{domain}}/cate
+Content-Type: application/json
+
+{
+   "data":  {
+    "user_id": "2",
+    "name": "Phạm hoài nam",
+    "description": "oke quá oke",
+    "imageUrl": "",
+    "idPath": "222"
+   }
+}
+### Chỉnh sửa danh mục sửa các trường theo bảng dbdram là dc id bắt buoc
+PUT {{domain}}/cate
+Content-Type: application/json
+
+{
+   "data":  {
+    "id": "1",
+    "name": "Phạm hoài nam 2",
+    "description": "oke quá oke 1"
+   }
+}
+
+### Xóa danh much5
+DELETE  {{domain}}/cate/1
+
+
+//------------------------------------------------ Sản phẩm---------------------------------------------------------------
+
+
+### Lấy tất cả sản phẩm
+GET {{domain}}/product/admin
+### Lấy tất slug
+GET {{domain}}/product/allslug
+### Lấy tất cả sản phẩm
+
+### tìm kiếm sản phẩm
+POST {{domain}}/product/search
+Content-Type: application/json
+
+{
+   "data":{
+      "search":"can"
+   }
+}
+### Lấy tất cả sản phẩm
+
+GET {{domain}}/product/home
+
+###
+GET {{domain}}/product/bia-ha-noi
+### Lấy 1 sản phẩm
+
+GET {{domain}}/product/seo/can-cau-nam-my
+### Lấy 1 sản phẩm
+
+POST {{domain}}/product/updatesubimage
+Content-Type: application/json
+
+{
+  "data":{
+    "id":"6",
+    "idPath":"krkqf4rcsnqs2lohjnqx"
+  }
+}
+###
+POST {{domain}}/product
+Content-Type: application/json
+### Tạo  sản phẩm
+POST {{domain}}/product
+Content-Type: application/json
+
+{
+   "data":  {
+     "category_id":"3",
+     "user_id":"2",
+     "idPath":"san-pham",
+     "price":35000,
+     "name":"Quần Jean",
+     "imageUrl":"/asdsada/dsadsa/saddsa",
+      "listSubimages":"[]",
+     "description":"Quần ngon lám",
+     "selloff":"0",
+     "cotnent":"saddsa",
+   }
+}
+### Chỉnh sửa  sản phẩm
+PUT {{domain}}/product
+Content-Type: application/json
+
+{
+   "data":  {
+    "id": 2,
+    "description": "oke quá oke 1"
+   }
+}
+
+### Xóa  sản phẩm
+DELETE  {{domain}}/product/1
+
+//------------------------------------------------Mã giảm giá---------------------------------------------------------------
+
+
+###
+GET  {{domain}}/discount?limit=5&skip=0
+###//thêm
+POST  {{domain}}/discount
+Content-Type: application/json
+
+{
+   "data":  {
+    "value": 10,
+    "user_id": 1,
+    "expirydate":""
+   }
+}
+###
+DELETE   {{domain}}/discount/12
+
+### chỉnh sửa trang thái mã giảm giá
+PUT  {{domain}}/discount
+Content-Type: application/json
+
+{
+   "data":  {
+    "id":"15",
+    "value": "126"
+   }
+}
+
+### KIỆM TRA MÃ
+POST   {{domain}}/discount/verify
+Content-Type: application/json
+
+{
+   "data":  {
+    "code": "EMun7k"
+
+   }
+}
+
+
+
+//------------------------------------------------ order ---------------------------------------------------------------### KIỆM TRA MÃ
+###
+GET   {{domain}}/order/3
+Content-Type: application/json
+
+
+//------------------------------------------------ Event ---------------------------------------------------------------
+
+### Lấy tất cả Sự kiện
+GET {{domain}}/event
+
+### lấy cho trang home
+POST {{domain}}/event/new
+
+### lấy tat ca slug
+POST {{domain}}/event/slug 
+
+### Lấy 1 Sự kiện
+
+GET {{domain}}/event/thuong-o-to-xin
+### Tạo danh mục
+
+POST {{domain}}/event
+Content-Type: application/json
+
+{
+   "data":  {
+    "user_id": 1,
+    "title": "Sự kiện khui",
+    "description": "Cày thâu đêm cùng Dự án đã làm toang quá",
+    "imageUrl": "/assets/user-avt.png",
+    "content": "d sad sad asd sad sa dsa dsa dsa dsa",
+    "idPath":"dsadsadsa",
+    "isEvent":true  
+   
+   }
+}
+### Chỉnh sửa danh mục sửa các trường theo bảng dbdram là dc id bắt buoc
+PUT {{domain}}/event
+Content-Type: application/json
+
+{
+   "data":  {
+    "id": "1",
+    "user_id": "Phạm hoài nam 2"
+  
+   }
+}
+
+### Xóa danh much5
+DELETE  {{domain}}/cate/1
+
+
+# ---------------------------------------- Liện hệ------------------------------------------### 
+
+
+### lấy phân trang
+GET {{domain}}/contact?limit=2&skip=0
+
+
+### Tạo nới
+POST {{domain}}/contact?limit=2&skip=5
+Content-Type: application/json
+
+{
+   "data":{
+      "fullname":"Phạm hoài nam",
+      "email":"namanhthao59@gmail.com",
+      "content":"Phạm hoài nam liên bạn mua câu",
+      "phone":"0325024277"
+
+   }
+}
+
+### Xóa
+DELETE  {{domain}}/contact/2
+
+
+# ---------------------------------------- thong bao------------------------------------------### 
+
+### lấy hết
+GET {{domain}}/notice?id=2&limit=2&skip=5
+
+
+
+# ---------------------------------------- đánh giá ------------------------------------------### 
+
+### lấy hết
+GET {{domain}}/review?id=2&limit=2&skip=5
+###
+GET {{domain}}/review/3
+### Thêm mới
+POST {{domain}}/review
+Content-Type: application/json
+
+{
+   "data":{
+      "star":2,
+      "user_id":2,
+      "product_id":3,
+      "content" : "Sản phâm tuyệt vời quá",
+      "listImage" : ""
+   }
+}
+
+### lxóa reviewDELETE  {{domain}}/review/1
+

@@ -17,7 +17,7 @@ const News = ({ listNews = [] }: NewsProps) => {
           Xem thêm tin tức
           <Link
             href={"/tin-tuc"}
-            className="underline text-text md:text-text/80 text-base hover:text-primary transition-all font-medium"
+            className="underline text-text md:text-text/80 text-base hover:text-primary transition-all font-medium pl-1"
           >
             tại đây
           </Link>

@@ -68,7 +68,7 @@ const ProductCart = ({
           {isShow && (
             <section className="flex  gap-4 relative z-[0] mt-2">
               <div className="cursor-pointer flex sm:flex-row flex-col sm:items-start  items-center ">
-                <span className="text-second underline mr-1 inline-block ">
+                <span className="text-primary underline mr-1 inline-block ">
                   {product.stars}
                 </span>
                 <ConfigProvider
@@ -111,7 +111,7 @@ const ProductCart = ({
                 <div className=" text-primary font-semibold text-xl">
                   {formatMoney(product.price)}
                 </div>
-                <div className="discount bg-second">
+                <div className="discount bg-primary">
                   {product.sale_off}% giảm
                 </div>
               </div>
@@ -137,7 +137,7 @@ const ProductCart = ({
         )}
         <DescriptionItem des={product.content} />
         <div>
-          <ShareSocial link={`/${product.Category.slug}/${product.slug}`} />
+          <ShareSocial link={`${product.Category.slug}/${product.slug}`} />
         </div>
       </div>
     </div>

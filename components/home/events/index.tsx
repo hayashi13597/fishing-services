@@ -47,13 +47,12 @@ export interface IEventItem {
   content?: string;
 }
 const Event = ({ ListEvent }: { ListEvent?: IEventItem[] }) => {
-  console.log(ListEvent);
   return (
     <div className="flex flex-col w-full xl:max-w-[2100px] my-4 md:my-8 mx-auto">
       {/* <TitleFormat title="Sự kiện mới nhất" link="/san-pham" /> */}
       <h1 className="text-text/80 text-4xl mb-5">Sự kiện mới nhất</h1>
       <div className="grid gap-4 grid-cols-6 lg:grid-cols-12">
-        {ListEvent?.slice(0, 2).map(
+        {ListEvent.map(
           (
             {
               title,
@@ -72,7 +71,9 @@ const Event = ({ ListEvent }: { ListEvent?: IEventItem[] }) => {
                 numberOfDiscountDate={
                   Number(TimeDiff(time_end)) <= 0
                     ? 0
-                    : Number(TimeDiff(time_end))
+                    : Math.floor(
+                        new Date(TimeDiff(ListEvent[0].time_end)).getDate()
+                      )
                 }
                 href={`/tin-tuc/${slug}`}
                 imgSrc={bannerContent[index]?.imgSrc}

@@ -2,8 +2,6 @@
 import React from "react";
 import "./style/globals.css";
 
-import Header from "../components/Header";
-
 import Script from "next/script";
 import SupportAttachRight from "../components/supports";
 import { ToastContainer } from "react-toastify";

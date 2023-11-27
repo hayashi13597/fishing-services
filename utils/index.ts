@@ -77,9 +77,9 @@ export function isTimeEnd(timecreate) {
 export function TimeDiff(timecreate) {
   return new Date(timecreate).getTime() - new Date(Date.now()).getTime();
 }
-export const handleOpenNewWindown = (link: string, name: string) => {
+export const handleOpenNewWindown = (link: string, name?: string) => {
   if (!link) return;
-  const url = `https://www.facebook.com/sharer/sharer.php?u=${`${DOMAIN_HOST}+${link}`}&hashtag=${name},ocdaokyda,caucalanhthuong`;
+  const url = `https://www.facebook.com/sharer/sharer.php?u=${`${DOMAIN_HOST}/${link}`}&hashtag=ocdaokyda,caucalanhthuong`;
   const windowName = `Chia sẻ ${name}`;
   const windowFeatures = "width=800,height=600";
   window.open(url, windowName, windowFeatures);

@@ -19,7 +19,7 @@ const MainProduct = ({ title, listProduct = [] }: mainProductType) => {
 
   const handleShare = (product: IProduct) => {
     const { name, slug, Category } = product;
-    handleOpenNewWindown(`/${Category.slug}/${slug}`, name);
+    handleOpenNewWindown(`${Category.slug}/${slug}`, name);
   };
   const HandleView = (product: IProduct) => {
     dispatch(openViewDetail({ productDetail: product }));

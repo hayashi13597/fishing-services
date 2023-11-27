@@ -1,17 +1,28 @@
-import React, { useRef, useState } from "react";
+"use client";
+import React, { useEffect, useRef, useState } from "react";
 import { IoMenu } from "react-icons/io5";
 import { Debounced } from "react-swisskit";
 import SearchItem from "./SearchItem";
 import { Drawer } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import CateApi from "../../../services/api-client/cate";
+import { IProduct } from "../ProductContainer";
+import ProductsApi from "../../../services/api-client/product";
 
 const SearchComponent = () => {
   const searchRef = useRef<HTMLInputElement>(null);
   const [showResults, setShowResults] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
-
+  const [listCateGory, setListCategory] = useState([]);
+  const [search, setSearch] = useState("");
+  const [ListProduct, setListProduct] = useState<IProduct[]>([]);
+  useEffect(() => {
+    CateApi.GetAllCate().then((res: any) => {
+      setListCategory(() => res.data.categories);
+    });
+  }, []);
   const showDrawer = () => {
     setOpen(true);
   };
@@ -25,6 +36,11 @@ const SearchComponent = () => {
     if (searchRef.current) {
       const valueSearch = searchRef.current.value;
       console.log("valueSearch", valueSearch);
+
+      ProductsApi.search(valueSearch).then((res) => {
+        setListProduct(() => res.data.products);
+        setSearch(() => valueSearch);
+      });
       if (valueSearch) setShowResults(true);
       else setShowResults(false);
     }
@@ -44,30 +60,16 @@ const SearchComponent = () => {
         height={400}
       >
         <ul>
-          <li className="mb-3">
-            <Link
-              href={`/`}
-              className="text-2xl hover:underline hover:text-primary"
-            >
-              Cần câu
-            </Link>
-          </li>
-          <li className="mb-3">
-            <Link
-              href={`/`}
-              className="text-2xl hover:underline hover:text-primary"
-            >
-              Mồi câu
-            </Link>
-          </li>
-          <li className="mb-3">
-            <Link
-              href={`/`}
-              className="text-2xl hover:underline hover:text-primary"
-            >
-              Dây cước
-            </Link>
-          </li>
+          {listCateGory.map((category) => (
+            <li className="mb-3" key={`cate-mobile-${category.slug}`}>
+              <Link
+                href={`/${category.slug}`}
+                className="text-2xl hover:underline hover:text-primary capitalize"
+              >
+                {category.title}
+              </Link>
+            </li>
+          ))}
         </ul>
       </Drawer>
       <div className="w-full relative">
@@ -86,15 +88,14 @@ const SearchComponent = () => {
             showResults ? "origin-top scale-y-100" : "origin-top scale-y-0"
           } transition-all duration-300`}
         >
-          <SearchItem />
-          <SearchItem />
-          <SearchItem />
-          <SearchItem />
+          {ListProduct.map((product) => (
+            <SearchItem key={`tim-kiem-${product.id}`} product={product} />
+          ))}
           <Link
-            href={`/tim-kiem`}
+            href={`/tim-kiem?q=${search}`}
             className="bg-white block text-sm text-center py-3 text-primary"
           >
-            Xem thêm 52 sản phẩm
+            Xem thêm {ListProduct.length} sản phẩm
           </Link>
         </div>
       </div>
@@ -105,7 +106,7 @@ const SearchComponent = () => {
           setShowResults(false);
           searchRef.current.value = "";
           // router.push(`/tim-kiem/${searchRef.current.value}`);
-          router.push(`/tim-kiem`);
+          router.push(`/tim-kiem?q=${search}`);
         }}
       >
         Tìm kiếm

@@ -4,6 +4,9 @@ import CateGoryScreen from "../../components/screen/CateGoryScreen";
 import { listIconsSeo } from "../../constants";
 import CateApi from "../../services/api-client/cate";
 import { DOMAIN_HOST } from "../../utils";
+import Breadcrumb from "../../components/Breadcrumb";
+import ProductScreen from "../../components/screen/ProductScreen";
+
 export const revalidate = 3600;
 interface ISlugCateProduct {
   slug: string;
@@ -67,11 +70,21 @@ export async function generateStaticParams() {
 }
 
 const page: FC<ParamsBlog> = async ({ params }) => {
-  const { category, slug } = params;
+  const { category } = params;
+  const res = await CateApi.GetOneCate(category, 8, 0);
+  const structurePage = {
+    page: `${res.category.name}`,
+    link: `${res.category.slug}`,
+    last: true,
+  };
 
   return (
     <div className="container mx-auto  md:py-4  py-5 min-h-screen">
-      <CateGoryScreen category={category} />
+      <Breadcrumb structurePage={[structurePage]} title={structurePage.page} />
+      <ProductScreen
+        total={res.total}
+        listProductDefault={res.listProducts || []}
+      />
     </div>
   );
 };
