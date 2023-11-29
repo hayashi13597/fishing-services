@@ -85,7 +85,7 @@ const SearchProduct = ({ product }: ISearchProduct) => {
       </div>
       <button
         onClick={AddProductIntoCart}
-        className="w-full mt-2 px-3 py-1 border-text border-2 rounded-full hover:bg-primary hover:text-white hover:border-primary transition-all duration-300"
+        className="w-full mt-2 px-3 py-1 border-primary border-2 rounded-full hover:bg-primary hover:text-white transition-all duration-300"
       >
         Thêm giỏ hàng
       </button>

@@ -3,17 +3,20 @@ import React from "react";
 import { HandleTimeDiff, formatDate } from "../../../utils";
 import Link from "next/link";
 import { INewItem } from "../../screen/NewScreen";
+import Image from "next/image";
 interface NewItemPros {
   newdetail: INewItem;
 }
 const NewItem = ({ newdetail }: NewItemPros) => {
   return (
     <Link
-      className="w-full  md:h-[calc(25%-0.5rem)] flex gap-3 bg-[#ffff] cursor-pointer transition-all hover:brightness-95 rounded-lg overflow-hidden"
+      className="w-full md:h-[calc(25%-0.5rem)] flex gap-3 bg-[#ffff] cursor-pointer transition-all hover:brightness-95 rounded-lg overflow-hidden"
       href={`/tin-tuc/${newdetail.slug}`}
     >
-      <img
+      <Image
         src={newdetail.imageUrl}
+        width={200}
+        height={200}
         alt="new item"
         className="w-1/3 md:w-full h-full object-cover"
       />

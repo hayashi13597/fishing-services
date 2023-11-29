@@ -10,9 +10,9 @@ import NewScreen from "../../components/screen/NewScreen";
 
 const page = () => {
   return (
-    <div>
+    <>
       <NewScreen />
-    </div>
+    </>
   );
 };
 

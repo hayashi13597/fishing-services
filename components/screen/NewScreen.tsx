@@ -9,7 +9,7 @@ import { structurePageType } from "../../common.types";
 import PopularContainer from "../../components/NewsPage/Popular";
 
 const structurePage: structurePageType[] = [
-  { page: "Tin tức", link: "/tin-tuc", last: true },
+  { page: "Tin tức - Sự kiện", link: "/tin-tuc", last: true },
 ];
 
 export interface INewItem {
@@ -50,9 +50,9 @@ const NewScreen = () => {
       });
   }, []);
   return (
-    <div className="bg-white">
+    <div className="">
       <div className="container mx-auto pb-10">
-        <Breadcrumb structurePage={structurePage} title="Tin tức " />
+        <Breadcrumb structurePage={structurePage} title="Tin tức - Sự kiện" />
 
         {ListContentNew.listTopNews.length > 0 && (
           <TopNews

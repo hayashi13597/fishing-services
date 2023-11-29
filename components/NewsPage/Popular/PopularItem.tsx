@@ -5,23 +5,21 @@ import { HandleTimeDiff, formatQuantity } from "../../../utils";
 
 import Link from "next/link";
 import { INewItem } from "../../screen/NewScreen";
+import Image from "next/image";
 export interface IPopularItemProps extends INewItem {}
 const PopularItem = (props: IPopularItemProps) => {
   return (
-    <Link
-      href={`/tin-tuc/${props.slug}`}
-      className="cursor-pointer bg-[#ffff] border hover:brightness-95 transition-all rounded-lg overflow-hidden"
-    >
-      <img
-        loading="lazy"
-        height={300}
-        className="object-cover"
+    <div className="cursor-pointer bg-[#ffff] border hover:brightness-95 transition-all rounded-lg overflow-hidden flex flex-col justify-between">
+      <Image
         src={props.imageUrl}
         alt={props.title}
+        height={500}
+        width={500}
+        className="w-full h-1/2 object-cover"
       />
       <Link
         href={`/tin-tuc/${props.slug}`}
-        className="mt-2 line-clamp-1  block mb-2 font-semibold hover:text-primary transition-all px-2 text-justify tracking-tighter capitalize h-[20px]"
+        className="mt-2 block mb-2 font-semibold hover:text-primary transition-all px-2 text-justify tracking-tighter !line-clamp-2"
       >
         {props.title}
       </Link>
@@ -32,7 +30,7 @@ const PopularItem = (props: IPopularItemProps) => {
         {formatQuantity(props.views)} lượt đọc -
         {HandleTimeDiff(props.updatedAt)}
       </p>
-    </Link>
+    </div>
   );
 };
 

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { cn } from "react-swisskit";
-import DidiveSpace from "../../DidiveSpace";
+import DidiveSpace from "../../../DidiveSpace";
 interface DescriptionItemProps {
   des: string;
 }

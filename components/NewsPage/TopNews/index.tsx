@@ -6,6 +6,7 @@ import NewItem from "./NewItem";
 import { formatDate } from "../../../utils";
 import Link from "next/link";
 import { INewItem } from "../../screen/NewScreen";
+import Image from "next/image";
 interface TopNewsProps {
   itemHost: INewItem;
   listSubItem: INewItem[];
@@ -19,10 +20,12 @@ const TopNews = ({ itemHost, listSubItem }: TopNewsProps) => {
         className="w-full md:w-3/5 relative cursor-pointer transition-all hover:brightness-90 mb-5 md:mb-0 rounded-lg overflow-hidden"
         href={`/tin-tuc/${itemHost.slug}`}
       >
-        <img
+        <Image
           src={itemHost.imageUrl}
+          width={500}
+          height={500}
           alt="news"
-          className="w-full h-full object-cover"
+          className="w-full object-cover"
         />
         <div className="absolute bottom-0 left-0 right-0 top-1/2 md:top-2/3 bg_hsla p-3">
           <div className="flex gap-4 opacity-80 mb-1 text-sm md:text-base">

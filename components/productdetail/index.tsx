@@ -6,7 +6,7 @@ import { structurePageType } from "../../common.types";
 import Support from "../home/Support";
 import ProductCart from "./ProductCart";
 import DidiveSpace from "../DidiveSpace";
-import FooterProductDetail from "./review";
+import FooterProductDetail from "./ProductCart/review";
 import StarReview from "./starReview";
 import ProductContainer, { IProduct } from "../home/ProductContainer";
 
@@ -33,7 +33,7 @@ const ProductDetail = ({
       <DidiveSpace coefficient={8} />
       <FooterProductDetail />
       <DidiveSpace coefficient={8} />
-      <div className="flex flex-col mb-1">
+      {/* <div className="flex flex-col mb-1">
         <h2 className="text-center w-full text-2xl   font-medium">
           Đánh giá sản phẩm
         </h2>
@@ -44,9 +44,9 @@ const ProductDetail = ({
           <StarReview average={2} percent={20} totalReview={100} />
           <StarReview average={1} percent={20} totalReview={100} />
         </div>
-      </div>
-      <DidiveSpace coefficient={8} />
-      <Support />
+      </div> */}
+      {/* <DidiveSpace coefficient={8} /> */}
+      {/* <Support /> */}
 
       <div>
         {listProductSame.length ? (

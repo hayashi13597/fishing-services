@@ -3,10 +3,9 @@ import React, { useState } from "react";
 import { ConfigProvider, Rate } from "antd";
 import CartUpdateAmount from "../../cart/cartUpdateAmmount";
 import { useMediaQuery } from "react-responsive";
-import { ProductDetail } from "../../../constants";
 import { formatMoney, formatQuantity } from "../../../utils";
 import ShareSocial from "../../ShareSocial";
-import DescriptionItem from "../review/DesItem";
+import DescriptionItem from "./review/DesItem";
 import ImageZoomOnHover from "../ImageZoomOnHover";
 import ListSubImage from "../ListSubImage";
 import { useDispatch } from "react-redux";
@@ -67,7 +66,7 @@ const ProductCart = ({
         <div>
           {isShow && (
             <section className="flex  gap-4 relative z-[0] mt-2">
-              <div className="cursor-pointer flex sm:flex-row flex-col sm:items-start  items-center ">
+              <div className="cursor-pointer flex sm:flex-row flex-col sm:items-center items-center">
                 <span className="text-primary underline mr-1 inline-block ">
                   {product.stars}
                 </span>
@@ -81,16 +80,20 @@ const ProductCart = ({
                     },
                   }}
                 >
-                  <Rate disabled defaultValue={ProductDetail.product.star} />
+                  <Rate
+                    style={{ color: "#DB4444" }}
+                    disabled
+                    defaultValue={product.stars}
+                  />
                 </ConfigProvider>
               </div>
-              <div className="border-x-[1px] px-4 pb-1 cursor-pointer  flex sm:flex-row flex-col sm:items-start  items-center">
+              <div className="border-x-[1px] px-4 pb-1 cursor-pointer  flex sm:flex-row flex-col sm:items-center items-center">
                 <span className="underline mr-1 ">{formatQuantity(1)}</span>
                 <span className="text-[#767676] capitalize text-sm">
                   Đánh giá
                 </span>
               </div>
-              <div className="flex sm:flex-row flex-col sm:items-start  items-center">
+              <div className="flex sm:flex-row flex-col sm:items-center  items-center">
                 <span className=" mr-1">
                   {formatQuantity(Number(product.sales))}
                 </span>

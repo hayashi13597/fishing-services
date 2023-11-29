@@ -1,7 +1,8 @@
 import { ConfigProvider, Tabs } from "antd";
 import type { TabsProps } from "antd";
-import FacebookComment from "../../supports/FacebookComment";
-import CommentContainer from "../comments";
+import FacebookComment from "../../../supports/FacebookComment";
+import CommentContainer from "../../comments";
+import ReviewProduct from "../../ReviewProduct";
 
 const FooterProductDetail = () => {
   const handleChangeTabs = (key: string) => {
@@ -17,7 +18,7 @@ const FooterProductDetail = () => {
     {
       key: "1",
       label: "Đánh giá",
-      children: <CommentContainer />,
+      children: <ReviewProduct />,
     },
   ];
   return (

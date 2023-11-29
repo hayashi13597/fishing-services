@@ -15,22 +15,22 @@ const LatestItem = ({ newItem }: LatestItemProps) => {
   return (
     <Link
       href={`/tin-tuc/${newItem.slug}`}
-      className="flex justify-between border-2 rounded-lg overflow-hidden bg-[#ffff] gap-5 cursor-pointer hover:brightness-95 transition-all"
+      className="flex justify-between gap-5 border-2 rounded-lg overflow-hidden bg-[#ffff] hover:brightness-95 transition-all"
     >
-      <div className="p-3 w-full">
+      <div className="p-3">
         <div className="flex gap-2 items-center mb-2 w-full">
           <Image
             src={newItem.User.avatar}
             alt={newItem.User.fullname}
-            width={30}
-            height={30}
+            width={20}
+            height={20}
             className="rounded-full"
           />
-          <p className="capitalize">{newItem.User.fullname}</p>
+          <p className="capitalize text-sm">{newItem.User.fullname}</p>
         </div>
         <h3 className=" mb-2">
           <Link
-            className="block text-base md:text-xl font-bold hover:text-primary transition-all"
+            className="block text-base md:text-lg font-bold hover:text-primary transition-all"
             href={`/tin-tuc/${newItem.slug}`}
           >
             {newItem.title}
@@ -44,9 +44,11 @@ const LatestItem = ({ newItem }: LatestItemProps) => {
           <p>{HandleTimeDiff(newItem.updatedAt)}</p>
         </div>
       </div>
-      <img
+      <Image
         src={newItem.imageUrl}
         alt={newItem.title}
+        height={300}
+        width={300}
         className="hidden md:block w-1/4 object-cover"
       />
     </Link>
