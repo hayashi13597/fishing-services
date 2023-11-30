@@ -29,10 +29,10 @@ const NavComponent = () => {
         Giới thiệu
       </Link>
       <Link
-        href="/lien-lac"
+        href="/lien-he"
         className="hover:bg-primary py-2 px-4 hover:text-white rounded-full transition-all"
       >
-        Liên lạc
+        Liên hệ
       </Link>
     </div>
   );
