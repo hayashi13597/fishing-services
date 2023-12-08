@@ -27,7 +27,7 @@ const NoticeContainer = ({
       )}
       <div
         className={cn(
-          "cart__wrapper md:w-[400px] w-full text-text bg-white px-2",
+          "cart__wrapper md:w-[400px] w-full text-text bg-white ",
           isOpenNotice ? "show" : ""
         )}
       >
@@ -40,7 +40,7 @@ const NoticeContainer = ({
             <RiCloseFill />
           </button>
         </section>
-        <section className="h-[70vh]  overflow-y-auto scroll_y">
+        <section className="h-[70vh]  overflow-y-auto scroll_y px-2">
           {listnotices.length > 0 ? (
             listnotices.map((notice) => (
               <NoticeItem key={`notice-${notice.id}`} {...notice} />
@@ -57,7 +57,6 @@ const NoticeContainer = ({
               className="button_send w-3/4"
               onClick={() => setIsOpenNotice(false)}
               href={"/tai-khoan?page=thong-bao"}
-              target="_blank"
             >
               Xem thêm...
             </Link>

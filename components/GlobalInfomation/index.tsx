@@ -27,6 +27,7 @@ const GlobalInfomation = () => {
     CateApi.GetAllCate().then((res) => {
       if (res.data?.categories) {
         const listCate = res.data.categories.map((cate) => ({
+          id: cate.id,
           name: cate.name,
           slug: cate.slug,
           description: cate.description,

@@ -7,7 +7,11 @@ export function formatMoney(price: number) {
   if (isNaN(price)) {
     return price;
   }
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "đ";
+  return (
+    Math.floor(price)
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "đ"
+  );
 }
 export function formatQuantity(quantity: number) {
   if (quantity >= 1_000) return (quantity / 1000).toFixed(1) + "K";

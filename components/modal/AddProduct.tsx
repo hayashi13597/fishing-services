@@ -7,6 +7,8 @@ import "./modal.scss";
 import { RiCloseFill } from "react-icons/ri";
 import { cn } from "react-swisskit";
 import { formatMoney } from "../../utils";
+import { useDispatch } from "react-redux";
+import { closeViewAddToCart } from "../../redux/product";
 
 interface ModalAddProductProps {
   product: {
@@ -19,13 +21,15 @@ interface ModalAddProductProps {
 const ModalAddProduct = ({
   product: { imageUrl = "", name = "", price = 0, slug = "" },
 }: ModalAddProductProps) => {
-  const [isOpenModal, setIsOpenModal] = useState(true);
+  const dispatch = useDispatch();
+  const setIsOpenModal = () => {
+    dispatch(closeViewAddToCart());
+  };
   return (
     <div
-      onClick={() => setIsOpenModal(false)}
+      onClick={setIsOpenModal}
       className={cn(
-        "fixed z-50 inset-0 bg-black/50 flex justify-center items-center",
-        isOpenModal ? "" : "hidden"
+        "fixed z-50 inset-0 bg-black/50 flex justify-center items-center"
       )}
     >
       <div
@@ -33,7 +37,7 @@ const ModalAddProduct = ({
         className="md:w-[450px] w-full px-8  py-4 bg-white rounded-xl relative"
       >
         <button
-          onClick={() => setIsOpenModal(false)}
+          onClick={setIsOpenModal}
           className=" text-black text-3xl hover:text-primary absolute top-2 right-2"
         >
           <RiCloseFill />

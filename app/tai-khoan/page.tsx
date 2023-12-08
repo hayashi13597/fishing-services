@@ -3,7 +3,7 @@ import ProfilePage from "../../components/profile";
 import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Thông tin tài khoản",
-  description: "Thông tin tài khoảng được bảo mật nhé",
+  description: "Thông tin tài khoản được bảo mật nhé",
 };
 
 const page = () => {

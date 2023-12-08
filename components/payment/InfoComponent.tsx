@@ -19,6 +19,9 @@ import OrdertDetailApi from "../../services/api-client/order";
 import { ResetCart } from "../../redux/cart";
 import { LogoutAccount } from "../../redux/user";
 import { AddNewNotice, LogOutNotice } from "../../redux/notices";
+import { Validator } from "react-swisskit";
+import Loading from "../Loading";
+import LoadingContent from "../screen/LoadingContent";
 
 interface provincesI {
   name: string;
@@ -107,7 +110,8 @@ const listShipment = [
   },
 ];
 
-const InfoComponent = ({ setShipment, shipment }: InfoComponentProps) => {
+const InfoComponent = ({ setShipment, shipment = 0 }: InfoComponentProps) => {
+  const [isLoading, setLoading] = useState(false);
   const provinces: { data: provincesI[] } = useFetchSelect("p");
   const districts = useFetchSelect("d");
   const wards = useFetchSelect("w");
@@ -117,6 +121,7 @@ const InfoComponent = ({ setShipment, shipment }: InfoComponentProps) => {
 
   const account = useSelector((state: RootState) => state.user.account);
   const listCart = useSelector((state: RootState) => state.cart.cart);
+  const { value: discountFee } = useSelector((state: RootState) => state.cart);
   const formRef = useRef(null);
   const discount = useSelector((state: RootState) => state.cart.discount);
   const dispatch = useDispatch();
@@ -176,7 +181,7 @@ const InfoComponent = ({ setShipment, shipment }: InfoComponentProps) => {
     }
 
     const fullName = data.get("fullName");
-    const phoneNumber = data.get("phoneNumber");
+    const phoneNumber: any = data.get("phoneNumber") || "";
     const address = data.get("address");
     const province = data.get("province");
     const district = data.get("district");
@@ -184,6 +189,18 @@ const InfoComponent = ({ setShipment, shipment }: InfoComponentProps) => {
     const shipMethod = data.get("shipMethod");
     const paymentMethod = data.get("paymentMethod");
 
+    if (!Validator.isPhone(phoneNumber)) {
+      ToastNotify("Số điện thoại không đúng").error();
+      return;
+    } else if (!account.id) {
+      ToastNotify("Bạn chưa đăng nhập?").error();
+      return;
+    }
+    let total = listCart.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+    total = (discountFee ? (1 - discountFee / 100) * total : total) + shipment;
     const order = {
       fullname: fullName,
       phone: phoneNumber,
@@ -193,6 +210,7 @@ const InfoComponent = ({ setShipment, shipment }: InfoComponentProps) => {
       email: account.email,
       discount_id: discount,
       user_id: account.id,
+      total,
     };
     handleSubmitOrder(order);
   };
@@ -206,9 +224,11 @@ const InfoComponent = ({ setShipment, shipment }: InfoComponentProps) => {
         id: item.id,
         quantity: item.quantity,
         price: item.price,
+        name: item.name,
+        imageUrl: item.imageUrl,
       })),
     };
-
+    setLoading(() => true);
     OrdertDetailApi.post(data)
       .then((res: any) => {
         formRef.current.reset();
@@ -217,8 +237,11 @@ const InfoComponent = ({ setShipment, shipment }: InfoComponentProps) => {
         dispatch(AddNewNotice(res.data.notice));
         setShowMethod("");
       })
-      .catch(({ message }) => {
-        ToastNotify(message).error();
+      .catch((res) => {
+        ToastNotify(res?.message || "Thanh toán thất bại").error();
+      })
+      .finally(() => {
+        setLoading(() => false);
       });
   };
   const handlelogout = () => {
@@ -228,6 +251,13 @@ const InfoComponent = ({ setShipment, shipment }: InfoComponentProps) => {
 
   return (
     <div className="w-full order-2 md:order-1 md:w-1/2">
+      {isLoading ? (
+        <div className="fixed inset-0 z-50 flex justify-center items-center bg-black/80">
+          <LoadingContent />
+        </div>
+      ) : (
+        ""
+      )}
       <Link
         href="/"
         className="font-bold text-4xl text-primary hidden md:block"
@@ -241,7 +271,11 @@ const InfoComponent = ({ setShipment, shipment }: InfoComponentProps) => {
         {/* <AiOutlineUser className="text-5xl bg-gray-400 text-white opacity-80 p-2" /> */}
         <div>
           <div className="text-text opacity-80">
-            {account.fullname || account.email}
+            {account.id ? (
+              <Link href="/tai-khoan">{account.fullname || account.email}</Link>
+            ) : (
+              ""
+            )}
           </div>
           <Link
             href={account.id ? "" : "/dang-nhap"}
@@ -250,6 +284,23 @@ const InfoComponent = ({ setShipment, shipment }: InfoComponentProps) => {
           >
             {account.id ? "Đăng xuất" : "Đăng nhập ngay"}
           </Link>
+          {!account.id ? (
+            <div>
+              <span className="font-semibold">Lưu ý:</span>{" "}
+              <span className=" text-sm">
+                Phải{" "}
+                <Link
+                  href="/dang-nhap"
+                  className="hover:text-blue-600 hover:underline"
+                >
+                  đăng nhập
+                </Link>{" "}
+                để mua hàng
+              </span>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
       {/* <form onSubmit={handleSubmit(handleOnSubmit)}> */}

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { initialData } from "../../constants";
 import { productType } from "../../common.types";
 const initState: productType = {
   id: "",
@@ -23,7 +22,32 @@ const ProductDetail = createSlice({
       },
     },
     isOpenModalDetail: false,
-    productDetail: initState,
+    productDetail: {
+      description: "",
+      name: "",
+      price: "",
+      sales: "",
+      sale_off: "",
+      slug: "",
+      imageUrl: "",
+      view: 0,
+      stars: 5,
+      content: "",
+      visiable: false,
+      listSubimages: "", // DẠNG json nha anh
+      id: "",
+      Category: {
+        id: "",
+        name: "",
+        slug: "",
+      },
+      User: {
+        avatar: "",
+        fullname: "",
+      },
+      createdAt: "",
+      updatedAt: "",
+    },
     isOpenModalAddToCart: false,
     productAddToCart: {
       imageUrl: "",
@@ -41,6 +65,7 @@ const ProductDetail = createSlice({
     closeViewDetail(state) {
       state.isOpenModalDetail = false;
     },
+
     OpenViewAddToCart(state, action) {
       state.productAddToCart = action.payload;
       state.isOpenModalAddToCart = true;
@@ -48,6 +73,7 @@ const ProductDetail = createSlice({
     closeViewAddToCart(state) {
       state.isOpenModalAddToCart = false;
     },
+
     openModalPurchasedHistory(state, action) {
       state.productModalHistoryDetail = action.payload;
       state.isOpenModalPurchasedHistory = true;

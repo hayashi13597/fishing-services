@@ -71,13 +71,13 @@ const Breadcrumb = ({
                     />
                   </svg>
                   {page.last ? (
-                    <span className="ml-1 text-sm font-medium text-gray-500 md:ml-2">
+                    <span className="ml-1 text-sm font-medium text-gray-500 md:ml-2 capitalize">
                       {page.page}
                     </span>
                   ) : (
                     <Link
                       href={page.link}
-                      className="ml-1 text-sm font-medium text-gray-700 hover:text-primary md:ml-2"
+                      className="ml-1 text-sm font-medium text-gray-700 hover:text-primary md:ml-2 capitalize"
                     >
                       {page.page}
                     </Link>
@@ -88,7 +88,7 @@ const Breadcrumb = ({
         </ol>
       </nav>
       {isDisplay && (
-        <h1 className="text-center font-bold text-3xl md:text-5xl mt-5 md:mb-5 text-primary">
+        <h1 className="text-center font-bold text-3xl md:text-5xl mt-5 md:mb-5 text-primary capitalize">
           {titlePage ? titlePage : title}
         </h1>
       )}

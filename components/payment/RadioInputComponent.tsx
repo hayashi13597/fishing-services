@@ -7,7 +7,7 @@ type RadioInputComponentType = {
   name: string;
   label: string;
   isShipMethod?: boolean;
-  setShowMethod: (value:  any ) => void;
+  setShowMethod: (value: any) => void;
 };
 
 const RadioInputComponent = ({
@@ -26,7 +26,7 @@ const RadioInputComponent = ({
         value={value}
         name={name}
         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 accent-primary"
-        onChange={() => setShowMethod(value)}
+        onChange={() => setShowMethod(() => value)}
       />
       <label
         htmlFor={id}

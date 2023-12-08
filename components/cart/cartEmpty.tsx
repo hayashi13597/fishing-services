@@ -5,7 +5,7 @@ import Link from "next/link";
 const CartEmpty = () => {
   return (
     <>
-      <figure className=" my-4 flex justify-center items-center flex-col">
+      <figure className="my-4 flex justify-center items-center flex-col">
         <Image
           width={55}
           height={55}
@@ -20,7 +20,7 @@ const CartEmpty = () => {
       </figure>
 
       <div className="flex justify-center items-center">
-        <Link className="button_send" href={"/dich-vu/can-cau"}>
+        <Link className="button_send" href={"/san-pham"}>
           Mua sắm ngay
         </Link>
       </div>

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+"use client";
+import React, { useEffect, useRef, useState } from "react";
 import type { TableProps } from "antd";
 import { Button, ConfigProvider, Space, Table } from "antd";
 import type {
@@ -7,7 +8,7 @@ import type {
   SorterResult,
 } from "antd/es/table/interface";
 import { formatDate, formatMoney } from "../../../utils";
-import { cn } from "react-swisskit";
+import { Debounced, cn } from "react-swisskit";
 import { useDispatch, useSelector } from "react-redux";
 import { openModalPurchasedHistory } from "../../../redux/product";
 import { initialData } from "../../../constants";
@@ -29,89 +30,6 @@ interface DataType {
   status: number;
 }
 
-const data: DataType[] = [
-  {
-    id: "132655",
-    phone: "087766990",
-    address: "New York No. 1 Lake Park",
-    totalPrice: 380,
-    created_at: " 2023-08-13T02:05:30.934+00:00",
-    status: 1,
-  },
-  {
-    id: "132655",
-    phone: "087766990",
-    address: "New York No. 1 Lake Park",
-    totalPrice: 380,
-    created_at: " 2023-08-13T02:05:30.934+00:00",
-    status: 2,
-  },
-  {
-    id: "132655",
-    phone: "087766990",
-    address: "New York No. 1 Lake Park",
-    totalPrice: 380,
-    created_at: " 2023-08-13T02:05:30.934+00:00",
-    status: 3,
-  },
-  {
-    id: "132655",
-    phone: "087766990",
-    address: "New York No. 1 Lake Park",
-    totalPrice: 380,
-    created_at: " 2023-08-13T02:05:30.934+00:00",
-    status: 4,
-  },
-  {
-    id: "132655",
-    phone: "087766990",
-    address: "New York No. 1 Lake Park",
-    totalPrice: 380,
-    created_at: " 2023-08-13T02:05:30.934+00:00",
-    status: 4,
-  },
-  {
-    id: "132655",
-    phone: "087766990",
-    address: "New York No. 1 Lake Park",
-    totalPrice: 380,
-    created_at: " 2023-08-13T02:05:30.934+00:00",
-    status: 4,
-  },
-  {
-    id: "132655",
-    phone: "087766990",
-    address: "New York No. 1 Lake Park",
-    totalPrice: 380,
-    created_at: " 2023-08-13T02:05:30.934+00:00",
-    status: 4,
-  },
-  {
-    id: "132655",
-    phone: "087766990",
-    address: "New York No. 1 Lake Park",
-    totalPrice: 380,
-    created_at: " 2023-08-13T02:05:30.934+00:00",
-    status: 4,
-  },
-  {
-    id: "132655",
-    phone: "087766990",
-    address: "New York No. 1 Lake Park",
-    totalPrice: 380,
-    created_at: " 2023-08-13T02:05:30.934+00:00",
-    status: 4,
-  },
-  {
-    id: "132655",
-    phone: "087766990",
-    address: "New York No. 1 Lake Park",
-    totalPrice: 380,
-    created_at: " 2023-08-13T02:05:30.934+00:00",
-    status: 4,
-  },
-];
-
 const HistoryPurChase: React.FC = () => {
   const account = useSelector((state: RootState) => state.user.account);
 
@@ -130,6 +48,7 @@ const HistoryPurChase: React.FC = () => {
       pagesize,
       (pageCurrent - 1) * pagesize
     ).then((res) => {
+      console.log(res.data.listOrder);
       setListOrder(() => res.data.listOrder);
       setTotal(() => res.data.total);
     });
@@ -203,6 +122,21 @@ const HistoryPurChase: React.FC = () => {
     },
   ];
 
+  const searchRef = useRef<HTMLInputElement>(null);
+  const HandleSubmitSearch = () => {
+    if (searchRef.current) {
+      const valueSearch = searchRef.current.value;
+      if (valueSearch) {
+      }
+      console.log("valueSearch", valueSearch);
+      OrdertDetailApi.search(valueSearch).then((res) => {
+        if (res.data.orders) {
+          setListOrder(() => res.data.orders);
+          setTotal(() => res.data.orders.length);
+        }
+      });
+    }
+  };
   return (
     <>
       {/* <Space style={{ marginBottom: 16 }}>
@@ -225,18 +159,40 @@ const HistoryPurChase: React.FC = () => {
           },
         }}
       >
-        <Table
-          pagination={{
-            className: "hover:text-primary",
-            onChange: (page) => setPageCurrent(page),
-            total,
-            current: pageCurrent,
-            pageSize: pagesize,
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            HandleSubmitSearch();
           }}
-          columns={columns}
-          dataSource={listOrder}
-          className="overflow-auto scroll_y"
-        />
+          className="py-2"
+        >
+          <input
+            ref={searchRef}
+            onInput={Debounced(HandleSubmitSearch, 1000)}
+            type="search"
+            id="voice-search"
+            className="w-full border py-3 outline-none pl-6 rounded-md text-sm"
+            placeholder="Tìm kiếm sản phẩm..."
+            required
+            autoComplete="off"
+          />
+        </form>
+        {listOrder.length ? (
+          <Table
+            pagination={{
+              className: "hover:text-primary",
+              onChange: (page) => setPageCurrent(page),
+              total,
+              current: pageCurrent,
+              pageSize: pagesize,
+            }}
+            columns={columns}
+            dataSource={listOrder}
+            className="overflow-auto scroll_y"
+          />
+        ) : (
+          <p className="px-2">Không tồn tại đơn hàng nào</p>
+        )}
       </ConfigProvider>
     </>
   );

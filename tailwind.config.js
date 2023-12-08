@@ -39,7 +39,7 @@ module.exports = {
       colors: {
         primary: "#DB4444",
         second: "#ccf0f0",
-        white: "#f8f5f5",
+        white: "#ffffff",
         menu: "#F2F2F6",
         text: "#222222",
       },

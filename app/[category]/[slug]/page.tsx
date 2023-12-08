@@ -11,6 +11,9 @@ interface ParamsBlog {
 }
 export async function generateMetadata({ params }: ParamsBlog) {
   const data: IProduct = await ProductDetailApi.GetSeoProduct(params.slug);
+  if (!data.name) {
+    return {};
+  }
   return {
     title: data.name,
     description: data.description,

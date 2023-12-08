@@ -13,7 +13,8 @@ export interface ICartItem {
 const initialState: {
   cart: ICartItem[];
   discount: string;
-} = { cart: [], discount: "" };
+  value: number;
+} = { cart: [], discount: "", value: 0 };
 const CartSlice = createSlice({
   name: "cart",
   initialState: initialState,
@@ -58,9 +59,11 @@ const CartSlice = createSlice({
     ResetCart(state) {
       state.cart = [];
       state.discount = "";
+      state.value = 0;
     },
     UpdateDiscount(state, action) {
-      state.discount = action.payload;
+      state.discount = action.payload.discount;
+      state.value = action.payload.value;
     },
   },
 });

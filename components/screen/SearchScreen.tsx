@@ -18,7 +18,7 @@ const SearchScreen = () => {
 
   useEffect(() => {
     if (!search) return;
-    ProductsApi.search(search).then((res) => {
+    ProductsApi.search(search, 12, 0).then((res) => {
       setListProduct(() => res.data.products);
     });
   }, [search]);

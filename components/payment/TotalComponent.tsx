@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CartItem from "./CartItem";
 import InputFormPayment from "./InputFormPayment";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +14,7 @@ interface TotalComponentProps {
 }
 const TotalComponent = ({ shipment }: TotalComponentProps) => {
   const listItem = useSelector((state: RootState) => state.cart.cart);
+  const { value: discountFee } = useSelector((state: RootState) => state.cart);
   const [discount, setDiscount] = useState("");
   const dispatch = useDispatch();
 
@@ -25,7 +26,7 @@ const TotalComponent = ({ shipment }: TotalComponentProps) => {
     DiscountApi.verify(discount)
       .then((res: any) => {
         ToastNotify(res.message).success();
-        dispatch(UpdateDiscount(discount));
+        dispatch(UpdateDiscount({ discount, value: res.data.value }));
       })
       .catch((res) => {
         ToastNotify(res.message).error();
@@ -67,12 +68,22 @@ const TotalComponent = ({ shipment }: TotalComponentProps) => {
           <p>Phí vận chuyển</p>
           <p> {formatMoney(shipment)}</p>
         </div>
+
+        <div className="w-full flex justify-between items-center">
+          <p>Giảm giá</p>
+          <p> {discountFee} %</p>
+        </div>
       </div>
       <div className="w-full flex justify-between items-center py-5 border-b-2 md:border-0 text-text">
         <p className="font-medium">Tổng cộng</p>
         <p className="text-2xl">
           <span className="mr-3 text-base opacity-70">VND</span>
-          {formatMoney(total > 0 ? total + shipment : 0)}
+          {formatMoney(
+            total > 0
+              ? (discountFee ? (1 - discountFee / 100) * total : total) +
+                  shipment
+              : 0
+          )}
         </p>
       </div>
     </div>

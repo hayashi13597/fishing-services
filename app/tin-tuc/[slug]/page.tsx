@@ -8,6 +8,7 @@ import EventApi from "../../../services/api-client/events";
 import { listIconsSeo } from "../../../constants";
 import { notFound } from "next/navigation";
 import { INewItem } from "../../../components/screen/NewScreen";
+import DidiveSpace from "../../../components/DidiveSpace";
 export const revalidate = 3600;
 interface ParamsBlog {
   params: { slug: string };
@@ -72,6 +73,8 @@ const NewDetail = async ({ params }: ParamsBlog) => {
   const res = await EventApi.getSlug(slug);
   const data = await res.event;
   const listNewsTop = await res.listNewsTop;
+  const listSame = (await res?.listSame) || [];
+
   if (!data.id) notFound();
   const structurePage = [
     { page: "Tin tức ", link: "/tin-tuc" },
@@ -87,7 +90,14 @@ const NewDetail = async ({ params }: ParamsBlog) => {
         <Breadcrumb structurePage={structurePage} isDisplay={false} />
         <div className="flex flex-col md:flex-row gap-10">
           <NewContent newDetail={data} />
-          <MostView ListNews={listNewsTop} />
+          <div>
+            <MostView title="Top lượt xem" ListNews={listNewsTop} />
+            <DidiveSpace coefficient={16} />
+            <MostView
+              title={`${data.isEvent ? "sự kiện" : "tin tức"} tương tự`}
+              ListNews={listSame}
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -20,10 +20,17 @@ const ProductsApi = {
   GetCategory() {
     return apiClient.get("/cate");
   },
-  search(search: string) {
+  Filter(idCate = null, filter = "", limit = 8, skip = 0) {
+    return apiClient.get(this.path + "filter", {
+      params: { idCate, filter, limit, skip },
+    });
+  },
+  search(search: string, limit: number, skip: number) {
     return apiClient.post(this.path + "search", {
       data: {
         search: search,
+        limit,
+        skip,
       },
     });
   },

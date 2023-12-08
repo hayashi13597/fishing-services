@@ -30,7 +30,7 @@ const Cart = ({ setIsOpenCart, isOpenCart }: CartProps) => {
       )}
       <div
         className={cn(
-          "cart__wrapper md:w-[400px] w-full text-text bg-white px-2",
+          "cart__wrapper md:w-[400px] w-full text-text bg-white",
           isOpenCart ? "show" : ""
         )}
       >
@@ -43,7 +43,7 @@ const Cart = ({ setIsOpenCart, isOpenCart }: CartProps) => {
             <RiCloseFill />
           </button>
         </section>
-        <section className="h-[60vh]  overflow-y-auto scroll_y">
+        <section className="h-[60vh]  overflow-y-auto scroll_y px-2">
           {listProductCart.length > 0 ? (
             listProductCart.map((item) => (
               <CartItem

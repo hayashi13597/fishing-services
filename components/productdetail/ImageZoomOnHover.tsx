@@ -37,7 +37,6 @@ const ImageZoomOnHover = ({
       <div ref={ref} id="img-container" className="border">
         <img src={src} alt={alt} {...props} />
       </div>
-      <LableProductItem isNew discount={20} />
     </section>
   );
 };

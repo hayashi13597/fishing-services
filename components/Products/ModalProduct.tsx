@@ -13,10 +13,12 @@ import CartUpdateAmount from "../cart/cartUpdateAmmount";
 import { useDispatch } from "react-redux";
 import { AddCart } from "../../redux/cart";
 import { OpenViewAddToCart, closeViewDetail } from "../../redux/product";
+import { IProduct } from "../home/ProductContainer";
+import { ConfigProvider, Rate } from "antd";
 
 const ModalProduct: React.FC<{
   handleClose: () => void;
-  product: productType;
+  product: any;
 }> = ({ handleClose, product }) => {
   const modalRef = useRef(null);
   const [quantity, setQuantity] = useState(1);
@@ -36,22 +38,57 @@ const ModalProduct: React.FC<{
   }, []);
   const handleAddTocart = () => {
     dispatch(AddCart({ name, price, imageUrl, slug, id, quantity: quantity }));
-    dispatch(OpenViewAddToCart({ name, price, imageUrl, slug }));
+    dispatch(
+      OpenViewAddToCart({
+        name,
+        price,
+        imageUrl,
+        slug: `${product.Category.slug}/${slug}`,
+      })
+    );
     dispatch(closeViewDetail());
     setQuantity(() => 1);
   };
+
+  let listImage = [];
+  try {
+    listImage = JSON.parse(product.listSubimages);
+  } catch (error) {}
   return (
     <div className="fixed  top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-screen max-h-full flex items-center justify-center bg-[#00000080]">
       <div className="relative w-full max-w-3xl max-h-full" ref={modalRef}>
         {/* Modal content */}
         <div className="relative bg-[#ffffff] rounded-lg shadow">
           {/* Modal header */}
-          <div className="flex items-start justify-between p-4 border-b rounded-t">
-            <h3 className="text-xl font-semibold text-gray-900">
-              <Link className="block hover:text-primary" href={`/${slug}`}>
-                {name}
-              </Link>
-            </h3>
+          <div className="flex items-start justify-between p-4 border-b rounded-t ">
+            <div>
+              <h3 className="text-xl font-semibold text-gray-900">
+                <Link
+                  className="block hover:text-primary"
+                  href={`/${product.Category.slug}/${slug}`}
+                >
+                  {name}
+                </Link>
+              </h3>
+              <p>
+                <ConfigProvider
+                  theme={{
+                    token: {
+                      fontSize: 8,
+                      colorText: "#C0034E",
+                      controlHeightLG: 30,
+                      marginXS: 1,
+                    },
+                  }}
+                >
+                  <Rate
+                    style={{ color: "#DB4444" }}
+                    disabled
+                    defaultValue={product.stars}
+                  />
+                </ConfigProvider>
+              </p>
+            </div>
             <button
               type="button"
               className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center"
@@ -88,14 +125,13 @@ const ModalProduct: React.FC<{
                 className="cursor-pointer"
               >
                 <SwiperSlide>
-                  <img src={imageUrl} alt="" />
+                  <img src={imageUrl} alt={name} />
                 </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="https://m2.alothemes.com/orfarm/media/catalog/product/cache/16a86d30443b6958533e7bf7da26ad48/8/_/8_1_3.jpg"
-                    alt=""
-                  />
-                </SwiperSlide>
+                {listImage.map((item, index) => (
+                  <SwiperSlide key={`sub-image-${index}`}>
+                    <img src={item.imageUrl} alt={name} />
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </div>
             <div className="px-4">
@@ -103,12 +139,17 @@ const ModalProduct: React.FC<{
                 <p className="text-lg">
                   Giá:{" "}
                   <span className="font-bold text-primary">
-                    <span>{formatMoney(price - (price * 20) / 100)}</span>
-                    <span className="text-sm ml-2 text-black opacity-40 line-through">
-                      {formatMoney(price)}
-                    </span>
+                    {formatMoney(price)}{" "}
+                  </span>
+                  <span className="text-sm ml-2 text-black opacity-40 line-through">
+                    {product.sale_off
+                      ? formatMoney(
+                          (1 + product.sale_off / 100) * product.price
+                        )
+                      : ""}
                   </span>
                 </p>
+
                 <div className="flex flex-col md:flex-row md:items-center gap-2">
                   <p className="md:whitespace-nowrap">Số lượng: </p>
                   <div>
@@ -124,10 +165,14 @@ const ModalProduct: React.FC<{
                 </div>
               </div>
               <div className="flex flex-col gap-4 mt-5 py-5 border-t border-gray-200">
-                <p>Tồn kho: 20</p>
-                <p>Danh mục: Cần câu, Câu cá</p>
+                <p>Lượt bán: {product.sales}</p>
+                <p>Lượt Xem: {product.view}</p>
+                <p>
+                  Danh mục:
+                  <span className="capitalize">{product.Category.name} </span>
+                </p>
                 <Link
-                  href={`/${slug}`}
+                  href={`/${product.Category.slug}/${slug}`}
                   className="text-primary font-bold group/view"
                 >
                   Xem chi tiết{" "}

@@ -83,6 +83,7 @@ const page: FC<ParamsBlog> = async ({ params }) => {
       <Breadcrumb structurePage={[structurePage]} title={structurePage.page} />
       <ProductScreen
         total={res.total}
+        cate={structurePage.link}
         listProductDefault={res.listProducts || []}
       />
     </div>

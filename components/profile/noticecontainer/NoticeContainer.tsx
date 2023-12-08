@@ -52,6 +52,7 @@ const NoticeContainer = () => {
             onChange={(page) => setCurrentPage(page)}
             pageSize={pageSize}
             total={total}
+            showSizeChanger={false}
           />
         </div>
       </ConfigProvider>

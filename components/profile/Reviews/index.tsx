@@ -1,14 +1,59 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import ReviewItem from "./ReviewItem";
+import ReviewApi from "../../../services/api-client/review";
+import { Pagination } from "antd";
 
-const Reviews = () => {
+interface ReviewsProps {
+  idAccount: string;
+}
+const Reviews = ({ idAccount }: ReviewsProps) => {
+  const [listOrderDetails, setListOrderDetails] = useState([]);
+
+  const [itemPerPage] = useState(2);
+  const [total, setTotal] = useState(1);
+  const [pageCurrent, setPageCurrent] = useState(1);
+  console.log("total", total);
+  useEffect(() => {
+    if (idAccount) {
+      ReviewApi.GetListReview(
+        idAccount,
+        itemPerPage,
+        (pageCurrent - 1) * itemPerPage
+      ).then((res) => {
+        setListOrderDetails(() => res.data.reviews);
+        setTotal(() => res.data.total);
+      });
+    }
+  }, [idAccount, pageCurrent, total]);
+  if (!idAccount) return <></>;
   return (
     <>
       {/* Thay Array(3) thành dữ liệu sản phẩm khách đã mua từ server và thêm props product cho ReviewItem */}
       <div className="grid grid-cols-1 p-2">
-        {[...Array(3)].map((item, index) => (
-          <ReviewItem key={index} />
-        ))}
+        {listOrderDetails.length
+          ? listOrderDetails.map((item, index) => (
+              <ReviewItem
+                idAccount={idAccount}
+                review={item}
+                key={index}
+                setTotal={setTotal}
+              />
+            ))
+          : "Sản phẩm đánh giá trống!"}
+      </div>
+      <div
+        className={`flex justify-center ${
+          itemPerPage > total ? "!hidden" : "mb-10"
+        }`}
+      >
+        <Pagination
+          total={total}
+          pageSize={itemPerPage}
+          showSizeChanger={false}
+          current={pageCurrent}
+          onChange={(page) => setPageCurrent(page)}
+        />
       </div>
     </>
   );

@@ -53,7 +53,11 @@ const AccountMenu = () => {
         },
         {
           key: "2",
-          label: <Link href="/tai-khoan?page=don-mua">Đơn mua</Link>,
+          label: (
+            <Link href="/tai-khoan?page=lich-su-mua-hang">
+              Lịch sử mua hàng
+            </Link>
+          ),
         },
         {
           key: "3",

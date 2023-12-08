@@ -9,6 +9,7 @@ import DidiveSpace from "../DidiveSpace";
 import FooterProductDetail from "./ProductCart/review";
 import StarReview from "./starReview";
 import ProductContainer, { IProduct } from "../home/ProductContainer";
+import MainProduct from "../home/components/MainProduct";
 
 const ProductDetail = ({
   slug,
@@ -25,29 +26,15 @@ const ProductDetail = ({
     { page: product.Category.name, link: `/${category}`, last: false },
     { page: product.name, link: `/${slug}`, last: true },
   ];
-  console.log(product);
+
   return (
     <div className="container mx-auto">
       <Breadcrumb structurePage={structurePage} />
       <ProductCart product={product} />
       <DidiveSpace coefficient={8} />
-      <FooterProductDetail />
+      <FooterProductDetail product={product} />
       <DidiveSpace coefficient={8} />
-      {/* <div className="flex flex-col mb-1">
-        <h2 className="text-center w-full text-2xl   font-medium">
-          Đánh giá sản phẩm
-        </h2>
-        <div className="m-auto  border-2 border-[#EFEFEF]-400 p-4">
-          <StarReview average={5} percent={20} totalReview={100} />
-          <StarReview average={4} percent={20} totalReview={100} />
-          <StarReview average={3} percent={20} totalReview={100} />
-          <StarReview average={2} percent={20} totalReview={100} />
-          <StarReview average={1} percent={20} totalReview={100} />
-        </div>
-      </div> */}
-      {/* <DidiveSpace coefficient={8} /> */}
-      {/* <Support /> */}
-
+      {/* 
       <div>
         {listProductSame.length ? (
           <ProductContainer
@@ -59,7 +46,8 @@ const ProductDetail = ({
         ) : (
           ""
         )}
-      </div>
+      </div> */}
+      <MainProduct listProduct={listProductSame} title="Sản phẩm tương tự" />
       <DidiveSpace coefficient={8} />
     </div>
   );

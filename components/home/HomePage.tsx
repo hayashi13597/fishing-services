@@ -32,14 +32,17 @@ const HomePage = () => {
     <>
       <Banner />
       <ListCategories />
-      <MainProduct
-        listProduct={listDataHome.ListProductNews}
-        title="Sản phẩm mới nhất"
-      />
-      <MainProduct
-        listProduct={listDataHome.ListProductSaleTop}
-        title="Sản phẩm bán chạy"
-      />
+      <div className="container mx-auto my-20">
+        <MainProduct
+          listProduct={listDataHome.ListProductNews}
+          title="Sản phẩm mới nhất"
+        />
+        <MainProduct
+          listProduct={listDataHome.ListProductSaleTop}
+          title="Sản phẩm bán chạy"
+        />
+      </div>
+
       <News listNews={listDataHome.listNews} />
       <div className="container mx-auto mb-20">
         <Event ListEvent={listDataHome.listEvents} />

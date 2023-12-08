@@ -30,9 +30,16 @@ const ProductCart = ({
     listImage = JSON.parse(product.listSubimages);
   } catch (error) {}
   const handleAddTocart = () => {
-    const { name, price, imageUrl, slug, id } = product;
+    const { name, price, imageUrl, slug, id, Category } = product;
     dispatch(AddCart({ name, price, imageUrl, slug, id, quantity: quatity }));
-    dispatch(OpenViewAddToCart({ name, price, imageUrl, slug }));
+    dispatch(
+      OpenViewAddToCart({
+        name,
+        price,
+        imageUrl,
+        slug: `${Category.slug}/${slug}`,
+      })
+    );
     dispatch(closeViewDetail());
     setQuantity(() => 1);
   };
@@ -114,9 +121,13 @@ const ProductCart = ({
                 <div className=" text-primary font-semibold text-xl">
                   {formatMoney(product.price)}
                 </div>
-                <div className="discount bg-primary">
-                  {product.sale_off}% giảm
-                </div>
+                {product.sale_off ? (
+                  <div className="discount bg-primary">
+                    {product.sale_off}% giảm
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </section>

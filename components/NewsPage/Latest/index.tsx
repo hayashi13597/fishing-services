@@ -11,7 +11,7 @@ interface latestType {
 const Latest = ({ title, listNews }: latestType) => {
   return (
     <div className="w-full">
-      <h2 className="text-3xl font-semibold mb-5">{title}</h2>
+      <h2 className="text-3xl font-semibold mb-5 capitalize">{title}</h2>
       <div className="flex flex-col gap-3">
         {listNews.map((itemdetail) => (
           <LatestItem

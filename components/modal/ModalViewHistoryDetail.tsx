@@ -170,6 +170,7 @@ const ModalViewHistoryDetail = () => {
                   pageSize={itemPerPage}
                   onChange={(page) => setcurrentPage(page)}
                   current={currentPage}
+                  showSizeChanger={false}
                 />
               </div>
             )}

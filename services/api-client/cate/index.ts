@@ -7,7 +7,7 @@ const CateApi = {
   },
   async GetOneCate(slug: string, limit = 12, skip = 0) {
     const res = await apiClient.post(this.path + slug, {
-      params: {
+      data: {
         limit,
         skip,
       },

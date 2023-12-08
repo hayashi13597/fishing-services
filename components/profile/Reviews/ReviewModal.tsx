@@ -3,6 +3,8 @@ import { Modal, Input, Form } from "antd";
 import Image from "next/image";
 import Rating from "./Rating";
 import { IProduct } from "../../home/ProductContainer";
+import ReviewApi from "../../../services/api-client/review";
+import ToastNotify from "../../../services/toast";
 
 const { TextArea } = Input;
 
@@ -10,28 +12,49 @@ type ReviewItemType = {
   isModalOpen: boolean;
   setIsModalOpen: (value: boolean) => void;
   handleCancel: () => void;
-  product?: IProduct;
+  review: {
+    Product: IProduct;
+    quantity: number;
+    id: string;
+  };
+  idAccount: string;
+  setTotal: any;
 };
 
 const ReviewModal = ({
   isModalOpen,
   setIsModalOpen,
   handleCancel,
-  product,
+  review,
+  setTotal,
 }: ReviewItemType) => {
-  const [rating, setRating] = useState(3);
+  const [rating, setRating] = useState(5);
   const [hover, setHover] = useState(null);
   const [form] = Form.useForm();
-  const content = Form.useWatch("content", form);
 
+  const content = Form.useWatch("content", form);
+  const { Product: product } = review;
   const handleSubmit = () => {
-    console.log("Rating: ", rating);
-    console.log("Content: ", content);
+    if (!content) {
+      return ToastNotify("Nội dung không được để trống").error();
+    }
+
+    ReviewApi.Evaluate(review.id, product.id, rating, content)
+      .then((res: any) => {
+        ToastNotify(res.message).success();
+        setIsModalOpen(false);
+        setTotal((prev) => prev - 1);
+        form.setFieldValue("content", "");
+        setRating(5);
+      })
+      .catch((err) => {
+        ToastNotify(err?.message || "Đánh giá thất bại").error();
+      });
   };
 
   return (
     <Modal
-      title="Đánh giá sản phẩm #mã sản phẩm"
+      title={`Đánh giá sản phẩm`}
       open={isModalOpen}
       onCancel={handleCancel}
       footer={""}
@@ -40,34 +63,35 @@ const ReviewModal = ({
         <div className="flex gap-5 items-center">
           <div className="w-14 h-14">
             <Image
-              src={`/assets/can-cau.jpg`}
-              alt="can cau"
+              src={product.imageUrl}
+              alt={product.name}
               width={200}
               height={200}
               className="w-full object-cover"
             />
           </div>
           <div className="">
-            <h3 className="text-text font-medium line-clamp-1">
-              Cần câu tay FH3 - 1522
+            <h3 className="text-text font-medium line-clamp-1 capitalize">
+              {product.name}
             </h3>
             <p className="text-text/50 text-sm">
-              Danh mục: <span>Cần câu</span>
+              Danh mục:{" "}
+              <span className="capitalize"> {product.Category.name}</span>
             </p>
           </div>
         </div>
         <div className="border my-2"></div>
         <Rating
-          title="Chất lượng sản phẩm"
+          title="Điểm đánh giá"
           rating={rating}
           setRating={setRating}
           hover={hover}
           setHover={setHover}
         />
         <Form form={form} name="ratingForm" onFinish={handleSubmit}>
-          <div className="bg-white mt-3 p-2 rounded-md">
+          <div className=" mt-3 p-2 rounded-md">
             <p className="font-medium mb-2">Chất lượng sản phẩm:</p>
-            <p className="border mt-1"></p>
+            <p className=" mt-1"></p>
             <Form.Item
               name="content"
               rules={[
@@ -80,7 +104,7 @@ const ReviewModal = ({
               <TextArea
                 rows={4}
                 placeholder="Hãy chia sẽ nhận xét cho sản phẩm này bạn nhé!"
-                className="bg-white border-none outline-none focus:outline-none focus:border-none"
+                className=" outline-none focus:outline-none focus:border-none border-[1px]"
               />
             </Form.Item>
           </div>

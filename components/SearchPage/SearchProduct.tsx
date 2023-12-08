@@ -32,7 +32,14 @@ const SearchProduct = ({ product }: ISearchProduct) => {
   };
   const AddProductIntoCart = () => {
     dispatch(AddCart({ name, price, imageUrl, slug, id, quantity: 1 }));
-    dispatch(OpenViewAddToCart({ name, price, imageUrl, slug }));
+    dispatch(
+      OpenViewAddToCart({
+        name,
+        price,
+        imageUrl,
+        slug: `${product.Category.slug}/${slug}`,
+      })
+    );
   };
 
   return (

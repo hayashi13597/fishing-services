@@ -29,24 +29,30 @@ const SearchComponent = () => {
   };
 
   const onClose = () => {
-    setOpen(false);
+    setOpen(() => false);
+    setListProduct(() => []);
+    setShowResults(() => false);
   };
 
   const HandleSubmitSearch = () => {
-    console.log("Delay 200ms");
     if (searchRef.current) {
       const valueSearch = searchRef.current.value;
       console.log("valueSearch", valueSearch);
 
-      ProductsApi.search(valueSearch).then((res) => {
+      ProductsApi.search(valueSearch, 12, 0).then((res) => {
         setListProduct(() => res.data.products);
         setSearch(() => valueSearch);
       });
-      if (valueSearch) setShowResults(true);
-      else setShowResults(false);
+      if (valueSearch) setShowResults(() => true);
+      else setShowResults(() => false);
     }
   };
-
+  const handleGetPageSerach = () => {
+    searchRef.current.value = "";
+    // router.push(`/tim-kiem/${searchRef.current.value}`);
+    onClose();
+    router.push(`/tim-kiem?q=${search}`);
+  };
   return (
     <form className="w-full md:w-3/5 order-2 md:order-1 relative flex items-center gap-4">
       <IoMenu
@@ -54,14 +60,56 @@ const SearchComponent = () => {
         onClick={showDrawer}
       />
       <Drawer
-        title="Danh mục"
+        title="Menu"
         placement="bottom"
         onClose={onClose}
         open={open}
         height={400}
       >
         <ul>
-          {listCateGory.map((category) => (
+          <li className="mb-3">
+            <Link
+              href={`/`}
+              className="text-2xl hover:underline hover:text-primary capitalize"
+            >
+              Trang chủ
+            </Link>
+          </li>
+
+          <li className="mb-3">
+            <Link
+              href={`/san-pham`}
+              className="text-2xl hover:underline hover:text-primary capitalize"
+            >
+              Sản phẩm
+            </Link>
+          </li>
+          <li className="mb-3">
+            <Link
+              href={`/tin-tuc`}
+              className="text-2xl hover:underline hover:text-primary capitalize"
+            >
+              Tin Tức - Sự kiện
+            </Link>
+          </li>
+          <li className="mb-3">
+            <Link
+              href={`/gioi-thieu`}
+              className="text-2xl hover:underline hover:text-primary capitalize"
+            >
+              Giới thiệu
+            </Link>
+          </li>
+          <li className="mb-3">
+            <Link
+              href={`/lien-he`}
+              className="text-2xl hover:underline hover:text-primary capitalize"
+            >
+              Liên hệ
+            </Link>
+          </li>
+
+          {/* {listCateGory.map((category) => (
             <li className="mb-3" key={`cate-mobile-${category.slug}`}>
               <Link
                 href={`/${category.slug}`}
@@ -70,17 +118,17 @@ const SearchComponent = () => {
                 {category.name}
               </Link>
             </li>
-          ))}
+          ))} */}
         </ul>
       </Drawer>
       <div className="w-full relative">
         <input
           ref={searchRef}
           onInput={Debounced(HandleSubmitSearch, 1000)}
-          type="text"
+          type="search"
           id="voice-search"
-          className="w-full border py-3 outline-none pl-6 rounded-md text-sm"
-          placeholder="Tìm kiếm sản phẩm..."
+          className="w-full border py-3 outline-none pl-6 rounded-md text-sm px-2 pr-4 mx-2"
+          placeholder="Tìm kiếm hóa đơn..."
           required
           autoComplete="off"
         />
@@ -92,23 +140,19 @@ const SearchComponent = () => {
           {ListProduct.map((product) => (
             <SearchItem key={`tim-kiem-${product.id}`} product={product} />
           ))}
-          <Link
-            href={`/tim-kiem?q=${search}`}
-            className="bg-white block text-sm text-center py-3 text-primary"
+          <button
+            type="button"
+            onClick={handleGetPageSerach}
+            className="bg-white block text-sm text-center py-3 text-primary w-full"
           >
             Xem thêm {ListProduct.length} sản phẩm
-          </Link>
+          </button>
         </div>
       </div>
       <button
         className="absolute inset-y-0 px-3 right-0 bg-primary text-white rounded-md hover:opacity-75 transition-all"
-        onClick={(e) => {
-          e.preventDefault();
-          setShowResults(false);
-          searchRef.current.value = "";
-          // router.push(`/tim-kiem/${searchRef.current.value}`);
-          router.push(`/tim-kiem?q=${search}`);
-        }}
+        onClick={handleGetPageSerach}
+        type="button"
       >
         Tìm kiếm
       </button>

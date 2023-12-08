@@ -25,7 +25,7 @@ const MainProduct = ({ title, listProduct = [] }: mainProductType) => {
     dispatch(openViewDetail({ productDetail: product }));
   };
   return (
-    <div className="container mx-auto my-20">
+    <div>
       <div className="flex justify-center items-center flex-col md:flex-row md:justify-between md:text-text/80">
         <h1 className="text-4xl">{title}</h1>
         <p className="text-sm">

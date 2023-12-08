@@ -14,7 +14,13 @@ const OrdertDetailApi = {
   post(data: any) {
     return apiClient.post(this.path + "/create", data);
   },
-  patch() {},
+  search(search: string) {
+    return apiClient.post(this.path + "/search", {
+      data: {
+        search,
+      },
+    });
+  },
   delete() {},
 };
 export default OrdertDetailApi;

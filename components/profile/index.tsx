@@ -28,7 +28,7 @@ import Reviews from "./Reviews";
 
 const ProfilePage = () => {
   const [tabs, SetTab] = useState<
-    "don-mua" | "account" | "doi-mat-khau" | "thong-bao" | "danh-gia"
+    "lich-su-mua-hang" | "account" | "doi-mat-khau" | "thong-bao" | "danh-gia"
   >("thong-bao");
   const [imageUpload, setImageUpload] = useState("");
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -71,7 +71,7 @@ const ProfilePage = () => {
     }
   }, [account.id]);
   useEffect(() => {
-    if (currentPage == "don-mua") {
+    if (currentPage == "lich-su-mua-hang") {
       SetTab(currentPage);
     } else if (currentPage == "doi-mat-khau") {
       SetTab(currentPage);
@@ -227,10 +227,10 @@ const ProfilePage = () => {
               <BiUser /> <span>Thông tin cá nhân</span>
             </div>
             <div
-              onClick={() => SetTab("don-mua")}
+              onClick={() => SetTab("lich-su-mua-hang")}
               className={cn(
                 "flex gap-2 items-center hover:text-primary",
-                tabs == "don-mua" ? "text-primary" : ""
+                tabs == "lich-su-mua-hang" ? "text-primary" : ""
               )}
             >
               <FaRegListAlt /> <span>Lịch sử mua hàng</span>
@@ -267,7 +267,7 @@ const ProfilePage = () => {
         <div
           className={cn(
             "basis-2/3 border h-[70vh]",
-            tabs === "danh-gia" ? "bg-white h-[100vh] overflow-auto" : ""
+            tabs == "danh-gia" ? "overflow-y-auto scroll_y" : ""
           )}
         >
           {tabs == "account" && (
@@ -280,8 +280,8 @@ const ProfilePage = () => {
               key="accoutn-provip"
             />
           )}
-          {tabs == "don-mua" && <HistoryPurChase />}
-          {tabs == "danh-gia" && <Reviews />}
+          {tabs == "lich-su-mua-hang" && <HistoryPurChase />}
+          {tabs == "danh-gia" && <Reviews idAccount={account.id} />}
           {tabs == "thong-bao" && <NoticeContainer />}
           {tabs == "doi-mat-khau" && <ChangePassword id={account.id} />}
         </div>

@@ -50,7 +50,7 @@ const CartContainer = () => {
                   <p className="text-gray-700">{formatMoney(totalCarts)}</p>
                 </div>
                 <div className="flex justify-between">
-                  <p className="text-gray-700">Phí Ship</p>
+                  <p className="text-gray-700">Phí Ship tạm tính</p>
                   <p className="text-gray-700">25,000đ</p>
                 </div>
                 <hr className="my-4" />
@@ -75,6 +75,7 @@ const CartContainer = () => {
         </div>
         <DidiveSpace coefficient={2} />
         <Support />
+        <DidiveSpace coefficient={8} />
       </div>
     </div>
   );

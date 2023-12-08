@@ -7,6 +7,8 @@ import CateApi from "../../services/api-client/cate";
 import ProductsApi from "../../services/api-client/product";
 import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
 interface IProductScreen {
   listProductDefault: IProduct[];
   total: number;
@@ -22,38 +24,83 @@ const ProductScreen = ({
   search,
   isPageProduct,
 }: IProductScreen) => {
-  const itemPerPage = 8;
+  const itemPerPage = 12;
   const [listProduct, setListProduct] =
     useState<IProduct[]>(listProductDefault);
   const [pageCurrent, setPageCurrent] = useState(1);
   const [totalPage, setTotalPage] = useState(total);
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
+  const [filter, setfilter] = useState({ idCate: "", filter: "" });
   const listCateGory = useSelector(
     (state: RootState) => state.productDetail.listCate
   );
+
+  //  const params = useSearchParams();
+  //  const router = useRouter();
+  //  const pathname = usePathname();
+  //  const starFilter = params.get("filter") || "all";
+
+  //  const handleFilter = (star: number | string) => {
+  //    router.push(`${pathname}?filter=${star}`, { scroll: false });
+  //  };
+
   useEffect(() => {
-    if (!listProductDefault.length) return;
+    if (!listProductDefault.length || isPageProduct) return;
+    console.log("cate", cate, pageCurrent);
     if (cate) {
       CateApi.GetOneCate(
         cate,
         itemPerPage,
         itemPerPage * (pageCurrent - 1)
       ).then((res) => {
+        console.log(res);
         setListProduct(() => res.listProducts);
         setTotalPage(() => res.total);
       });
     } else if (search) {
-      ProductsApi.search(search).then((res) => {
+      ProductsApi.search(
+        search,
+        itemPerPage,
+        itemPerPage * (pageCurrent - 1)
+      ).then((res) => {
         const listProductSearch = res.data.products;
         if (listProductSearch) {
           setListProduct(() => listProductSearch);
-          setTotalPage(() => listProductSearch.length);
+          setTotalPage(() => res.data?.total || 1);
         }
       });
     }
   }, [listProductDefault.length, pageCurrent]);
+
+  // danh cho trang san pham
+  useEffect(() => {
+    if (isPageProduct) {
+      ProductsApi.Filter(
+        filter.idCate,
+        filter.filter,
+        itemPerPage,
+        itemPerPage * (pageCurrent - 1)
+      ).then((res: any) => {
+        setListProduct(() => res.data.products);
+        setTotalPage(() => res.data.total);
+      });
+    }
+  }, [pageCurrent, listProductDefault.length, filter.filter, filter.idCate]);
+
+  const handleChangeCate = (value: string) => {
+    setfilter((prev) => ({ ...prev, idCate: value }));
+    setPageCurrent(() => 1);
+  };
+  const handleChangeFilter = (value: string) => {
+    setfilter((prev) => ({ ...prev, filter: value }));
+    setPageCurrent(() => 1);
+  };
+  const listOrders = listCateGory.map((cate) => ({
+    value: cate.id,
+    label: cate.name,
+  }));
+
+  listOrders.unshift({ value: "", label: "Tất cả" });
+
   return (
     <div className="container mx-auto">
       <div className="flex items-center justify-between">
@@ -70,48 +117,53 @@ const ProductScreen = ({
           ) : (
             <Select
               defaultValue="Danh mục"
+              className="capitalize"
               style={{ width: 200 }}
-              onChange={handleChange}
-              options={listCateGory.map((cate) => ({
-                value: cate.slug,
-                label: cate.name,
-              }))}
+              onChange={handleChangeCate}
+              options={listOrders}
             />
           )}
         </div>
-        <Select
-          defaultValue="Sắp xếp"
-          style={{ width: 200 }}
-          onChange={handleChange}
-          options={[
-            { value: "lowest", label: "Giá: thấp đến cao" },
-            { value: "hightest", label: "Giá: Cao đến thấp" },
-            { value: "az", label: "Tên: từ a - z" },
-            { value: "za", label: "Tên: từ z - a" },
-          ]}
-        />
+        {search ? (
+          ""
+        ) : (
+          <Select
+            defaultValue="Sắp xếp"
+            style={{ width: 200 }}
+            onChange={handleChangeFilter}
+            options={[
+              { value: "", label: "Tất cả" },
+              { value: "lowest", label: "Giá: thấp đến cao" },
+              { value: "hightest", label: "Giá: Cao đến thấp" },
+              { value: "az", label: "Tên: từ a - z" },
+              { value: "za", label: "Tên: từ z - a" },
+            ]}
+          />
+        )}
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-5 mb-10 mt-4">
-        {listProduct.map((product) => (
-          <SearchProduct product={product} key={`serach-${product.id}`} />
-        ))}
+        {listProduct.length ? (
+          listProduct.map((product) => (
+            <SearchProduct product={product} key={`san-pam-${product.id}`} />
+          ))
+        ) : (
+          <div className="h-[40vh] text-primary">Không có sản phẩm nào?</div>
+        )}
       </div>
 
-      {totalPage / itemPerPage > 1 && (
-        <div
-          className={`flex justify-center ${
-            itemPerPage >= total ? "hidden" : "mb-10"
-          }`}
-        >
-          <Pagination
-            total={totalPage}
-            pageSize={itemPerPage}
-            showSizeChanger={false}
-            current={pageCurrent}
-            onChange={(page) => setPageCurrent(page)}
-          />
-        </div>
-      )}
+      <div
+        className={`flex justify-center ${
+          itemPerPage > totalPage ? "!hidden" : "mb-10"
+        }`}
+      >
+        <Pagination
+          total={totalPage}
+          pageSize={itemPerPage}
+          showSizeChanger={false}
+          current={pageCurrent}
+          onChange={(page) => setPageCurrent(page)}
+        />
+      </div>
     </div>
   );
 };
