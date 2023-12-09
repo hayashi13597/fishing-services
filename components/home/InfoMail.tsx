@@ -10,10 +10,12 @@ import { Validator } from "react-swisskit";
 import ToastNotify from "../../services/toast";
 import NoticeApi from "../../services/api-client/notice";
 import ContactApi from "../../services/api-client/contact";
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
 const { TextArea } = Input;
 const InfoMail = () => {
   const [message, setMessage] = useState("");
-
+  const account = useSelector((state: RootState) => state.user.account);
   const schema = yup
     .object({
       email: yup
@@ -77,8 +79,10 @@ const InfoMail = () => {
               placeholder="Họ và tên"
               register={register}
               error={errors.fullname}
+              defaultValue={account.fullname}
             />
             <FormField
+              defaultValue={account.email}
               type="email"
               id="email"
               placeholder="email@gmail.com"
@@ -86,6 +90,7 @@ const InfoMail = () => {
               error={errors.email}
             />
             <FormField
+              defaultValue={account.phone}
               type="text"
               id="phone"
               placeholder="Số điện thoại"

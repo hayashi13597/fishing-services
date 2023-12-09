@@ -24,6 +24,7 @@ const RadioInputComponent = ({
         id={id}
         type="radio"
         value={value}
+        defaultChecked={!value}
         name={name}
         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 accent-primary"
         onChange={() => setShowMethod(() => value)}

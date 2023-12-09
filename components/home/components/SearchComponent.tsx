@@ -127,8 +127,8 @@ const SearchComponent = () => {
           onInput={Debounced(HandleSubmitSearch, 1000)}
           type="search"
           id="voice-search"
-          className="w-full border py-3 outline-none pl-6 rounded-md text-sm px-2 pr-4 mx-2"
-          placeholder="Tìm kiếm hóa đơn..."
+          className="w-full border py-3 outline-none pl-6 rounded-md text-sm px-2 pr-4 "
+          placeholder="Tìm kiếm sản phẩm..."
           required
           autoComplete="off"
         />

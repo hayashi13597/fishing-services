@@ -38,7 +38,7 @@ const News = ({ listNews = [] }: NewsProps) => {
                 className="object-cover w-full"
               />
               <div className="py-3 px-2">
-                <h3 className="text-base font-semibold line-clamp-2 group-hover:text-primary mb-1">
+                <h3 className="text-base font-semibold line-clamp-2 group-hover:text-primary mb-1 capitalize">
                   {newItem.title}
                 </h3>
                 <p className="text-sm line-clamp-3">{newItem.description}</p>

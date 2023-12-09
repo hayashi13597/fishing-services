@@ -9,6 +9,7 @@ import { cn } from "react-swisskit";
 import { formatMoney } from "../../utils";
 import { useDispatch } from "react-redux";
 import { closeViewAddToCart } from "../../redux/product";
+import { useRouter } from "next/navigation";
 
 interface ModalAddProductProps {
   product: {
@@ -22,6 +23,7 @@ const ModalAddProduct = ({
   product: { imageUrl = "", name = "", price = 0, slug = "" },
 }: ModalAddProductProps) => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const setIsOpenModal = () => {
     dispatch(closeViewAddToCart());
   };
@@ -34,7 +36,7 @@ const ModalAddProduct = ({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="md:w-[450px] w-full px-8  py-4 bg-white rounded-xl relative"
+        className="md:w-[500px] w-full px-8  py-4 bg-white rounded-xl relative"
       >
         <button
           onClick={setIsOpenModal}
@@ -54,21 +56,27 @@ const ModalAddProduct = ({
           </div>
           <div>
             <p className="text-sm font-medium">Thêm vào giỏ hàng thành công.</p>
-            <h6>
+            <h6 className="text-center ">
               <Link
-                className="hover:text-primary block font-semibold py-2 capitalize"
+                className="hover:text-primary block font-semibold py-2 capitalize text-lg"
                 href={`/${slug}`}
               >
                 {name}
               </Link>
             </h6>
-            <p>{formatMoney(price)}</p>
+            <p>Giá: {formatMoney(price)}</p>
           </div>
         </div>
         <div className="md:px-8 px-2 mt-4">
-          <Link className="button_send" href={"/gio-hang"}>
+          <button
+            className="button_send block w-full"
+            onClick={() => {
+              setIsOpenModal();
+              router.push("/gio-hang");
+            }}
+          >
             Xem giỏ hàng
-          </Link>
+          </button>
         </div>
       </div>
     </div>
