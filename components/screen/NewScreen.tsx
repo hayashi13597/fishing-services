@@ -1,12 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import EventApi from "../../services/api-client/events";
-import { message } from "antd";
+
 import Breadcrumb from "../Breadcrumb";
 import TopNews from "../NewsPage/TopNews";
 import Latest from "../NewsPage/Latest";
 import { structurePageType } from "../../common.types";
 import PopularContainer from "../../components/NewsPage/Popular";
+import ToastNotify from "../../services/toast";
 
 const structurePage: structurePageType[] = [
   { page: "Tin tức - Sự kiện", link: "/tin-tuc", last: true },
@@ -46,7 +47,7 @@ const NewScreen = () => {
         setListcontentNews(() => res.data);
       })
       .catch(() => {
-        message.error("Lỗi server");
+        ToastNotify("Lỗi server rồi!").error();
       });
   }, []);
   return (

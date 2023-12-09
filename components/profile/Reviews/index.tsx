@@ -31,16 +31,20 @@ const Reviews = ({ idAccount }: ReviewsProps) => {
     <>
       {/* Thay Array(3) thành dữ liệu sản phẩm khách đã mua từ server và thêm props product cho ReviewItem */}
       <div className="grid grid-cols-1 p-2">
-        {listOrderDetails.length
-          ? listOrderDetails.map((item, index) => (
-              <ReviewItem
-                idAccount={idAccount}
-                review={item}
-                key={index}
-                setTotal={setTotal}
-              />
-            ))
-          : "Sản phẩm đánh giá trống!"}
+        {listOrderDetails.length ? (
+          listOrderDetails.map((item, index) => (
+            <ReviewItem
+              idAccount={idAccount}
+              review={item}
+              key={index}
+              setTotal={setTotal}
+            />
+          ))
+        ) : (
+          <p className="flex justify-center items-center mt-8 font-semibold text-primary">
+            Sản phẩm đánh giá trống!
+          </p>
+        )}
       </div>
       <div
         className={`flex justify-center ${

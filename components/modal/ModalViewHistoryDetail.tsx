@@ -136,8 +136,10 @@ const ModalViewHistoryDetail = () => {
                             />
                           </div>
                         </td>
-                        <td className="px-6 py-4 line-clamp-2 min-w-[120px]">
-                          {order.Product.description}
+                        <td>
+                          <span className="px-6 py-4 line-clamp-2 min-w-[120px]">
+                            {order.Product.description}
+                          </span>
                         </td>
                         <td className="px-6 py-4">
                           {formatMoney(order.price)}
@@ -147,12 +149,12 @@ const ModalViewHistoryDetail = () => {
                 </tbody>
                 <tfoot>
                   <td colSpan={3}>
-                    <span className="block font-bold text-lg ml-4">
+                    <span className="block font-bold text-lg ml-4 mt-4">
                       Tổng tiền
                     </span>
                   </td>
                   <td>
-                    <span className="block font-bold text-lg mr-4">
+                    <span className="block font-bold text-lg mr-4 mt-4">
                       {formatMoney(totalPrice)}
                     </span>
                   </td>
@@ -161,8 +163,8 @@ const ModalViewHistoryDetail = () => {
             </div>
             {listOrderDetail.length > 0 && (
               <div
-                className={`flex justify-center py-5 md:py-4 S${
-                  itemPerPage >= listOrderDetail.length ? "hidden" : ""
+                className={`flex justify-center py-5 md:py-4 ${
+                  itemPerPage > listOrderDetail.length ? "!hidden" : ""
                 }`}
               >
                 <Pagination

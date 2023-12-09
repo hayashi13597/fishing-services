@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { INotice } from "../../../redux/notices";
 import NoticeApi from "../../../services/api-client/notice";
+import { cn } from "react-swisskit";
 
 const NoticeContainer = () => {
   const account = useSelector((state: RootState) => state.user.account);
@@ -46,7 +47,11 @@ const NoticeContainer = () => {
           },
         }}
       >
-        <div className="flex  justify-end  w-full">
+        <div
+          className={cn(
+            total > pageSize ? "flex justify-end  w-full" : "!hidden"
+          )}
+        >
           <Pagination
             current={currentPage}
             onChange={(page) => setCurrentPage(page)}

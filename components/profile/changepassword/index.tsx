@@ -56,7 +56,7 @@ const ChangePassword = ({ id }: ChangePasswordProps) => {
           ToastNotify("Thay đổi mật khẩu mới  thành công").success();
         })
         .catch((err) => {
-          ToastNotify(err.message).error();
+          ToastNotify(err?.message).error();
         });
     }
 

@@ -34,20 +34,12 @@ const ProductDetail = ({
       <DidiveSpace coefficient={8} />
       <FooterProductDetail product={product} />
       <DidiveSpace coefficient={8} />
-      {/* 
-      <div>
-        {listProductSame.length ? (
-          <ProductContainer
-            isShowBtn={true}
-            title="Sản phẩm tương tự"
-            link="/san-pham"
-            listProducts={listProductSame}
-          />
-        ) : (
-          ""
-        )}
-      </div> */}
-      <MainProduct listProduct={listProductSame} title="Sản phẩm tương tự" />
+      {listProductSame.length ? (
+        <MainProduct listProduct={listProductSame} title="Sản phẩm tương tự" />
+      ) : (
+        ""
+      )}
+
       <DidiveSpace coefficient={8} />
     </div>
   );

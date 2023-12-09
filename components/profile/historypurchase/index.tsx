@@ -180,7 +180,7 @@ const HistoryPurChase: React.FC = () => {
         {listOrder.length ? (
           <Table
             pagination={{
-              className: "hover:text-primary",
+              className: total > pagesize ? "hover:text-primary" : "!hidden",
               onChange: (page) => setPageCurrent(page),
               total,
               current: pageCurrent,
