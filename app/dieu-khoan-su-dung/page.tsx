@@ -1,6 +1,11 @@
 import React from "react";
 import { termsOfUseConstants } from "../../constants";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Điều khoảng sử dụng",
+  description:
+    "Điều khoảng sử dụng vô cùng kỷ lưỡng tại chúng tôi, yên tâm thanh toán",
+};
 const TermsOfUse = () => {
   return (
     <div className="container mx-auto py-10">
