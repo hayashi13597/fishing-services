@@ -56,7 +56,7 @@ const Footer = () => {
               <p className="title-footer relative">FANPAGE FACEBOOK </p>
               <div
                 className="fb-page lg:w-[600px] md:w-[320px] w-[300px]"
-                data-href="https://www.facebook.com/profile.php?id=100087004991368"
+                data-href="https://www.facebook.com/ocdaokyda"
                 data-tabs="timeline"
                 data-height="200"
                 data-width="320"
@@ -66,12 +66,10 @@ const Footer = () => {
                 data-show-facepile="true"
               >
                 <blockquote
-                  cite="https://www.facebook.com/profile.php?id=100087004991368"
+                  cite="https://www.facebook.com/ocdaokyda"
                   className="fb-xfbml-parse-ignore"
                 >
-                  <a href="https://www.facebook.com/profile.php?id=100087004991368">
-                    Zecky - Ứng dụng nhắn tin
-                  </a>
+                  <a href="https://www.facebook.com/ocdaokyda">Ốc đảo kỳ đà</a>
                 </blockquote>
               </div>
             </section>
