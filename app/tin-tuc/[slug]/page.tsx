@@ -20,11 +20,11 @@ export async function generateMetadata({ params }: ParamsBlog) {
     title: data.title,
     description: data.description,
 
-    metadataBase: new URL(`${DOMAIN_HOST}/${data.slug}`),
+    metadataBase: new URL(`${DOMAIN_HOST}/tin-tuc/${data.slug}`),
     authors: ["ocdaocauca.online", "ocdaocauca.online"],
     publisher: "acdaocauca",
     alternates: {
-      canonical: `${DOMAIN_HOST}/${data.slug}`,
+      canonical: `${DOMAIN_HOST}/tin-tuc/${data.slug}`,
     },
     twitter: {
       card: "summary_large_image",
@@ -71,10 +71,41 @@ export async function generateStaticParams() {
 const NewDetail = async ({ params }: ParamsBlog) => {
   const { slug } = params;
   const res = await EventApi.getSlug(slug);
-  const data = await res.event;
+  const data: INewItem = await res.event;
   const listNewsTop = await res.listNewsTop;
   const listSame = (await res?.listSame) || [];
+  const schema1 = {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        item: {
+          "@id": DOMAIN_HOST,
+          name: "Trang chủ",
+        },
+      },
 
+      {
+        "@type": "ListItem",
+        position: 2,
+        item: {
+          "@id": DOMAIN_HOST,
+          name: "blog-developer",
+        },
+      },
+
+      {
+        "@type": "ListItem",
+        position: 3,
+        item: {
+          "@id": `${DOMAIN_HOST}/tin-tuc/${data.slug}`,
+          name: `✅${data.title}`,
+        },
+      },
+    ],
+  };
   if (!data.id) notFound();
   const structurePage = [
     { page: "Tin tức ", link: "/tin-tuc" },
@@ -86,6 +117,11 @@ const NewDetail = async ({ params }: ParamsBlog) => {
   ];
   return (
     <div className="bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema1) }}
+      />
+
       <div className="container mx-auto">
         <Breadcrumb structurePage={structurePage} isDisplay={false} />
         <div className="flex flex-col md:flex-row gap-10">

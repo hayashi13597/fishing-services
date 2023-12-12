@@ -4,7 +4,7 @@ import { BiArrowBack } from "react-icons/bi";
 import ShareSocial from "../../ShareSocial";
 import { useRouter } from "next/navigation";
 
-import { formatDateTime } from "../../../utils";
+import { DOMAIN_HOST, formatDateTime } from "../../../utils";
 import { INewItem } from "../../screen/NewScreen";
 
 interface NewContentPros {
@@ -38,7 +38,7 @@ const NewContent = ({ newDetail }: NewContentPros) => {
             <BiArrowBack /> Trở lại
           </button>
         </div>
-        <ShareSocial link={`/tin-tuc/${newDetail.slug}`} />
+        <ShareSocial link={`tin-tuc/${newDetail.slug}`} />
       </div>
     </div>
   );

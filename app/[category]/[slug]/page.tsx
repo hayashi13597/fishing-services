@@ -58,16 +58,71 @@ export async function generateMetadata({ params }: ParamsBlog) {
 const page = async ({ params }: ParamsBlog) => {
   const { slug, category } = params;
   const res = await ProductDetailApi.ListProductDetail(slug);
-  const product = await res.ProductDetail;
-  const listProductSame = await res.listProductSame;
+  const product: IProduct = (await res.ProductDetail) || {};
+  const listProductSame = (await res.listProductSame) || [];
+
+  const schema1 = {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        item: {
+          "@id": DOMAIN_HOST,
+          name: "Trang chủ",
+        },
+      },
+
+      {
+        "@type": "ListItem",
+        position: 2,
+        item: {
+          "@id": DOMAIN_HOST,
+          name: "blog-developer",
+        },
+      },
+
+      {
+        "@type": "ListItem",
+        position: 3,
+        item: {
+          "@id": `${DOMAIN_HOST}/${product.Category.slug}/${product.slug}`,
+          name: `✅${product.name}`,
+        },
+      },
+    ],
+  };
+  const schema2 = {
+    "@context": "http://schema.org/",
+    "@type": "Book",
+    name: product.name,
+    description: product.description,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5.0",
+      bestRating: `${product.stars}`,
+      ratingCount: `${listProductSame.length + 10 || 1}`,
+    },
+  };
 
   return (
-    <ProductDetail
-      listProductSame={listProductSame}
-      product={product}
-      category={category}
-      slug={slug}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema1) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema2) }}
+      />
+      <ProductDetail
+        listProductSame={listProductSame}
+        product={product}
+        category={category}
+        slug={slug}
+      />
+    </>
   );
 };
 
