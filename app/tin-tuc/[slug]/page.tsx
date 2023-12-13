@@ -72,7 +72,7 @@ const NewDetail = async ({ params }: ParamsBlog) => {
   const { slug } = params;
   const res = await EventApi.getSlug(slug);
   const data = await res.event;
-  const listNewsTop = await res.listNewsTop;
+  const listNewsTop = (await res.listNewsTop) || [];
   const listSame = (await res?.listSame) || [];
 
   if (!data.id) notFound();
@@ -91,12 +91,24 @@ const NewDetail = async ({ params }: ParamsBlog) => {
         <div className="flex flex-col md:flex-row gap-10">
           <NewContent newDetail={data} />
           <div>
-            <MostView title="Top lượt xem" ListNews={listNewsTop} />
-            <DidiveSpace coefficient={16} />
-            <MostView
-              title={`${data.isEvent ? "sự kiện" : "tin tức"} tương tự`}
-              ListNews={listSame}
-            />
+            {listNewsTop?.length ? (
+              <>
+                <MostView title="Top lượt xem" ListNews={listNewsTop} />
+                <DidiveSpace coefficient={16} />
+              </>
+            ) : (
+              ""
+            )}
+            {listSame?.length ? (
+              <>
+                <MostView
+                  title={`${data.isEvent ? "sự kiện" : "tin tức"} tương tự`}
+                  ListNews={listSame}
+                />
+              </>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

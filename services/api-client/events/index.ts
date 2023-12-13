@@ -5,8 +5,9 @@ const EventApi = {
   getAll() {
     return apiClient.get(this.path);
   },
-  getNewScreen() {
-    return apiClient.post(this.path + "new");
+  async getNewScreen() {
+    const res = await apiClient.post(this.path + "new");
+    return await res.data;
   },
   async getSlug(slug: string) {
     const res = await apiClient.get(this.path + slug);
