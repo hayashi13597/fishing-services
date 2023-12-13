@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Tin tức mới cập nhập tại Ốc đảo câu cá",
+  title: "Tin tức mới cập nhập tại Ốc đảo kỳ đà",
   description:
     "Tin tức và sự kiện luôn cập nhập một số giải thưởng hấp dẫn cho cần thủ đến khắp mọi nơi trên đất nước",
 };
