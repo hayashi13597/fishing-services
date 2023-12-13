@@ -1,12 +1,13 @@
 import Link from "next/link";
 import React from "react";
-import { BiHomeAlt, BiLogoFacebook, BiLogoTwitter } from "react-icons/bi";
+import { BiLogoFacebook, BiLogoTwitter } from "react-icons/bi";
 import { RiFlagLine } from "react-icons/ri";
 import { DOMAIN_HOST } from "../utils";
 
 interface ShareSocialProps {
   link: string;
 }
+const domain = "https://www.ocdaokyda.online/";
 const ShareSocial: React.FC<ShareSocialProps> = ({ link }) => {
   const className = `flex gap-2 items-center  py-4 mt-2 `;
 
@@ -18,7 +19,7 @@ const ShareSocial: React.FC<ShareSocialProps> = ({ link }) => {
           title="Chia sẻ lên Facebook"
           className="flex items-center gap-1 hover:text-primary hover:border-primary border-gray-400 rounded-full p-1 border-[0.5px]"
           target="_blank"
-          href={`https://www.facebook.com/sharer/sharer.php?u=${DOMAIN_HOST}${link}&hashtag=baiviethay,zeckytintuc,top`}
+          href={`https://www.facebook.com/sharer/sharer.php?u=${domain}${link}&hashtag=baiviethay,zeckytintuc,top`}
         >
           <BiLogoFacebook />
         </Link>
@@ -27,7 +28,7 @@ const ShareSocial: React.FC<ShareSocialProps> = ({ link }) => {
           title="Chia sẻ lên Twitter "
           className="flex items-center gap-1 hover:text-primary hover:border-primary border-gray-400 rounded-full p-1 border-[0.5px]"
           target="_blank"
-          href={`http://twitter.com/share?text=link&url=${DOMAIN_HOST}${link}&hashtags=hashtag1,hashtag2,hashtag3`}
+          href={`http://twitter.com/share?text=link&url=${domain}${link}&hashtags=hashtag1,hashtag2,hashtag3`}
         >
           <BiLogoTwitter />
         </Link>
