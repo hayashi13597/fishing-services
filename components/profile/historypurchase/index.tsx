@@ -48,7 +48,6 @@ const HistoryPurChase: React.FC = () => {
       pagesize,
       (pageCurrent - 1) * pagesize
     ).then((res) => {
-      console.log(res.data.listOrder);
       setListOrder(() => res.data.listOrder);
       setTotal(() => res.data.total);
     });
@@ -56,7 +55,6 @@ const HistoryPurChase: React.FC = () => {
   const dispatch = useDispatch();
 
   const handleViewOrderDetail = (value) => {
-    console.log(value);
 
     dispatch(
       openModalPurchasedHistory({
@@ -128,7 +126,6 @@ const HistoryPurChase: React.FC = () => {
       const valueSearch = searchRef.current.value;
       if (valueSearch) {
       }
-      console.log("valueSearch", valueSearch);
       OrdertDetailApi.search(valueSearch).then((res) => {
         if (res.data.orders) {
           setListOrder(() => res.data.orders);

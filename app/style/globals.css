@@ -140,3 +140,7 @@ body {
 .new-container img {
   margin: 0 auto;
 }
+.new-container iframe {
+  width: 100%;
+  height: 50vh !important;
+}

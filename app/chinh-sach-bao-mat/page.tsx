@@ -1,6 +1,10 @@
 import React from "react";
 import { privacyPolicy } from "../../constants";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Chính sách bảo mật",
+  description: "Chính sách bảo mật vô cùng kỷ lưỡng tại chúng tôi",
+};
 const PrivacyPolicy = () => {
   return (
     <div className="container mx-auto py-10">

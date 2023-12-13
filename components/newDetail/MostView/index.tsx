@@ -8,7 +8,7 @@ interface MostViewPros {
 const MostView = ({ ListNews, title }: MostViewPros) => {
   return (
     <div className="w-full  px-3 pb-5 md:pb-0">
-      <h3 className="text-primary text-xl font-semibold underline cursor-pointer transition-opacity hover:opacity-70 capitalize">
+      <h3 className="text-primary text-xl font-semibold  cursor-pointer transition-opacity hover:opacity-70 capitalize">
         {title}
       </h3>
       <div>

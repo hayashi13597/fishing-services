@@ -19,7 +19,6 @@ const Cart = ({ setIsOpenCart, isOpenCart }: CartProps) => {
   const handleClsoeCart = () => {
     setIsOpenCart(false);
   };
-  console.log(listProductCart);
   return (
     <>
       {isOpenCart && (

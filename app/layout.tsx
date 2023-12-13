@@ -20,6 +20,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Script
+        strategy="lazyOnload"
+        src={`https://www.googletagmanager.com/gtag/js?id=G-FD84HVH5RM`}
+      />
+
+      <Script strategy="lazyOnload">
+        {`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', 'G-FD84HVH5RM', {
+                    page_path: window.location.pathname,
+                    });
+                `}
+      </Script>
       <body suppressHydrationWarning={true}>
         <ReduxLayoutStore>
           <div id="fb-root"></div>

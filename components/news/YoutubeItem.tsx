@@ -14,7 +14,6 @@ const YoutubeItem: React.FC<YoutubeItemPros> = ({ videoId }) => {
 
   const isDesktop = useMediaQuery({ query: "(max-width:500px)" });
 
-  console.log("isDesktop: " + isDesktop);
 
   const opts: YouTubeProps["opts"] = {
     height: isDesktop ? "380" : "600",

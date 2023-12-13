@@ -42,8 +42,14 @@ const SupportAttachRight = () => {
             }}
             icon={<IconsRender link="/assets/zalo.png" />}
           />
-          <FloatButton icon={<IconsRender link="/assets/phone-call.png" />} />
-          <FloatButton icon={<IconsRender link="/assets/messenger.png" />} />
+          <FloatButton
+            className="hover:bg-white"
+            icon={<IconsRender link="/assets/phone-call.png" />}
+          />
+          <FloatButton
+            className="hover:bg-white"
+            icon={<IconsRender link="/assets/messenger.png" />}
+          />
         </FloatButton.Group>
       </ConfigProvider>
       <Link ref={zaloRef} href="https://zalo.me/0907338862" target="_blank" />

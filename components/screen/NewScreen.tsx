@@ -33,51 +33,36 @@ export interface INewItem {
     fullname: string;
   };
 }
-const NewScreen = () => {
-  const [ListContentNew, setListcontentNews] = useState({
-    listTopNews: [],
-    listNewHot: [],
-    listEventHost: [],
-    listNewNew: [],
-    listEventNews: [],
-  });
-  useEffect(() => {
-    EventApi.getNewScreen()
-      .then((res) => {
-        setListcontentNews(() => res.data);
-      })
-      .catch(() => {
-        ToastNotify("Lỗi server rồi!").error();
-      });
-  }, []);
+interface INewScreen {
+  listTopNews: INewItem[];
+  listNewHot: INewItem[];
+  listEventHost: INewItem[];
+  listNewNew: INewItem[];
+  listEventNews: INewItem[];
+}
+const NewScreen = ({
+  listTopNews = [],
+  listNewHot = [],
+  listEventHost = [],
+  listNewNew = [],
+  listEventNews = [],
+}: INewScreen) => {
   return (
     <div className="">
       <div className="container mx-auto pb-10">
         <Breadcrumb structurePage={structurePage} title="Tin tức - Sự kiện" />
 
-        {ListContentNew.listTopNews.length > 0 && (
+        {listTopNews.length > 0 && (
           <TopNews
-            itemHost={ListContentNew.listTopNews[0]}
-            listSubItem={ListContentNew.listTopNews.slice(1)}
+            itemHost={listTopNews[0]}
+            listSubItem={listTopNews.slice(1)}
           />
         )}
-        <PopularContainer
-          ListEvents={ListContentNew.listNewHot}
-          title="Tin tức nổi bật"
-        />
-        <PopularContainer
-          ListEvents={ListContentNew.listEventHost}
-          title="Sự kiện nổi bật"
-        />
+        <PopularContainer ListEvents={listNewHot} title="Tin tức nổi bật" />
+        <PopularContainer ListEvents={listEventHost} title="Sự kiện nổi bật" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <Latest
-            listNews={ListContentNew.listNewNew}
-            title="Tin tức mới nhất"
-          />
-          <Latest
-            listNews={ListContentNew.listEventNews}
-            title="Sự kiện mới nhất"
-          />
+          <Latest listNews={listNewNew} title="Tin tức mới nhất" />
+          <Latest listNews={listEventNews} title="Sự kiện mới nhất" />
         </div>
       </div>
     </div>

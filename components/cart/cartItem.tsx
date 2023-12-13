@@ -32,7 +32,6 @@ const CartItem = ({
   }, [amount, isOpenModalStatus]);
 
   const handleCallbackAccept = (isChose: boolean) => {
-    console.log("isChose", isChose);
     if (isChose) {
       dispatch(DeleteCart({ id }));
       ToastNotify("Xóa thành công từ giỏ hàng");

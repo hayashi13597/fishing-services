@@ -13,7 +13,6 @@ const Reviews = ({ idAccount }: ReviewsProps) => {
   const [itemPerPage] = useState(2);
   const [total, setTotal] = useState(1);
   const [pageCurrent, setPageCurrent] = useState(1);
-  console.log("total", total);
   useEffect(() => {
     if (idAccount) {
       ReviewApi.GetListReview(

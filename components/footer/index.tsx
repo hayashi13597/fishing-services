@@ -88,7 +88,7 @@ const Footer = () => {
             </section>
           </article>
           <p className="text-center pb-2 pt-8 text-sm">
-            © 2023 FBTeam-Fish Product. All Rights Reserved.
+            © 2023 FBTeam - Bản quyền thuộc hồ câu cá ốc đảo Kỳ Đà.
           </p>
         </div>
       </footer>

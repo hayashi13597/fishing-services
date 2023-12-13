@@ -45,14 +45,12 @@ const ProductScreen = ({
 
   useEffect(() => {
     if (!listProductDefault.length || isPageProduct) return;
-    console.log("cate", cate, pageCurrent);
     if (cate) {
       CateApi.GetOneCate(
         cate,
         itemPerPage,
         itemPerPage * (pageCurrent - 1)
       ).then((res) => {
-        console.log(res);
         setListProduct(() => res.listProducts);
         setTotalPage(() => res.total);
       });

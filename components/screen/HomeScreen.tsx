@@ -29,7 +29,6 @@ const HomeScreen = () => {
       }
     });
   }, []);
-  console.log(listProduct);
   return (
     <>
       <Banner />

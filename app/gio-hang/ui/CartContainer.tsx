@@ -17,7 +17,6 @@ const structurePage: structurePageType[] = [
 const CartContainer = () => {
   const router = useRouter();
   const listProductCart = useSelector((state: RootState) => state.cart.cart);
-  console.log(listProductCart);
   const totalCarts = listProductCart.reduce(
     (total, { price, quantity = 1 }) => (total += price * quantity),
     0

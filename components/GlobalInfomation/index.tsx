@@ -47,22 +47,18 @@ const GlobalInfomation = () => {
     }
 
     if (typeof window !== "undefined") {
-      console.log(localStorage.getItem("cart"));
       let listStringCart: any = localStorage.getItem("cart");
       if (listStringCart) {
         listStringCart = JSON.parse(listStringCart);
-        console.log(listStringCart);
         if (listStringCart) {
           listStringCart = listStringCart.cart;
           if (listStringCart) {
-            console.log("listStringCart", listStringCart);
             dispatch(CartInit(listStringCart || []));
           }
         }
       }
     }
   }, []);
-  console.log("isOpenModalDetail", isOpenModalDetail);
   return (
     <div>
       {isOpenModalAddToCart && <ModalAddProduct product={productAddToCart} />}

@@ -7,11 +7,19 @@ export const metadata: Metadata = {
 };
 import React from "react";
 import NewScreen from "../../components/screen/NewScreen";
+import EventApi from "../../services/api-client/events";
 
-const page = () => {
+const page = async () => {
+  const res = await EventApi.getNewScreen();
   return (
     <>
-      <NewScreen />
+      <NewScreen
+        listEventHost={res.listEventHost}
+        listEventNews={res.listEventNews}
+        listNewHot={res.listNewHot}
+        listNewNew={res.listNewNew}
+        listTopNews={res.listTopNews}
+      />
     </>
   );
 };

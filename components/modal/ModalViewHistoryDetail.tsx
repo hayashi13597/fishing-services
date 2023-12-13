@@ -26,7 +26,6 @@ const ModalViewHistoryDetail = () => {
     if (!idOrder) return;
     OrdertDetailApi.GetDetail(idOrder).then((res) => {
       const listData = res.data.orderdetails || [];
-      console.log("info", info);
       setListOrderDetail(() => listData);
 
       setTotalPrice(() =>

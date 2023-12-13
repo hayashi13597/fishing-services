@@ -37,7 +37,6 @@ const SearchComponent = () => {
   const HandleSubmitSearch = () => {
     if (searchRef.current) {
       const valueSearch = searchRef.current.value;
-      console.log("valueSearch", valueSearch);
 
       ProductsApi.search(valueSearch, 12, 0).then((res) => {
         setListProduct(() => res.data.products);

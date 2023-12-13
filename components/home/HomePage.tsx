@@ -10,6 +10,7 @@ import Event from "./events";
 
 import YoutubeContainer from "./socials/YoutubeContainer";
 import ProductsApi from "../../services/api-client/product";
+import DidiveSpace from "../DidiveSpace";
 
 const HomePage = () => {
   const [listDataHome, setListDataHome] = useState({
@@ -49,8 +50,11 @@ const HomePage = () => {
         <div className="my-20"></div>
         <YoutubeContainer />
       </div>
+
       <AboutUs />
+      <DidiveSpace coefficient={4} />
       <InfoMail />
+      <DidiveSpace coefficient={4} />
     </>
   );
 };
