@@ -37,6 +37,7 @@ const SupportAttachRight = () => {
           icon={<BiSupport />}
         >
           <FloatButton
+            className="hover:bg-white"
             onClick={() => {
               zaloRef.current && zaloRef.current.click();
             }}
