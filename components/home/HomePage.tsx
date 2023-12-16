@@ -34,14 +34,22 @@ const HomePage = () => {
       <Banner />
       <ListCategories />
       <div className="container mx-auto my-20">
-        <MainProduct
-          listProduct={listDataHome.ListProductNews}
-          title="Sản phẩm mới nhất"
-        />
-        <MainProduct
-          listProduct={listDataHome.ListProductSaleTop}
-          title="Sản phẩm bán chạy"
-        />
+        {listDataHome.ListProductNews.length ? (
+          <MainProduct
+            listProduct={listDataHome.ListProductNews}
+            title="Sản phẩm mới nhất"
+          />
+        ) : (
+          ""
+        )}
+        {listDataHome.ListProductSaleTop.length ? (
+          <MainProduct
+            listProduct={listDataHome.ListProductSaleTop}
+            title="Sản phẩm bán chạy"
+          />
+        ) : (
+          ""
+        )}
       </div>
 
       <News listNews={listDataHome.listNews} />

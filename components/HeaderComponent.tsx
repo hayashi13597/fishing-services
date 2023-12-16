@@ -24,7 +24,7 @@ const HeaderComponent = () => {
   const items: MenuProps["items"] = listCateGory.map((item) => ({
     key: item.slug,
     label: (
-      <Link href={item.slug} className="hover:underline capitalize">
+      <Link href={`/${item.slug}`} className="hover:underline capitalize">
         {item.name}
       </Link>
     ),

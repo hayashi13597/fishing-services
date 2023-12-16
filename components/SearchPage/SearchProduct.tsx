@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaShareSquare, FaStar } from "react-icons/fa";
-import { formatMoney, handleOpenNewWindown } from "../../utils";
+import { DiscountCalc, formatMoney, handleOpenNewWindown } from "../../utils";
 import { IoEyeSharp } from "react-icons/io5";
 import { IProduct } from "../home/ProductContainer";
 import { useDispatch } from "react-redux";
@@ -60,7 +60,7 @@ const SearchProduct = ({ product }: ISearchProduct) => {
         </h3>
         <p className="flex items-center gap-1 text-sm">
           {stars}
-          <FaStar className="text-base" />
+          <FaStar className="text-base text-primary" />
         </p>
         <p className="font-semibold text-primary flex items-center gap-1">
           <span>{formatMoney(price)}</span>
@@ -69,7 +69,7 @@ const SearchProduct = ({ product }: ISearchProduct) => {
               sale_off ? "" : "hidden"
             } `}
           >
-            {formatMoney(Math.floor((1 + sale_off * 0.01) * price))}
+            {DiscountCalc(price, sale_off)}
           </span>
           <span className={`text-text/50 text-xs ${sale_off ? "" : "hidden"}`}>
             ({sale_off}% off)

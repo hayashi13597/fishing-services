@@ -5,7 +5,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./style.css";
 import { Pagination, Navigation } from "swiper/modules";
-import { formatMoney } from "../../utils";
+import { DiscountCalc, formatMoney } from "../../utils";
 
 import Link from "next/link";
 import { productType } from "../../common.types";
@@ -142,11 +142,7 @@ const ModalProduct: React.FC<{
                     {formatMoney(price)}{" "}
                   </span>
                   <span className="text-sm ml-2 text-black opacity-40 line-through">
-                    {product.sale_off
-                      ? formatMoney(
-                          (1 + product.sale_off / 100) * product.price
-                        )
-                      : ""}
+                    {DiscountCalc(product.price, product.sale_off)}
                   </span>
                 </p>
 

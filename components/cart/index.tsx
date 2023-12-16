@@ -60,7 +60,7 @@ const Cart = ({ setIsOpenCart, isOpenCart }: CartProps) => {
           )}
         </section>
         <div>
-          <div className="flex justify-between mt-2">
+          <div className="flex justify-between mt-2 px-2">
             <span className="font-semibold">Tổng phụ:</span>
             <span className="font-semibold">
               {formatMoney(

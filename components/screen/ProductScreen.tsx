@@ -29,7 +29,7 @@ const ProductScreen = ({
     useState<IProduct[]>(listProductDefault);
   const [pageCurrent, setPageCurrent] = useState(1);
   const [totalPage, setTotalPage] = useState(total);
-  const [filter, setfilter] = useState({ idCate: "", filter: "" });
+  const [filter, setfilter] = useState({ idCate: "", filter: "za" });
   const listCateGory = useSelector(
     (state: RootState) => state.productDetail.listCate
   );
@@ -45,16 +45,18 @@ const ProductScreen = ({
 
   useEffect(() => {
     if (!listProductDefault.length || isPageProduct) return;
-    if (cate) {
-      CateApi.GetOneCate(
-        cate,
-        itemPerPage,
-        itemPerPage * (pageCurrent - 1)
-      ).then((res) => {
-        setListProduct(() => res.listProducts);
-        setTotalPage(() => res.total);
-      });
-    } else if (search) {
+    // if (cate) {
+    //   CateApi.GetOneCate(
+    //     cate,
+    //     itemPerPage,
+    //     itemPerPage * (pageCurrent - 1)
+    //   ).then((res) => {
+    //     setListProduct(() => res.listProducts);
+    //     setTotalPage(() => res.total);
+    //   });
+    // }
+
+    if (search) {
       ProductsApi.search(
         search,
         itemPerPage,
@@ -71,18 +73,22 @@ const ProductScreen = ({
 
   // danh cho trang san pham
   useEffect(() => {
-    if (isPageProduct) {
-      ProductsApi.Filter(
-        filter.idCate,
-        filter.filter,
-        itemPerPage,
-        itemPerPage * (pageCurrent - 1)
-      ).then((res: any) => {
-        setListProduct(() => res.data.products);
-        setTotalPage(() => res.data.total);
-      });
+    if (cate) {
+      const findCate = listCateGory.find((item) => item.slug == cate);
+      if (findCate) {
+        handleUpdateViewSelect(findCate.id, filter.filter, itemPerPage);
+      }
+    } else if (isPageProduct) {
+      handleUpdateViewSelect(filter.idCate, filter.filter, itemPerPage);
     }
-  }, [pageCurrent, listProductDefault.length, filter.filter, filter.idCate]);
+  }, [
+    pageCurrent,
+    listProductDefault.length,
+    filter.filter,
+    filter.idCate,
+    cate,
+    listCateGory.length,
+  ]);
 
   const handleChangeCate = (value: string) => {
     setfilter((prev) => ({ ...prev, idCate: value }));
@@ -98,7 +104,21 @@ const ProductScreen = ({
   }));
 
   listOrders.unshift({ value: "", label: "Tất cả" });
-
+  const handleUpdateViewSelect = (
+    idCate: string,
+    filter: string,
+    itemPerPage: number
+  ) => {
+    ProductsApi.Filter(
+      idCate,
+      filter,
+      itemPerPage,
+      itemPerPage * (pageCurrent - 1)
+    ).then((res: any) => {
+      setListProduct(() => res.data.products);
+      setTotalPage(() => res.data.total);
+    });
+  };
   return (
     <div className="container mx-auto">
       <div className="flex items-center justify-between">
@@ -151,7 +171,7 @@ const ProductScreen = ({
 
       <div
         className={`flex justify-center ${
-          itemPerPage > totalPage ? "!hidden" : "mb-10"
+          itemPerPage >= totalPage ? "!hidden" : "mb-10"
         }`}
       >
         <Pagination

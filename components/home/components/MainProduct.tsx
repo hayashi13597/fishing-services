@@ -2,7 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-import { formatMoney, handleOpenNewWindown } from "../../../utils";
+import {
+  DiscountCalc,
+  formatMoney,
+  handleOpenNewWindown,
+} from "../../../utils";
 import { IoEyeSharp } from "react-icons/io5";
 import { FaShareSquare } from "react-icons/fa";
 import { IProduct } from "../ProductContainer";
@@ -14,9 +18,12 @@ type mainProductType = {
   listProduct: IProduct[];
 };
 
-const MainProduct = ({ title, listProduct = [] }: mainProductType) => {
-  const dispatch = useDispatch();
+const MainProduct = ({
+  title,
 
+  listProduct = [],
+}: mainProductType) => {
+  const dispatch = useDispatch();
   const handleShare = (product: IProduct) => {
     const { name, slug, Category } = product;
     handleOpenNewWindown(`${Category.slug}/${slug}`, name);
@@ -31,7 +38,7 @@ const MainProduct = ({ title, listProduct = [] }: mainProductType) => {
         <p className="text-sm">
           Xem thêm nhiều sản phẩm hơn
           <Link
-            href={"/san-pham"}
+            href={`/${listProduct[0]?.Category.slug}/${listProduct[0]?.slug}`}
             className="underline text-text md:text-text/80 text-base hover:text-primary transition-all font-medium pl-1"
           >
             tại đây
@@ -56,17 +63,13 @@ const MainProduct = ({ title, listProduct = [] }: mainProductType) => {
                 className="object-cover w-full"
               />
               <p className="absolute bottom-2 left-2 bg-white font-semibold py-1 px-3 text-sm rounded-full">
-                <span className="mr-1">
-                  {formatMoney(
-                    Math.floor((1 + product.sale_off * 0.01) * product.price)
-                  )}
-                </span>
+                <span className="mr-1">{formatMoney(product.price)} </span>
                 <span
                   className={`line-through font-light ${
                     product.sale_off === 0 ? "hidden" : ""
                   }`}
                 >
-                  {formatMoney(product.price)}
+                  {DiscountCalc(product.price, product.sale_off)}
                 </span>
               </p>
             </Link>

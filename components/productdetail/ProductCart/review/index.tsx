@@ -10,9 +10,7 @@ interface FootidProducterProductDetailProps {
 const FooterProductDetail = ({
   product,
 }: FootidProducterProductDetailProps) => {
-  const handleChangeTabs = (key: string) => {
-    console.log(key);
-  };
+  const handleChangeTabs = (key: string) => {};
 
   const items: TabsProps["items"] = [
     {
@@ -23,7 +21,7 @@ const FooterProductDetail = ({
     {
       key: "2",
       label: "Bình luận Facebook",
-      children: <FacebookComment />,
+      children: <FacebookComment id={product.slug} />,
     },
   ];
   return (

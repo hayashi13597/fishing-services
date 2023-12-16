@@ -163,7 +163,7 @@ const ModalViewHistoryDetail = () => {
             {listOrderDetail.length > 0 && (
               <div
                 className={`flex justify-center py-5 md:py-4 ${
-                  itemPerPage > listOrderDetail.length ? "!hidden" : ""
+                  itemPerPage >= listOrderDetail.length ? "!hidden" : ""
                 }`}
               >
                 <Pagination

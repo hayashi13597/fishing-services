@@ -47,7 +47,7 @@ const Reviews = ({ idAccount }: ReviewsProps) => {
       </div>
       <div
         className={`flex justify-center ${
-          itemPerPage > total ? "!hidden" : "mb-10"
+          itemPerPage >= total ? "!hidden" : "mb-10"
         }`}
       >
         <Pagination

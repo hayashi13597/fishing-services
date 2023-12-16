@@ -88,3 +88,7 @@ export const handleOpenNewWindown = (link: string, name?: string) => {
   const windowFeatures = "width=800,height=600";
   window.open(url, windowName, windowFeatures);
 };
+export const DiscountCalc = (price: number, sales: any) => {
+  if (!sales) return "";
+  return formatMoney(Math.floor((1 + sales * 0.01) * price));
+};

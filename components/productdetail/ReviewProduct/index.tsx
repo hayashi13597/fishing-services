@@ -128,7 +128,7 @@ const ReviewProduct = ({ product }: ReviewProductProps) => {
 
       <div
         className={`flex justify-center ${
-          itemPerPage > productReview.total ? "!hidden" : "mb-10"
+          itemPerPage >= productReview.total ? "!hidden" : "mb-10"
         }`}
       >
         <Pagination
