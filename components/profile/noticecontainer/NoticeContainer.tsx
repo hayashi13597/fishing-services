@@ -1,7 +1,5 @@
 "use state";
 import React, { useEffect, useState } from "react";
-import NoticeItem from "../../notice/NoticeItem";
-import Image from "next/image";
 import NoticeItemProfile from "./NoticeItemProfile";
 import { ConfigProvider, Pagination } from "antd";
 import { useSelector } from "react-redux";
@@ -41,7 +39,6 @@ const NoticeContainer = () => {
           components: {
             Pagination: {
               colorBgTextActive: "#DB4444",
-
               colorPrimary: "#DB4444",
             },
           },

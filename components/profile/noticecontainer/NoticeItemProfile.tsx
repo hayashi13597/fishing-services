@@ -11,19 +11,24 @@ const NoticeItemProfile = ({ notice }: NoticeItemProfileProPs) => {
     notice.link && router.push("/" + notice.link);
   };
   return (
-    <article onClick={handleSubmit} className="flex gap-4 hover:bg-slate-100">
-      <Image
-        alt="notice"
-        src="/assets/notice.png"
-        width={60}
-        height={60}
-        className="object-cover"
-      />
-      <div>
-        <h6 className="mb-1 font-semibold">{notice.title} </h6>
-        <p className="text-sm">{notice.content}</p>
+    <div
+      onClick={handleSubmit}
+      className="flex gap-4 hover:bg-slate-100 items-center"
+    >
+      <div className="w-1/12 p-2">
+        <Image
+          alt="notice"
+          src="/assets/notice.png"
+          width={60}
+          height={60}
+          className="object-contain"
+        />
       </div>
-    </article>
+      <div className="w-11/12">
+        <h6 className="mb-1 font-semibold">{notice.title} </h6>
+        <p className="text-sm line-clamp-1">{notice.content}</p>
+      </div>
+    </div>
   );
 };
 

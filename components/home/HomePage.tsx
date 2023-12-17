@@ -33,7 +33,7 @@ const HomePage = () => {
     <>
       <Banner />
       <ListCategories />
-      <div className="container mx-auto my-20 flex flex-col gap-20">
+      <div className="container mx-auto my-10 md:my-20 flex flex-col gap-10 md:gap-20">
         {listDataHome.ListProductNews.length ? (
           <MainProduct
             listProduct={listDataHome.ListProductNews}
@@ -53,9 +53,9 @@ const HomePage = () => {
       </div>
 
       <News listNews={listDataHome.listNews} />
-      <div className="container mx-auto mb-20">
+      <div className="container mx-auto mb-10 md:mb-20">
         <Event ListEvent={listDataHome.listEvents} />
-        <div className="my-20"></div>
+        <div className="my-10 md:my-20"></div>
         <YoutubeContainer />
       </div>
 

@@ -36,6 +36,7 @@ const AccountMenu = () => {
   ]);
   const handleLogout = () => {
     cookieClient.remove("accessToken");
+    cookieClient.remove("loggedIn");
     disPatch(LogOutNotice());
     disPatch(LogoutAccount());
 

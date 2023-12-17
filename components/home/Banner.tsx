@@ -20,12 +20,10 @@ const Banner = () => {
         {listBanners.map((item, index) => (
           <div key={`banner-${index}`}>
             <h2 style={contentStyle}>
-              <Image
-                alt="banner 1"
+              <img
                 src={item.link}
-                width={600}
-                height={300}
-                className="w-screen lg:h-[600px] md:h-[300px] h-[250px] object-cover"
+                alt="banner"
+                className="w-full h-[300px] md:h-[650px] object-cover"
               />
             </h2>
           </div>

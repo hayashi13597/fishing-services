@@ -81,6 +81,9 @@ const SelectFormPayment = ({
         name="ward"
         className="p-4 border-2 mb-3 rounded-lg w-full md:w-1/3 text-sm outline-none"
         defaultValue="default"
+        onChange={(e) => {
+          handleSelectChange(e, "ward");
+        }}
       >
         <option value="default">Chọn phường / xã</option>
         {wards &&

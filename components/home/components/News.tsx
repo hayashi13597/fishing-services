@@ -10,7 +10,7 @@ interface NewsProps {
 }
 const News = ({ listNews = [] }: NewsProps) => {
   return (
-    <div className="container mx-auto my-20">
+    <div className="container mx-auto my-10 md:my-20">
       <div className="flex justify-center items-center flex-col md:flex-row md:justify-between md:text-text/80">
         <h1 className="text-4xl">Tin tức - Sự kiện</h1>
         <p className="text-sm">

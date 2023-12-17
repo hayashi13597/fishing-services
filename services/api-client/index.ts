@@ -35,10 +35,12 @@ apiClient.interceptors.response.use(
 export function handleAttachToken(AUTH_TOKEN: string) {
   apiClient.defaults.headers.common["Authorization"] = "Bearer " + AUTH_TOKEN;
   cookieClient.set("accessToken", AUTH_TOKEN, 60 * 60 * 24 * 1000 * 10);
+  cookieClient.set("loggedIn", true);
 }
 export function handleAttachTokenNotSave(AUTH_TOKEN: string, isSave = false) {
   apiClient.defaults.headers.common["Authorization"] = "Bearer " + AUTH_TOKEN;
   isSave &&
     cookieClient.set("accessToken", AUTH_TOKEN, 60 * 60 * 24 * 1000 * 10);
+  cookieClient.set("loggedIn", true);
 }
 export default apiClient;

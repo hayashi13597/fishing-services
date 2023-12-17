@@ -104,7 +104,7 @@ const ChangePassword = ({ id }: ChangePasswordProps) => {
               label="Mật khẩu cũ"
               type="password"
               id="oldPassword"
-              placeholder="******"
+              placeholder="••••••••"
               register={register}
               error={errors.oldPassword}
             />

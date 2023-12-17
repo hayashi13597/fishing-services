@@ -1,15 +1,15 @@
 export const listBanners = [
   {
-    link: "https://hocaugiaitricacon.com/thumbs/1366x470x1/upload/photo/81d170e9-8e40-4ed3-8958-428252910192-16670.jpeg",
+    link: "/assets/banner-1.jpg",
   },
   {
-    link: "https://hocaugiaitricacon.com/thumbs/1366x470x1/upload/photo/8072e13a1d41c51f9c50-8493.jpg",
+    link: "/assets/banner-2.jpg",
   },
   {
-    link: "https://hocaugiaitricacon.com/thumbs/1366x470x1/upload/photo/eda4a279-fcef-4df1-a890-ae385b3e652b-98090.jpeg",
+    link: "/assets/banner-3.jpg",
   },
   {
-    link: "https://hocaugiaitricacon.com/thumbs/1366x470x1/upload/photo/c68337072002f85ca113-16870.jpg",
+    link: "/assets/banner-4.jpg",
   },
 ];
 export const Supports = [

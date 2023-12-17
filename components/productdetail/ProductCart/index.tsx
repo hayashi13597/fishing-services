@@ -123,7 +123,7 @@ const ProductCart = ({
                 </div>
                 {product.sale_off ? (
                   <div className="discount bg-primary">
-                    {product.sale_off}% giảm
+                    giảm {product.sale_off}%
                   </div>
                 ) : (
                   ""

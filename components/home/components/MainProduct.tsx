@@ -38,7 +38,7 @@ const MainProduct = ({
         <p className="text-sm">
           Xem thêm nhiều sản phẩm hơn
           <Link
-            href={`/${listProduct[0]?.Category.slug}/${listProduct[0]?.slug}`}
+            href={`/${listProduct[0]?.Category.slug}`}
             className="underline text-text md:text-text/80 text-base hover:text-primary transition-all font-medium pl-1"
           >
             tại đây

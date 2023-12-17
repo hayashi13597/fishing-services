@@ -30,7 +30,7 @@ const LatestItem = ({ newItem }: LatestItemProps) => {
         </div>
         <h3 className=" mb-2">
           <Link
-            className="block text-base md:text-lg font-bold hover:text-primary transition-all"
+            className="block text-base md:text-lg font-bold !line-clamp-2 hover:text-primary transition-all"
             href={`/tin-tuc/${newItem.slug}`}
           >
             {newItem.title}

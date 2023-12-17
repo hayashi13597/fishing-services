@@ -11,7 +11,7 @@ const PopularItem = (props: IPopularItemProps) => {
   const router = useRouter();
 
   return (
-    <div className="cursor-pointer bg-[#ffff] border hover:brightness-95 transition-all rounded-lg overflow-hidden flex flex-col justify-between">
+    <div className="cursor-pointer bg-[#ffff] border hover:brightness-95 transition-all rounded-lg overflow-hidden max-h-80 flex flex-col justify-between">
       <Image
         src={props.imageUrl}
         alt={props.title}

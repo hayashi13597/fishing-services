@@ -27,7 +27,7 @@ const NewItem = ({ newdetail }: NewItemPros) => {
         </div>
         <Link
           href={`/tin-tuc/${newdetail.slug}`}
-          className="text-sm block  text-justify md:text-start md:text-base line-clamp-2 font-bold transition-all hover:text-primary tracking-tighter capitalize"
+          className="text-sm block text-justify md:text-start md:text-base !line-clamp-2 font-bold transition-all hover:text-primary tracking-tighter capitalize"
         >
           {newdetail.title}
         </Link>

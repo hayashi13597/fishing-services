@@ -55,7 +55,6 @@ const HistoryPurChase: React.FC = () => {
   const dispatch = useDispatch();
 
   const handleViewOrderDetail = (value) => {
-
     dispatch(
       openModalPurchasedHistory({
         info: value,
@@ -161,14 +160,14 @@ const HistoryPurChase: React.FC = () => {
             e.preventDefault();
             HandleSubmitSearch();
           }}
-          className="py-2"
+          className="p-2"
         >
           <input
             ref={searchRef}
             onInput={Debounced(HandleSubmitSearch, 1000)}
             type="search"
             id="voice-search"
-            className="w-full border py-3 outline-none pl-6 rounded-md text-sm"
+            className="w-full border py-3 outline-none px-6 rounded-md text-sm"
             placeholder="Tìm kiếm sản phẩm..."
             required
             autoComplete="off"
@@ -188,7 +187,9 @@ const HistoryPurChase: React.FC = () => {
             className="overflow-auto scroll_y"
           />
         ) : (
-          <p className="px-2">Không tồn tại đơn hàng nào</p>
+          <p className="flex justify-center items-center mt-8 font-semibold text-primary">
+            Không tồn tại đơn hàng nào
+          </p>
         )}
       </ConfigProvider>
     </>

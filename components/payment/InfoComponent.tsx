@@ -9,9 +9,6 @@ import Breadcrumb from "../Breadcrumb";
 import { structurePageType } from "../../common.types";
 import useFetchSelect from "../../hooks/useFetchSelect";
 import { BsBox2 } from "react-icons/bs";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import ToastNotify from "../../services/toast";
@@ -20,7 +17,6 @@ import { ResetCart } from "../../redux/cart";
 import { LogoutAccount } from "../../redux/user";
 import { AddNewNotice, LogOutNotice } from "../../redux/notices";
 import { Validator } from "react-swisskit";
-import Loading from "../Loading";
 import LoadingContent from "../screen/LoadingContent";
 
 interface provincesI {
@@ -118,6 +114,9 @@ const InfoComponent = ({ setShipment, shipment = 0 }: InfoComponentProps) => {
   const [selectedDistricts, setSelectedDistricts] = useState<districtI[]>();
   const [selectedWards, setSelectedWards] = useState<wardI[]>([]);
   const [showMethod, setShowMethod] = useState<string>("");
+  const [province, setProvince] = useState("default");
+  const [district, setDistrict] = useState("default");
+  const [ward, setWard] = useState("default");
 
   const account = useSelector((state: RootState) => state.user.account);
   const listCart = useSelector((state: RootState) => state.cart.cart);
@@ -125,27 +124,6 @@ const InfoComponent = ({ setShipment, shipment = 0 }: InfoComponentProps) => {
   const formRef = useRef(null);
   const discount = useSelector((state: RootState) => state.cart.discount);
   const dispatch = useDispatch();
-  // const schema = yup
-  //   .object({
-  //     fullName: yup.string().required("Họ và tên không được để trống"),
-  //     phoneNumber: yup
-  //       .number()
-  //       .min(10, "Số điện thoại phải có ít nhất 10 chữ số")
-  //       .required("Số điện thoại không được để trống"),
-  //     address: yup.string().required("Địa chỉ không được để trống"),
-  //     province: yup.string().required("Tỉnh / thành không được để trống"),
-  //     district: yup.string().required("Quận / huyện không được để trống"),
-  //     ward: yup.string().required("Phường / xã không được để trống"),
-  //   })
-  //   .required();
-
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors, isSubmitting },
-  // } = useForm({
-  //   resolver: yupResolver(schema),
-  // });
 
   const handleSelectChange = (
     e: React.ChangeEvent<HTMLSelectElement>,
@@ -156,6 +134,7 @@ const InfoComponent = ({ setShipment, shipment = 0 }: InfoComponentProps) => {
         (district: districtI) =>
           district.province_code === Number(e.target.value)
       );
+      setProvince(e.target.options[e.target.selectedIndex].text);
       setSelectedDistricts(filteredDistricts);
       setSelectedWards([]);
     }
@@ -163,31 +142,40 @@ const InfoComponent = ({ setShipment, shipment = 0 }: InfoComponentProps) => {
       const filteredWards = wards?.data.filter(
         (ward: wardI) => ward.district_code === Number(e.target.value)
       );
+      setDistrict(e.target.options[e.target.selectedIndex].text);
       setSelectedWards(filteredWards);
+    }
+    if (typeS === "ward") {
+      setWard(e.target.options[e.target.selectedIndex].text);
     }
   };
 
   const handleOnSubmit1 = async (data: FormData) => {
+    const fullName = data.get("fullName");
+    const phoneNumber: any = data.get("phoneNumber") || "";
+    const address = data.get("address");
+    const shipMethod = data.get("shipMethod");
+    const paymentMethod = data.get("paymentMethod");
+
     if (!account.fullname) {
       ToastNotify("Vui lòng đăng nhập để mua hàng?").error();
+      return;
+    } else if (listCart.length < 1) {
+      ToastNotify("Giỏ hàng của bạn rỗng?").error();
+      return;
+    } else if (province === "default") {
+      ToastNotify("Vui lòng chọn tỉnh / thành").error();
+      return;
+    } else if (district === "default") {
+      ToastNotify("Vui lòng chọn quận / huyện").error();
+      return;
+    } else if (ward === "default") {
+      ToastNotify("Vui lòng chọn phường / xã").error();
       return;
     } else if (!showMethod) {
       ToastNotify("Vui lòng Chọn phương thức thanh toán?").error();
       return;
-    } else if (listCart.length < 1) {
-      ToastNotify("Giỏ hàng của bạn rỗng?").error();
-
-      return;
     }
-
-    const fullName = data.get("fullName");
-    const phoneNumber: any = data.get("phoneNumber") || "";
-    const address = data.get("address");
-    const province = data.get("province");
-    const district = data.get("district");
-    const ward = data.get("ward");
-    const shipMethod = data.get("shipMethod");
-    const paymentMethod = data.get("paymentMethod");
 
     if (!Validator.isPhone(phoneNumber)) {
       ToastNotify("Số điện thoại không đúng").error();
@@ -204,7 +192,7 @@ const InfoComponent = ({ setShipment, shipment = 0 }: InfoComponentProps) => {
     const order = {
       fullname: fullName,
       phone: phoneNumber,
-      address: `${address} ${province} ${district} ${ward}`,
+      address: `${address}, ${ward}, ${district}, ${province}`,
       shipping_fee: shipMethod,
       payment_method: paymentMethod,
       email: account.email,

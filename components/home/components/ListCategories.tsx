@@ -15,7 +15,7 @@ const ListCategories = () => {
   }, []);
 
   return (
-    <div className="container mx-auto mt-20">
+    <div className="container mx-auto mt-10 md:mt-20">
       <h1 className="text-4xl text-center text-text/80">Danh mục</h1>
       <div className="grid grid-cols-3 md:grid-cols-6 gap-4 mt-5 overflow-hidden">
         {listCateGory.map((category) => (
