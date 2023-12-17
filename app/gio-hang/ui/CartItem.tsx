@@ -11,8 +11,8 @@ import { useDispatch } from "react-redux";
 import { coverSlug } from "react-swisskit";
 
 const CartItem = ({
-  id ,
-  name ,
+  id,
+  name,
   slug,
   price = 0,
   imageUrl,
@@ -23,7 +23,7 @@ const CartItem = ({
   const DeleteCartItem = useCallback(() => {
     setAmount(() => -2);
     dispatch(DeleteCart({ id: id }));
-    ToastNotify("Xóa thành công trong giỏ hàng").success();
+    // ToastNotify("Xóa thành công trong giỏ hàng").success();
   }, []);
   useEffect(() => {
     dispatch(UpdateAmount({ id, quantity: amount }));
@@ -32,6 +32,7 @@ const CartItem = ({
     //xóa sản phẩm giỏ hàng
     if (isDelete) {
       DeleteCartItem();
+      ToastNotify("Xóa thành công trong giỏ hàng").success();
     } else {
       setAmount(() => 1);
     }

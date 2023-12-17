@@ -60,7 +60,7 @@ const MainProduct = ({
                 alt={product.name}
                 width={500}
                 height={500}
-                className="object-cover w-full"
+                className="object-cover w-full brightness-90"
               />
               <p className="absolute bottom-2 left-2 bg-white font-semibold py-1 px-3 text-sm rounded-full">
                 <span className="mr-1">{formatMoney(product.price)} </span>

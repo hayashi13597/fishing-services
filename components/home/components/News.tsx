@@ -29,36 +29,49 @@ const News = ({ listNews = [] }: NewsProps) => {
             className="relative group border rounded-md overflow-hidden hover:shadow-2xl transition-all duration-300"
             key={newItem.id}
           >
-            <Link href={`/tin-tuc/${newItem.slug}`}>
+            <Link
+              href={`/tin-tuc/${newItem.slug}`}
+              className="h-full flex flex-col"
+            >
               <Image
                 src={newItem.imageUrl}
                 alt={newItem.title}
                 height={500}
                 width={500}
-                className="object-cover w-full"
+                className="object-contain w-full max-h-96"
               />
-              <div className="py-3 px-2">
+              <div
+                className="py-3 px-2"
+                style={{
+                  flexGrow: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
                 <h3 className="text-base font-semibold line-clamp-2 group-hover:text-primary mb-1 capitalize">
                   {newItem.title}
                 </h3>
-                <p className="text-sm line-clamp-3">{newItem.description}</p>
-                <div className="flex items-center justify-between mt-2">
-                  <p>{formatDateTime(newItem.createdAt)}</p>
-                  <div
-                    style={{
-                      width: "40px",
-                      height: "40px",
-                      position: "relative",
-                      borderRadius: "100%",
-                      overflow: "hidden",
-                    }}
-                  >
-                    <Image
-                      src={newItem.User?.avatar || "/assets/avatar.png"}
-                      alt="user image"
-                      fill
-                      className="w-full object-cover"
-                    />
+                <div className="">
+                  <p className="text-sm line-clamp-3">{newItem.description}</p>
+                  <div className="flex items-center justify-between mt-2">
+                    <p>{formatDateTime(newItem.createdAt)}</p>
+                    <div
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        position: "relative",
+                        borderRadius: "100%",
+                        overflow: "hidden",
+                      }}
+                    >
+                      <Image
+                        src={newItem.User?.avatar || "/assets/avatar.png"}
+                        alt="user image"
+                        fill
+                        className="w-full object-cover"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
