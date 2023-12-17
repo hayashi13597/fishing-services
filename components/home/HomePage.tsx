@@ -33,7 +33,7 @@ const HomePage = () => {
     <>
       <Banner />
       <ListCategories />
-      <div className="container mx-auto my-20">
+      <div className="container mx-auto my-20 flex flex-col gap-20">
         <MainProduct
           listProduct={listDataHome.ListProductNews}
           title="Sản phẩm mới nhất"
