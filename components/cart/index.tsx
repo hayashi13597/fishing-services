@@ -19,6 +19,7 @@ const Cart = ({ setIsOpenCart, isOpenCart }: CartProps) => {
   const handleClsoeCart = () => {
     setIsOpenCart(false);
   };
+
   return (
     <>
       {isOpenCart && (
@@ -46,7 +47,7 @@ const Cart = ({ setIsOpenCart, isOpenCart }: CartProps) => {
           {listProductCart.length > 0 ? (
             listProductCart.map((item) => (
               <CartItem
-                key={item.id + item.quantity}
+                key={`cart-item-${item.id}`}
                 id={item.id}
                 imageUrl={item.imageUrl}
                 name={item.name}

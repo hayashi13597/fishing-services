@@ -16,11 +16,12 @@ import { useDispatch } from "react-redux";
 type mainProductType = {
   title?: string;
   listProduct: IProduct[];
+  link?: string;
 };
 
 const MainProduct = ({
   title,
-
+  link = "san-pham",
   listProduct = [],
 }: mainProductType) => {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ const MainProduct = ({
         <p className="text-sm">
           Xem thêm nhiều sản phẩm hơn
           <Link
-            href={`/${listProduct[0]?.Category.slug}`}
+            href={`/${link}`}
             className="underline text-text md:text-text/80 text-base hover:text-primary transition-all font-medium pl-1"
           >
             tại đây

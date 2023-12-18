@@ -35,7 +35,11 @@ const ProductDetail = ({
       <FooterProductDetail product={product} />
       <DidiveSpace coefficient={8} />
       {listProductSame.length ? (
-        <MainProduct listProduct={listProductSame} title="Sản phẩm tương tự" />
+        <MainProduct
+          listProduct={listProductSame}
+          title="Sản phẩm tương tự"
+          link={product.Category.slug}
+        />
       ) : (
         ""
       )}

@@ -18,7 +18,6 @@ export async function generateMetadata({ params }: ParamsBlog) {
     title: data.name,
     description: data.description,
     keywords: data.name,
-
     metadataBase: new URL(`${DOMAIN_HOST}/${data.slug}`),
     authors: [data.User.fullname, "ocdaocauca.online"],
     publisher: data.User.fullname,

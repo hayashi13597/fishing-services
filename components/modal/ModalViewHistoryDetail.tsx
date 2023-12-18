@@ -140,7 +140,7 @@ const ModalViewHistoryDetail = () => {
                           </div>
                         </td>
 
-                        <td className="px-6 py-4">
+                        <td className="px-6 py-4 text-center">
                           {formatQuantity(order.quantity)}
                         </td>
                         <td className="px-6 py-4">
@@ -167,7 +167,11 @@ const ModalViewHistoryDetail = () => {
                               (totalPrice - info.shipping_fee) +
                               info.shipping_fee
                           )}{" "}
-                      {info.discount ? <sub>-{info.discount}%</sub> : ""}
+                      {info.discount ? (
+                        <sub className="text-primary">-{info.discount}%</sub>
+                      ) : (
+                        ""
+                      )}
                     </span>
                   </td>
                 </tfoot>

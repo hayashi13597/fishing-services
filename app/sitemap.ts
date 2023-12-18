@@ -9,16 +9,16 @@ const domain = DOMAIN_HOST;
 export default async function sitemap() {
   const listurl = [
     domain,
-    `${domain}chinh-sach-bao-mat`,
-    `${domain}dieu-khoang-su-dung`,
-    `${domain}gio-hang`,
-    `${domain}gioi-thieu`,
-    `${domain}lien-he`,
-    `${domain}tai-khoan`,
-    `${domain}thanh-toan`,
-    `${domain}tim-kiem`,
-    `${domain}dang-ky`,
-    `${domain}dang-nhap`,
+    `${domain}/chinh-sach-bao-mat`,
+    `${domain}/dieu-khoan-su-dung`,
+    `${domain}/gio-hang`,
+    `${domain}/gioi-thieu`,
+    `${domain}/lien-he`,
+    `${domain}/tai-khoan`,
+    `${domain}/thanh-toan`,
+    `${domain}/tim-kiem`,
+    `${domain}/dang-ky`,
+    `${domain}/dang-nhap`,
   ];
   const listData = listurl.map((url) => ({
     url,
