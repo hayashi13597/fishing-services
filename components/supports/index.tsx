@@ -12,7 +12,12 @@ import Link from "next/link";
 
 const SupportAttachRight = () => {
   const zaloRef = useRef<HTMLAnchorElement>(null);
-
+  const handleOpenLink = (link: string) => {
+    if (zaloRef.current) {
+      zaloRef.current.href = link;
+      zaloRef.current.click();
+    }
+  };
   return (
     <>
       <ConfigProvider
@@ -39,21 +44,30 @@ const SupportAttachRight = () => {
           <FloatButton
             className="hover:bg-white"
             onClick={() => {
-              zaloRef.current && zaloRef.current.click();
+              handleOpenLink("https://zalo.me/g/jawwre080");
             }}
             icon={<IconsRender link="/assets/zalo.png" />}
           />
           <FloatButton
             className="hover:bg-white"
+            onClick={() => {
+              handleOpenLink("tel:+0325024277");
+            }}
             icon={<IconsRender link="/assets/phone-call.png" />}
           />
           <FloatButton
             className="hover:bg-white"
+            onClick={() => {
+              handleOpenLink(
+                "https://www.facebook.com/ocdaokyda/?ref=embed_page"
+              );
+            }}
             icon={<IconsRender link="/assets/messenger.png" />}
           />
         </FloatButton.Group>
       </ConfigProvider>
-      <Link ref={zaloRef} href="https://zalo.me/0907338862" target="_blank" />
+      <a href="tel:+0325024277"></a>
+      <Link ref={zaloRef} href="https://zalo.me/g/jawwre080" target="_blank" />
       <FacebookMessenger />
     </>
   );

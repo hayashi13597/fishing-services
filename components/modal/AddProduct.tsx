@@ -72,7 +72,10 @@ const ModalAddProduct = ({
             className="button_send block w-full"
             onClick={() => {
               setIsOpenModal();
-              router.push("/gio-hang");
+              const idClose = setTimeout(() => {
+                router.push("/gio-hang");
+                clearTimeout(idClose);
+              }, 100);
             }}
           >
             Xem giỏ hàng

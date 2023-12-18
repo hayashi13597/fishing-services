@@ -17,7 +17,7 @@ import { cn } from "react-swisskit";
 import UserApi from "../../services/api-client/user";
 import ToastNotify from "../../services/toast";
 import ChangePassword from "./changepassword";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import NoticeContainer from "./noticecontainer/NoticeContainer";
 import HistoryPurChase from "./historypurchase";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,17 +25,21 @@ import { RootState } from "../../redux/store";
 import { updateAccount } from "../../redux/user";
 import ModalStatus from "../modal/ModalStatus";
 import Reviews from "./Reviews";
-
+enum InfoProfile {
+  "lich-su-mua-hang" = "Lịch sử mua hàng",
+  "thong-tin-ca-nhan" = "Thông tin cá nhân",
+  "doi-mat-khau" = "Đổi mật khẩu",
+  "thong-bao" = "Thông báo",
+  "danh-gia" = "Đánh giá",
+}
 const ProfilePage = () => {
-  const [tabs, SetTab] = useState<
-    "lich-su-mua-hang" | "account" | "doi-mat-khau" | "thong-bao" | "danh-gia"
-  >("thong-bao");
+  const [tabs, SetTab] = useState<keyof typeof InfoProfile>("thong-bao");
   const [imageUpload, setImageUpload] = useState("");
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [formData, setFromDAta] = useState<any>();
   const account = useSelector((state: RootState) => state.user.account);
   const searchParams = useSearchParams();
-  const currentPage = searchParams.get("page") || "account";
+  const currentPage = searchParams.get("page") || "thong-tin-ca-nhan";
   const dispatch = useDispatch();
   // gửi ảnh
   const handleChoose = (isChoose: boolean) => {
@@ -70,17 +74,19 @@ const ProfilePage = () => {
       setImageUpload(account.avatar);
     }
   }, [account.id]);
+  const router = useRouter();
+  const pathname = usePathname();
+
   useEffect(() => {
-    if (currentPage == "lich-su-mua-hang") {
-      SetTab(currentPage);
-    } else if (currentPage == "doi-mat-khau") {
-      SetTab(currentPage);
-    } else if (currentPage == "thong-bao") {
-      SetTab(currentPage);
-    } else {
-      SetTab("account");
+    if (typeof window !== "undefined") {
+      document.title = InfoProfile[tabs];
+      window.history.replaceState(
+        {},
+        InfoProfile[tabs],
+        `/tai-khoan?page=${tabs}`
+      );
     }
-  }, [currentPage]);
+  }, [tabs]);
   const [isOpenModalResetImage, setOpenModalResetImage] = useState(false);
   const handleDelete = (isChoose: boolean) => {
     if (isChoose) {
@@ -218,10 +224,10 @@ const ProfilePage = () => {
           </div>
           <section className="mt-4 pl-2 flex flex-col gap-3">
             <div
-              onClick={() => SetTab("account")}
+              onClick={() => SetTab("thong-tin-ca-nhan")}
               className={cn(
                 "flex gap-2 items-center hover:text-primary",
-                tabs == "account" ? "text-primary" : ""
+                tabs == "thong-tin-ca-nhan" ? "text-primary" : ""
               )}
             >
               <BiUser /> <span>Thông tin cá nhân</span>
@@ -270,7 +276,7 @@ const ProfilePage = () => {
             tabs == "danh-gia" ? "overflow-y-auto scroll_y" : ""
           )}
         >
-          {tabs == "account" && (
+          {tabs == "thong-tin-ca-nhan" && (
             <ProfileAccount
               id={account.id}
               address={account.address}

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Validator } from "react-swisskit";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,6 +10,7 @@ import UserApi from "../../../services/api-client/user";
 import { useDispatch } from "react-redux";
 import { updateAccount } from "../../../redux/user";
 import ToastNotify from "../../../services/toast";
+
 interface ProfileAccountProps {
   email: string;
   fullname: string;

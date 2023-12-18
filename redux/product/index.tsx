@@ -19,6 +19,7 @@ const ProductDetail = createSlice({
         address: "",
         codebill: "",
         shipping_fee: 0,
+        discount: 0,
       },
     },
     isOpenModalDetail: false,

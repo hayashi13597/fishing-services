@@ -14,6 +14,7 @@ import { openModalPurchasedHistory } from "../../../redux/product";
 import { initialData } from "../../../constants";
 import OrdertDetailApi from "../../../services/api-client/order";
 import { RootState } from "../../../redux/store";
+
 enum ESTatus {
   "s1" = "Chờ xử lý",
   "s2" = "Đã kiểm duyệt",
@@ -38,11 +39,12 @@ const HistoryPurChase: React.FC = () => {
   const [pagesize] = useState(3);
   const [total, setTotal] = useState(1);
   const [pageCurrent, setPageCurrent] = useState(1);
-
+ 
   useEffect(() => {
     if (!account.id) {
       return;
     }
+
     OrdertDetailApi.get(
       account.id,
       pagesize,

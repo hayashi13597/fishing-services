@@ -6,7 +6,7 @@ import CartEmpty from "./cartEmpty";
 import CartItem from "./cartItem";
 import { cn } from "react-swisskit";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { formatMoney } from "../../utils";
 interface CartProps {

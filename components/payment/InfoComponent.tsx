@@ -193,7 +193,7 @@ const InfoComponent = ({ setShipment, shipment = 0 }: InfoComponentProps) => {
       fullname: fullName,
       phone: phoneNumber,
       address: `${address}, ${ward}, ${district}, ${province}`,
-      shipping_fee: shipMethod,
+      shipping_fee: shipMethod ||0,
       payment_method: paymentMethod,
       email: account.email,
       discount_id: discount,

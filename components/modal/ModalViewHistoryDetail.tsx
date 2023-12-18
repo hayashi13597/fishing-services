@@ -5,7 +5,7 @@ import { closeModalPurchasedHistory } from "../../redux/product";
 import { RootState } from "../../redux/store";
 import Image from "next/image";
 import { Pagination } from "antd";
-import { formatMoney } from "../../utils";
+import { formatMoney, formatQuantity } from "../../utils";
 import OrdertDetailApi from "../../services/api-client/order";
 
 const ModalViewHistoryDetail = () => {
@@ -94,11 +94,15 @@ const ModalViewHistoryDetail = () => {
                     <th scope="col" className="px-6 py-3">
                       Hình ảnh
                     </th>
+
                     <th scope="col" className="px-6 py-3">
-                      Mô tả
+                      Số lượng
                     </th>
                     <th scope="col" className="px-6 py-3">
                       Giá
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      Tạm tính
                     </th>
                   </tr>
                 </thead>
@@ -135,26 +139,35 @@ const ModalViewHistoryDetail = () => {
                             />
                           </div>
                         </td>
-                        <td>
-                          <span className="px-6 py-4 line-clamp-2 min-w-[120px]">
-                            {order.Product.description}
-                          </span>
+
+                        <td className="px-6 py-4">
+                          {formatQuantity(order.quantity)}
                         </td>
                         <td className="px-6 py-4">
                           {formatMoney(order.price)}
+                        </td>
+                        <td className="px-6 py-4">
+                          {formatMoney(order.quantity * order.price)}
                         </td>
                       </tr>
                     ))}
                 </tbody>
                 <tfoot>
-                  <td colSpan={3}>
+                  <td colSpan={4}>
                     <span className="block font-bold text-lg ml-4 mt-4">
-                      Tổng tiền
+                      Tổng thanh toán
                     </span>
                   </td>
                   <td>
                     <span className="block font-bold text-lg mr-4 mt-4">
-                      {formatMoney(totalPrice)}
+                      {!info.discount
+                        ? formatMoney(totalPrice)
+                        : formatMoney(
+                            (1 - info.discount / 100) *
+                              (totalPrice - info.shipping_fee) +
+                              info.shipping_fee
+                          )}{" "}
+                      {info.discount ? <sub>-{info.discount}%</sub> : ""}
                     </span>
                   </td>
                 </tfoot>
@@ -178,8 +191,10 @@ const ModalViewHistoryDetail = () => {
           </div>
           {/* Modal footer */}
           <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b">
-            <span className="font-semibold mr-1">Địa chỉ nhận hàng: </span>{" "}
-            {info?.address}
+            <p>
+              <span className="font-semibold mr-1">Địa chỉ nhận hàng: </span>
+              {info?.address}
+            </p>
           </div>
         </div>
       </div>

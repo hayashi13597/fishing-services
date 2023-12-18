@@ -88,7 +88,21 @@ const Footer = () => {
             </section>
           </article>
           <p className="text-center pb-2 pt-8 text-sm">
-            © 2023 FBTeam - Bản quyền thuộc hồ câu cá ốc đảo Kỳ Đà.
+            © 2023 FBTeam -
+            <Link
+              href={"/dieu-khoan-su-dung"}
+              className="hover:text-blue-300 underline"
+            >
+              Điều khoản sử dụng
+            </Link>{" "}
+            và{" "}
+            <Link
+              href={"/chinh-sach-bao-mat"}
+              className="hover:text-blue-300 underline"
+            >
+              chính sách bảo mật{" "}
+            </Link>{" "}
+            thuộc hồ câu cá ốc đảo Kỳ Đà.
           </p>
         </div>
       </footer>

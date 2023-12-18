@@ -7,7 +7,6 @@ import CateApi from "../../services/api-client/cate";
 import ProductsApi from "../../services/api-client/product";
 import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 interface IProductScreen {
   listProductDefault: IProduct[];
@@ -29,7 +28,7 @@ const ProductScreen = ({
     useState<IProduct[]>(listProductDefault);
   const [pageCurrent, setPageCurrent] = useState(1);
   const [totalPage, setTotalPage] = useState(total);
-  const [filter, setfilter] = useState({ idCate: "", filter: "za" });
+  const [filter, setfilter] = useState({ idCate: "", filter: "az" });
   const listCateGory = useSelector(
     (state: RootState) => state.productDetail.listCate
   );
@@ -119,6 +118,7 @@ const ProductScreen = ({
       setTotalPage(() => res.data.total);
     });
   };
+
   return (
     <div className="container mx-auto">
       <div className="flex items-center justify-between">

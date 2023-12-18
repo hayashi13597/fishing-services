@@ -27,9 +27,11 @@ const TotalComponent = ({ shipment }: TotalComponentProps) => {
       .then((res: any) => {
         ToastNotify(res.message).success();
         dispatch(UpdateDiscount({ discount, value: res.data.value }));
+        setDiscount("");
       })
       .catch((res) => {
         ToastNotify(res?.message).error();
+        setDiscount("");
       });
   };
 

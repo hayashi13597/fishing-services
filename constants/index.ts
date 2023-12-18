@@ -5,6 +5,7 @@ import {
   BiLogoFacebook,
   BiLogoTwitter,
   BiLogoYoutube,
+  BiLogoTiktok,
 } from "react-icons/bi";
 import { initChat } from "../components/productdetail/comments/comment.type";
 
@@ -32,17 +33,17 @@ export const footerAddress = {
   social: [
     {
       title: "Facebook",
-      ref: "https://www.facebook.com/namhoai",
+      ref: "https://www.facebook.com/ocdaokyda/?ref=embed_page",
       icon: BiLogoFacebook,
     },
     {
       title: "Twitter",
-      ref: "https://www.facebook.com/namhoai",
-      icon: BiLogoTwitter,
+      ref: "https://www.tiktok.com/@danhdang369",
+      icon: BiLogoTiktok,
     },
     {
       title: "Youtube",
-      ref: "https://www.facebook.com/namhoai",
+      ref: "https://www.youtube.com/watch?v=9syCuc93OV0",
       icon: BiLogoYoutube,
     },
   ],
