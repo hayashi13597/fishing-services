@@ -27,20 +27,20 @@ export default async function sitemap() {
 
   const ListProduct: IProduct[] = await ProductsApi.GetAllSlug();
   const ListSlugProduct = ListProduct.map((item) => ({
-    url: `${domain}${item.Category.slug}/${item.slug}`,
+    url: `${domain}/${item.Category.slug}/${item.slug}`,
     lastModified: new Date(Date.now()).toISOString(),
   }));
 
   const ListNews: INewItem[] = await EventApi.getAllSlug();
   const listSeoNews = ListNews.map((item) => ({
-    url: `${domain}tin-tuc/${item.slug}`,
+    url: `${domain}/tin-tuc/${item.slug}`,
     lastModified: new Date(Date.now()).toISOString(),
   }));
   let listCategory: any = await CateApi.GetAllCate();
   listCategory = await listCategory.data.categories;
 
   listCategory = listCategory.map((item) => ({
-    url: `${domain}${item.slug}`,
+    url: `${domain}/${item.slug}`,
     lastModified: new Date(Date.now()).toISOString(),
   }));
   return [...listData, ...ListSlugProduct, ...listSeoNews, ...listCategory];
