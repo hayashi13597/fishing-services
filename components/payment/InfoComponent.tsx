@@ -57,17 +57,17 @@ interface InfoComponentProps {
 const listShipment = [
   {
     id: "method1",
-    des: ` <p>Chủ TK: Nguyễn Văn xxxx</p>
+    des: ` <p>Chủ TK: Phạm Hoài Nam</p>
             <p>
-              Nội dung chuyển khoản: Mã Đơn Hàng của bạn. <br />
-              Vd: Thanh toán cần câu xxxx
+              Nội dung chuyển khoản: Tên - SĐT. <br />
+              Vd: Nguyen Huu Duy - 0877669990
             </p>
             <ul className="mt-2 list-decimal flex flex-col items-center">
               <li className="mb-2 max-w-max">
-                Techcombank Số TK: 37 38 48 xx xx Chi nhánh: xx xx
+                Agribank Số TK: 068202001445 => Chi nhánh: Sài gòn, Quận 12
               </li>
               <li className="mb-2 max-w-max">
-                VIB Số TK: 00518xxxx Chi nhánh VIB xx xx
+               Vietcombank Số TK: 0325024277 => Chi nhánh:Sài gòn, Quận 12
               </li>
             </ul>
   `,
@@ -76,17 +76,17 @@ const listShipment = [
   },
   {
     id: "method2",
-    des: ` <p>Chủ TK: Nguyễn Văn xxxx</p>
+    des: ` <p>Chủ TK: Phạm Hoài Nam</p>
             <p>
-              Nội dung chuyển khoản: Mã Đơn Hàng của bạn. <br />
-              Vd: Thanh toán cần câu xxxx
+               Nội dung chuyển khoản: Tên - SĐT. <br />
+           Vd: Nguyen Huu Duy - 0877669990
             </p>
             <ul className="mt-2 list-decimal flex flex-col items-center">
               <li className="mb-2 max-w-max">
-                Techcombank Số TK: 37 38 48 xx xx Chi nhánh: xx
+             Ví Momo: 0325024277
               </li>
               <li className="mb-2 max-w-max">
-                VIB Số TK: 00518xxxx Chi nhánh VIB xx xx
+               Ví ZaloPay: 0325024277
               </li>
             </ul>
   `,
@@ -193,7 +193,7 @@ const InfoComponent = ({ setShipment, shipment = 0 }: InfoComponentProps) => {
       fullname: fullName,
       phone: phoneNumber,
       address: `${address}, ${ward}, ${district}, ${province}`,
-      shipping_fee: shipMethod ||0,
+      shipping_fee: shipMethod || 0,
       payment_method: paymentMethod,
       email: account.email,
       discount_id: discount,

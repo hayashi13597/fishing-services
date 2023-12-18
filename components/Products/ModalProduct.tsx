@@ -15,11 +15,13 @@ import { AddCart } from "../../redux/cart";
 import { OpenViewAddToCart, closeViewDetail } from "../../redux/product";
 import { IProduct } from "../home/ProductContainer";
 import { ConfigProvider, Rate } from "antd";
+import { useRouter } from "next/navigation";
 
 const ModalProduct: React.FC<{
   handleClose: () => void;
   product: any;
 }> = ({ handleClose, product }) => {
+  const router = useRouter();
   const modalRef = useRef(null);
   const [quantity, setQuantity] = useState(1);
   const { name, price, imageUrl, slug, id } = product;
@@ -49,7 +51,13 @@ const ModalProduct: React.FC<{
     dispatch(closeViewDetail());
     setQuantity(() => 1);
   };
-
+  const onClichHandleChangeUrl = () => {
+    dispatch(closeViewDetail());
+    const idTiemout = setTimeout(() => {
+      router.push(`/${product.Category.slug}/${slug}`);
+      clearTimeout(idTiemout);
+    }, 100);
+  };
   let listImage = [];
   try {
     listImage = JSON.parse(product.listSubimages);
@@ -167,15 +175,15 @@ const ModalProduct: React.FC<{
                   Danh mục:
                   <span className="capitalize">{product.Category.name} </span>
                 </p>
-                <Link
-                  href={`/${product.Category.slug}/${slug}`}
-                  className="text-primary font-bold group/view"
+                <p
+                  onClick={onClichHandleChangeUrl}
+                  className="text-primary font-bold group/view md:text-left text-center"
                 >
                   Xem chi tiết{" "}
                   <span className="opacity-0 transition-all group-hover/view:opacity-100">
                     {">>"}
                   </span>
-                </Link>
+                </p>
               </div>
             </div>
           </div>

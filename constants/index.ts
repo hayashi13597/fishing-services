@@ -21,7 +21,7 @@ export const footerAddress = {
     },
     {
       title: "Email",
-      content: "adminocdao@gmail.com",
+      content: "ocdaokyda@gmail.com",
       icon: BiMailSend,
     },
     {
@@ -421,7 +421,7 @@ export const privacyPolicy = [
   },
   {
     title: "THÔNG TIN LIÊN HỆ CỦA Câu Cá Ốc Đảo",
-    content: `Trong trường hợp Quý khách có bất kỳ thắc mắc nào liên quan đến Chính sách bảo mật này, Quý khách có thể liên hệ Công ty theo thông tin: Câu Cá Ốc Đảo. Địa chỉ: Đ. Bờ Bao Htx Phong Phú, Phong Phú, Bình Chánh, Thành phố Hồ Chí Minh, Việt nam. Email: adminocdao@gmail.com. Hotline: 0347.088.538`,
+    content: `Trong trường hợp Quý khách có bất kỳ thắc mắc nào liên quan đến Chính sách bảo mật này, Quý khách có thể liên hệ Công ty theo thông tin: Câu Cá Ốc Đảo. Địa chỉ: Đ. Bờ Bao Htx Phong Phú, Phong Phú, Bình Chánh, Thành phố Hồ Chí Minh, Việt nam. Email: ocdaokyda@gmail.com. Hotline: 0347.088.538`,
   },
   {
     title: "HIỆU LỰC",

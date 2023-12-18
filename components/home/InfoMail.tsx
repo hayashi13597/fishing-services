@@ -113,7 +113,7 @@ const InfoMail = () => {
               type="submit"
               className="bg-primary md:w-auto w-full text-white md:py-2 py-3 px-4 text-base hover:bg-primary/80 flex rounded-full gap-1 justify-center items-center"
             >
-              <RiSendPlaneFill /> <span>Gủi Thông tin</span>
+              <RiSendPlaneFill /> <span>Gửi Thông tin</span>
             </button>
           </div>
         </form>

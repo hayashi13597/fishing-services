@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { IoMenu } from "react-icons/io5";
-import { Debounced } from "react-swisskit";
+import { Debounced, cn } from "react-swisskit";
 import SearchItem from "./SearchItem";
 import { Drawer } from "antd";
 import Link from "next/link";
@@ -46,11 +46,17 @@ const SearchComponent = () => {
       else setShowResults(() => false);
     }
   };
-  const handleGetPageSerach = () => {
+  const handleGetPageSearch = () => {
     searchRef.current.value = "";
     // router.push(`/tim-kiem/${searchRef.current.value}`);
     onClose();
     router.push(`/tim-kiem?q=${search}`);
+  };
+  const handleCloseSearch = () => {
+    onClose();
+    if (searchRef.current) {
+      searchRef.current.value = "";
+    }
   };
   return (
     <form className="w-full md:w-3/5 order-2 md:order-1 relative flex items-center gap-4">
@@ -136,13 +142,18 @@ const SearchComponent = () => {
             showResults ? "origin-top scale-y-100" : "origin-top scale-y-0"
           } transition-all duration-300`}
         >
-          {ListProduct.map((product) => (
-            <SearchItem key={`tim-kiem-${product.id}`} product={product} />
+          {ListProduct.slice(0, 5).map((product) => (
+            <div onClick={handleCloseSearch}>
+              <SearchItem key={`tim-kiem-${product.id}`} product={product} />
+            </div>
           ))}
           <button
             type="button"
-            onClick={handleGetPageSerach}
-            className="bg-white block text-sm text-center py-3 text-primary w-full"
+            onClick={handleGetPageSearch}
+            className={cn(
+              "bg-white  text-sm text-center py-3 text-primary w-full",
+              ListProduct.length >= 5 ? "block" : "hidden"
+            )}
           >
             Xem thêm {ListProduct.length} sản phẩm
           </button>
@@ -150,7 +161,7 @@ const SearchComponent = () => {
       </div>
       <button
         className="absolute inset-y-0 px-3 right-0 bg-primary text-white rounded-md hover:opacity-75 transition-all"
-        onClick={handleGetPageSerach}
+        onClick={handleGetPageSearch}
         type="button"
       >
         Tìm kiếm
