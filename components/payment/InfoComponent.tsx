@@ -344,7 +344,7 @@ const InfoComponent = ({ setShipment, shipment = 0 }: InfoComponentProps) => {
               value={25000}
               name="shipMethod"
               isShipMethod={true}
-              label="Giao hàng tận nơi"
+              label="Giao hàng tận nơi (Thời gian ship từ 1-4 ngày tuỳ vào địa chỉ của bạn)"
               setShowMethod={setShipment}
             />
           </div>

@@ -177,7 +177,7 @@ const ModalProduct: React.FC<{
                 </p>
                 <p
                   onClick={onClichHandleChangeUrl}
-                  className="text-primary font-bold group/view md:text-left text-center"
+                  className="text-primary font-bold group/view md:text-left text-center cursor-pointer"
                 >
                   Xem chi tiết{" "}
                   <span className="opacity-0 transition-all group-hover/view:opacity-100">
