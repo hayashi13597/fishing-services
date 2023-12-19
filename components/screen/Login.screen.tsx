@@ -19,12 +19,15 @@ import UserApi from "../../services/api-client/user";
 import { handleAttachTokenNotSave } from "../../services/api-client";
 import { AddNotice } from "../../redux/notices";
 
+import FullLoadding from "./FullLoadding";
+
 const structurePage = [{ page: "Đăng nhập", link: "/dang-nhap", last: true }];
 
 const LoginScreen = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [isCheckbox, setIsCheckbox] = useState(true);
+  const [isLoadding, setIsLoadding] = useState(false);
 
   const schema = yup
     .object({
@@ -43,6 +46,7 @@ const LoginScreen = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(schema),
@@ -50,10 +54,7 @@ const LoginScreen = () => {
 
   const handleUpdateAccount = (res) => {
     const { account, notices } = res.data;
-
-    if (res.statusCode >= 400) {
-      ToastNotify(res.message).error();
-    } else {
+    if (account) {
       dispatch(AddNotice(notices));
       dispatch(updateAccount(account));
       handleAttachTokenNotSave(account.accessToken, isCheckbox);
@@ -70,25 +71,32 @@ const LoginScreen = () => {
     } = res.user;
 
     if (!uid) return ToastNotify("Đăng ký thất bại").error();
+    setIsLoadding(() => true);
     // mình sẽ nới sẵn đata như này
     UserApi.authenWithFirebase({ uid, avatar, email, fullname })
       .then(handleUpdateAccount)
       .catch(() => {
         ToastNotify("Đăng nhập thất bại").error();
-      });
+        reset();
+      })
+      .finally(() => setIsLoadding(() => false));
   };
 
   const handleOnSubmit = async (data) => {
-    // tạo tài khoảng
+    setIsLoadding(() => true);
+    // đăng nhập
     UserApi.login(data)
       .then(handleUpdateAccount)
-      .catch(() => {
+      .catch((res) => {
         ToastNotify("Đăng nhập thất bại").error();
-      });
+      })
+      .finally(() => setIsLoadding(() => false));
   };
 
   return (
     <section className="container mx-auto">
+      {isLoadding && <FullLoadding />}
+
       <Breadcrumb structurePage={structurePage} title="Đăng nhập" />
       <div className="flex flex-col items-center justify-center pb-10">
         <div className="w-full bg-neutral-100 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">

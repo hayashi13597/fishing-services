@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import Authentication from "../../services/auth";
 import ToastNotify from "../../services/toast";
 import UserApi from "../../services/api-client/user";
-import cookieClient from "../../services/cookie";
+
 import FormField from "../../components/FormField";
 import { useForm } from "react-hook-form";
 import { FormState } from "../../common.types";
@@ -19,6 +19,8 @@ import { useDispatch } from "react-redux";
 import { updateAccount } from "../../redux/user";
 import { handleAttachToken } from "../../services/api-client";
 import { AddNotice } from "../../redux/notices";
+import FullLoadding from "./FullLoadding";
+import { clearTimeout } from "timers";
 const structurePage = [{ page: "Đăng ký", link: "/dang-ky", last: true }];
 
 const RegisterScreen = () => {
@@ -54,17 +56,20 @@ const RegisterScreen = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+  const [isLoadding, setIsLoadding] = useState(false);
   const handleUpdateAccount = (res) => {
     const { account, notices = [] } = res.data;
-
     dispatch(AddNotice(notices));
     dispatch(updateAccount(account));
 
     handleAttachToken(account.accessToken);
     ToastNotify(res.message).success();
+    reset();
+    setIsLoadding(() => true);
     setTimeout(() => {
+      setIsLoadding(() => false);
       router.push("/");
-    }, 1000);
+    }, 100);
   };
   const dataCallback = (res: any) => {
     const {
@@ -75,12 +80,14 @@ const RegisterScreen = () => {
     } = res.user;
 
     if (!uid) return ToastNotify("Đăng ký thất bại").error();
+    setIsLoadding(() => true);
     // mình sẽ nới sẵn đata như này
     UserApi.authenWithFirebase({ uid, avatar, email, fullname })
       .then(handleUpdateAccount)
       .catch((err) => {
-        ToastNotify(err?.message || "Đăng nhập thất bại").error();
-      });
+        ToastNotify(err?.message || "Đăng ký thất bại").error();
+      })
+      .finally(() => setIsLoadding(() => false));
   };
 
   const handleOnSubmit = async (data: FormState) => {
@@ -91,16 +98,19 @@ const RegisterScreen = () => {
       });
       return;
     }
+    setIsLoadding(() => true);
     // tạo tài khoảng
     UserApi.register(data)
       .then(handleUpdateAccount)
       .catch((err) => {
-        ToastNotify(err?.message || "Đăng nhập thất bại").error();
-      });
+        ToastNotify(err?.message || "Đăng ký thất bại").error();
+      })
+      .finally(() => setIsLoadding(() => false));
   };
 
   return (
     <section className="container mx-auto">
+      {isLoadding && <FullLoadding />}
       <Breadcrumb structurePage={structurePage} title="Đăng ký" />
       <div className="flex flex-col justify-center items-center pb-10">
         <div className="w-full bg-neutral-100 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
