@@ -9,6 +9,7 @@ import { listIconsSeo } from "../../../constants";
 import { notFound } from "next/navigation";
 import { INewItem } from "../../../components/screen/NewScreen";
 import DidiveSpace from "../../../components/DidiveSpace";
+
 export const revalidate = 3600;
 interface ParamsBlog {
   params: { slug: string };

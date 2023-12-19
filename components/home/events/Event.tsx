@@ -12,7 +12,7 @@ interface Props {
   imgSrc: string;
   imgWidth: number;
   imgHeight: number;
-  numberOfDiscountDate: number;
+  numberOfDiscountDate: any;
   buttonText: string;
   href: string;
 }
@@ -59,7 +59,7 @@ const EventBox: React.FC<Props> = ({
       >
         {buttonText}
       </Link>
-      {numberOfDiscountDate > 0 && (
+      {numberOfDiscountDate && (
         <DiscountFlipCountdown targetDate={numberOfDiscountDate} />
       )}
     </div>

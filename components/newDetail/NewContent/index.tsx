@@ -4,7 +4,7 @@ import { BiArrowBack } from "react-icons/bi";
 import ShareSocial from "../../ShareSocial";
 import { useRouter } from "next/navigation";
 
-import { DOMAIN_HOST, formatDateTime } from "../../../utils";
+import { formatDateTime } from "../../../utils";
 import { INewItem } from "../../screen/NewScreen";
 
 interface NewContentPros {
@@ -18,8 +18,10 @@ const NewContent = ({ newDetail }: NewContentPros) => {
         <p>{newDetail.isEvent ? "Sự kiện" : "Tin tức"}</p>
         <p>{formatDateTime(newDetail.updatedAt)}</p>
       </div>
-      <h1 className="text-4xl text-center font-bold text-primary my-5 italic capitalize">
-        {newDetail.title}
+      <h1 className="text-center font-bold text-primary my-5 ">
+        <span className="md:text-4xl text-3xl block text-center capitalize">
+          {newDetail.title}
+        </span>
       </h1>
       <div
         className="new-container"

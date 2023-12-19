@@ -47,6 +47,7 @@ export interface IEventItem {
   content?: string;
 }
 const Event = ({ ListEvent }: { ListEvent?: IEventItem[] }) => {
+  console.log(ListEvent);
   return (
     <div className="flex flex-col w-full xl:max-w-[2100px] my-4 md:my-8 mx-auto">
       {/* <TitleFormat title="Sự kiện mới nhất" link="/san-pham" /> */}
@@ -54,14 +55,7 @@ const Event = ({ ListEvent }: { ListEvent?: IEventItem[] }) => {
       <div className="grid gap-4 grid-cols-6 lg:grid-cols-12">
         {ListEvent.map(
           (
-            {
-              title,
-              description,
-              timeEvent = 10,
-              time_end = 2,
-              slug,
-              imageUrl,
-            },
+            { title, description, timeEvent = 10, time_end = 2, slug },
             index
           ) => {
             return (
@@ -69,11 +63,7 @@ const Event = ({ ListEvent }: { ListEvent?: IEventItem[] }) => {
                 title={title}
                 description={description}
                 numberOfDiscountDate={
-                  Number(TimeDiff(time_end)) <= 0
-                    ? 0
-                    : Math.floor(
-                        new Date(TimeDiff(ListEvent[0].time_end)).getDate()
-                      )
+                  Number(TimeDiff(time_end)) <= 0 ? 0 : time_end
                 }
                 href={`/tin-tuc/${slug}`}
                 imgSrc={bannerContent[index]?.imgSrc}

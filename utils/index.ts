@@ -79,7 +79,10 @@ export function isTimeEnd(timecreate) {
   return new Date(timecreate).getTime() - new Date(Date.now()).getTime() > 0;
 }
 export function TimeDiff(timecreate) {
-  return new Date(timecreate).getTime() - new Date(Date.now()).getTime();
+  const timeEnd =
+    new Date(timecreate).getTime() - new Date(Date.now()).getTime();
+
+  return timeEnd;
 }
 export const handleOpenNewWindown = (link: string, name?: string) => {
   if (!link) return;

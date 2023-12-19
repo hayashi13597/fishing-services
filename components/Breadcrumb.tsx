@@ -33,7 +33,7 @@ const Breadcrumb = ({
   return (
     <div className={`${isHidden ? "hidden md:block py-5" : "py-5"}`}>
       <nav className="flex" aria-label="Breadcrumb">
-        <ol className="inline-flex items-center space-x-1 md:space-x-3">
+        <ol className="inline-flex items-center space-x-1 md:space-x-3 line-clamp-1">
           <li className="inline-flex items-center">
             <Link
               href="/"
@@ -71,7 +71,7 @@ const Breadcrumb = ({
                     />
                   </svg>
                   {page.last ? (
-                    <span className="ml-1 text-sm font-medium text-gray-500 md:ml-2 capitalize">
+                    <span className="ml-1 text-sm font-medium text-gray-500 md:ml-2 capitalize ">
                       {page.page}
                     </span>
                   ) : (

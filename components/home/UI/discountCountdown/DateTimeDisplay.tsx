@@ -14,7 +14,7 @@ const DateTimeDisplay: React.FC<Props> = ({ value, type, isDanger }) => {
       }`}
     >
       <p>{dateTime}</p>
-      <span>{value}</span>
+      <span>{value?.toString()?.padStart(2, "0")}</span>
     </div>
   );
 };

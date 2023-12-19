@@ -21,13 +21,15 @@ const getReturnValues = (countDown: number) => {
 };
 
 const useCountdown = (targetDate: number) => {
-  const [expireDate] = useState(() => addDays(targetDate));
-  const countDownDate = new Date(expireDate).getTime();
+  const [expireDate] = useState(targetDate);
+  const countDownDate = new Date(targetDate).getTime();
 
   const [countDown, setCountDown] = useState(
-    countDownDate - new Date().getTime()
+    countDownDate - new Date(expireDate).getTime()
   );
+  console.log("targetDate", targetDate);
 
+  console.log("countDownDate", countDownDate);
   useEffect(() => {
     const interval = setInterval(() => {
       setCountDown(() => countDownDate - new Date().getTime());

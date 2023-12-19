@@ -144,3 +144,35 @@ body {
   width: 100%;
   height: 50vh !important;
 }
+.new-container h1 {
+  font-size: 2em;
+  font-weight: bolder;
+}
+.new-container h2 {
+  font-size: 1.5em;
+  font-weight: bolder;
+}
+
+.new-container h3 {
+  font-size: 1.17em;
+  font-weight: bolder;
+}
+
+.new-container h4 {
+  font-size: 1em;
+  font-weight: bolder;
+}
+
+.new-container h5 {
+  font-size: 0.83em;
+  font-weight: bolder;
+}
+
+.new-container h6 {
+  font-size: 0.67em;
+  font-weight: bolder;
+}
+
+.new-container strong {
+  font-weight: 800;
+}

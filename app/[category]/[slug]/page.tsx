@@ -100,7 +100,7 @@ const page = async ({ params }: ParamsBlog) => {
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "5.0",
-      bestRating: `${product.stars}`,
+      bestRating: `${product.stars || 5}`,
       ratingCount: `${listProductSame.length + 10 || 1}`,
     },
   };
