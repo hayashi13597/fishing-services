@@ -18,7 +18,7 @@ const NewItem = ({ newdetail }: NewItemPros) => {
         width={200}
         height={200}
         alt="new item"
-        className="w-1/3 md:w-full h-full object-cover"
+        className="w-1/3 max-w-[130px] h-full object-cover"
       />
       <div className="w-full py-2 pr-2">
         <div className="w-full flex justify-between text-sm opacity-75 mb-1">
