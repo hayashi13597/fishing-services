@@ -8,6 +8,7 @@ import {
   BiLogoTiktok,
 } from "react-icons/bi";
 import { initChat } from "../components/productdetail/comments/comment.type";
+import { DOMAIN_HOST } from "../utils";
 
 export const footerAddress = {
   description:
@@ -267,23 +268,12 @@ export const countriesOptions = [
   },
 ];
 export const listIconsSeo = {
-  icon: "/favicon.ico",
-  apple: [
-    { url: "/favicon.ico" },
-    { url: "/apple-icon-57x57.png", sizes: "57x57", type: "image/png" },
-    { url: "/apple-icon-60x60.png", sizes: "60x60", type: "image/png" },
-    { url: "/apple-icon-72x72.png", sizes: "72x72", type: "image/png" },
-    { url: "/apple-icon-76x76.png", sizes: "76x76", type: "image/png" },
-    { url: "/apple-icon-114x114.png", sizes: "114x114", type: "image/png" },
-    { url: "/apple-icon-120x120.png", sizes: "120x120", type: "image/png" },
-    { url: "/apple-icon-144x144.png", sizes: "144x144", type: "image/png" },
-    { url: "/apple-icon-152x152.png", sizes: "152x152", type: "image/png" },
-    { url: "/apple-icon-180x180.png", sizes: "180x180", type: "image/png" },
-  ],
+  icon: DOMAIN_HOST + "/favicon.ico",
+  apple: [{ url: DOMAIN_HOST + "/favicon.ico" }],
   other: [
     {
       rel: "apple-icon-precomposed",
-      url: "/apple-icon-precomposed.png",
+      url: DOMAIN_HOST + "/favicon.ico",
     },
   ],
 };
