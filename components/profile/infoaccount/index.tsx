@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Validator } from "react-swisskit";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -116,7 +116,7 @@ const ProfileAccount = ({
             label="Số điện thoại"
             type="text"
             id="phone"
-            placeholder="+84"
+            placeholder="0836xxxxxx"
             register={register}
             error={errors.phone}
             defaultValue={phone}

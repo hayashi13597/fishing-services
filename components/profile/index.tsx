@@ -3,7 +3,6 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import {
   BiBell,
-  BiCartAlt,
   BiShieldAlt2,
   BiTrash,
   BiUpload,
@@ -17,7 +16,7 @@ import { cn } from "react-swisskit";
 import UserApi from "../../services/api-client/user";
 import ToastNotify from "../../services/toast";
 import ChangePassword from "./changepassword";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import NoticeContainer from "./noticecontainer/NoticeContainer";
 import HistoryPurChase from "./historypurchase";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,13 +32,13 @@ enum InfoProfile {
   "danh-gia" = "Đánh giá",
 }
 const ProfilePage = () => {
-  const [tabs, SetTab] = useState<keyof typeof InfoProfile>("thong-bao");
+  const searchParams = useSearchParams();
+  const currentPage = searchParams.get("page") || "thong-tin-ca-nhan";
+  const [tabs, SetTab] = useState(currentPage);
   const [imageUpload, setImageUpload] = useState("");
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [formData, setFromDAta] = useState<any>();
   const account = useSelector((state: RootState) => state.user.account);
-  const searchParams = useSearchParams();
-  const currentPage = searchParams.get("page") || "thong-tin-ca-nhan";
   const dispatch = useDispatch();
   // gửi ảnh
   const handleChoose = (isChoose: boolean) => {
@@ -74,8 +73,6 @@ const ProfilePage = () => {
       setImageUpload(account.avatar);
     }
   }, [account.id]);
-  const router = useRouter();
-  const pathname = usePathname();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -87,6 +84,7 @@ const ProfilePage = () => {
       );
     }
   }, [tabs]);
+
   const [isOpenModalResetImage, setOpenModalResetImage] = useState(false);
   const handleDelete = (isChoose: boolean) => {
     if (isChoose) {

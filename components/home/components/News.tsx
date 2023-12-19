@@ -38,7 +38,7 @@ const News = ({ listNews = [] }: NewsProps) => {
                 alt={newItem.title}
                 height={500}
                 width={500}
-                className="object-contain w-full max-h-96"
+                className="w-full h-2/3 object-cover"
               />
               <div
                 className="py-3 px-2"

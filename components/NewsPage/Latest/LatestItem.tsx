@@ -48,7 +48,7 @@ const LatestItem = ({ newItem }: LatestItemProps) => {
         src={newItem.imageUrl}
         alt={newItem.title}
         height={300}
-        width={300}
+        width={500}
         className="hidden md:block w-1/4 object-cover"
       />
     </Link>

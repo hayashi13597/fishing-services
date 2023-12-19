@@ -50,7 +50,9 @@ const AccountMenu = () => {
       return [
         {
           key: "1",
-          label: <Link href="/tai-khoan">Trang cá nhân</Link>,
+          label: (
+            <Link href="/tai-khoan?page=thong-tin-ca-nhan">Trang cá nhân</Link>
+          ),
         },
         {
           key: "2",

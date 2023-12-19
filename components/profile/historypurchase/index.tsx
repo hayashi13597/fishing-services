@@ -1,17 +1,11 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import type { TableProps } from "antd";
-import { Button, ConfigProvider, Space, Table } from "antd";
-import type {
-  ColumnsType,
-  FilterValue,
-  SorterResult,
-} from "antd/es/table/interface";
-import { formatDate, formatMoney } from "../../../utils";
+import { ConfigProvider, Table } from "antd";
+import type { ColumnsType } from "antd/es/table/interface";
+import { formatDate } from "../../../utils";
 import { Debounced, cn } from "react-swisskit";
 import { useDispatch, useSelector } from "react-redux";
 import { openModalPurchasedHistory } from "../../../redux/product";
-import { initialData } from "../../../constants";
 import OrdertDetailApi from "../../../services/api-client/order";
 import { RootState } from "../../../redux/store";
 
@@ -39,7 +33,7 @@ const HistoryPurChase: React.FC = () => {
   const [pagesize] = useState(3);
   const [total, setTotal] = useState(1);
   const [pageCurrent, setPageCurrent] = useState(1);
- 
+
   useEffect(() => {
     if (!account.id) {
       return;

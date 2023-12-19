@@ -56,7 +56,7 @@ const TotalComponent = ({ shipment }: TotalComponentProps) => {
         />
         <button
           type="submit"
-          className="w-2/5 md:w-1/5 p-4 bg-primary pointer-events-auto text-sm text-white rounded-lg mb-5 transition-all hover:opacity-70"
+          className="w-2/5 md:w-1/4 p-4 bg-primary pointer-events-auto text-sm text-white rounded-lg mb-5 transition-all hover:opacity-70"
         >
           Sử dụng
         </button>
