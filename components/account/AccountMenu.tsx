@@ -46,28 +46,35 @@ const AccountMenu = () => {
   };
   useEffect(() => {
     if (!account.id) return;
-    setItems(() => {
-      return [
-        {
-          key: "1",
-          label: (
-            <Link href="/tai-khoan?page=thong-tin-ca-nhan">Trang cá nhân</Link>
-          ),
-        },
-        {
-          key: "2",
-          label: (
-            <Link href="/tai-khoan?page=lich-su-mua-hang">
-              Lịch sử mua hàng
-            </Link>
-          ),
-        },
-        {
-          key: "3",
-          label: <button onClick={handleLogout}>Đăng xuất</button>,
-        },
-      ];
-    });
+    const listPageAccount = [
+      {
+        key: "1",
+        label: (
+          <Link href="/tai-khoan?page=thong-tin-ca-nhan">Trang cá nhân</Link>
+        ),
+      },
+      {
+        key: "2",
+        label: (
+          <Link href="/tai-khoan?page=lich-su-mua-hang">Lịch sử mua hàng</Link>
+        ),
+      },
+      {
+        key: "3",
+        label: <button onClick={handleLogout}>Đăng xuất</button>,
+      },
+    ];
+    if (account.role == "admin") {
+      listPageAccount.push({
+        key: "4",
+        label: (
+          <Link target="_blank" href={"https://admin.ocdaokyda.online/"}>
+            Trang quản trị
+          </Link>
+        ),
+      });
+    }
+    setItems(() => listPageAccount);
   }, [account.id]);
   const handleOpenNotice = () => {
     setIsOpenNotice(() => true);
