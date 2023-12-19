@@ -5,7 +5,7 @@ import { Debounced, cn } from "react-swisskit";
 import SearchItem from "./SearchItem";
 import { Drawer } from "antd";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { IProduct } from "../ProductContainer";
 import ProductsApi from "../../../services/api-client/product";
@@ -17,6 +17,7 @@ const SearchComponent = () => {
   const [showResults, setShowResults] = useState(false);
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const pathNameUrl = usePathname();
 
   const listCateGory = useSelector(
     (state: RootState) => state.productDetail.listCate
@@ -58,6 +59,12 @@ const SearchComponent = () => {
       searchRef.current.value = "";
     }
   };
+  useEffect(() => {
+    const idTimeout = setTimeout(() => {
+      clearTimeout(idTimeout);
+      onClose();
+    }, 100);
+  }, [pathNameUrl]);
   return (
     <form className="w-full md:w-3/5 order-2 md:order-1 relative flex items-center gap-4">
       <IoMenu

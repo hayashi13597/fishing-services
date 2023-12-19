@@ -30,7 +30,7 @@ const NoticeItemProfile = ({ notice }: NoticeItemProfileProPs) => {
         <h6
           className={cn(
             "mb-1 font-semibold",
-            notice.link ? "hover:text-primary" : ""
+            notice.link ? "hover:text-primary cursor-pointer" : ""
           )}
         >
           {notice.title}{" "}

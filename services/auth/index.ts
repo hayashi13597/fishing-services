@@ -59,7 +59,6 @@ class Authentication {
         ToastNotify("Bạn đăng xuất thành công").success();
       })
       .catch((err) => {
-        console.log(err.message);
         ToastNotify("Bạn chưa đăng nhập").info();
       });
   }

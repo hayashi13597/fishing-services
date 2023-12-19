@@ -11,7 +11,6 @@ interface Props {
 }
 const DiscountFlipCountdown: React.FC<Props> = ({ targetDate }) => {
   const [days, hours, minutes, seconds] = useCountdown(targetDate);
-  console.log("days, hours, minutes, seconds", days, hours, minutes, seconds);
   if (days + hours + minutes + seconds <= 0) {
     return <ExpiredNotice />;
   } else {
