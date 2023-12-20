@@ -23,12 +23,14 @@ const InfoMail = () => {
         .matches(Validator.emailRegex, "Email không đúng định dạng")
         .email("Email không đúng định dạng")
         .required("Email không được để trống"),
+
       phone: yup
         .string()
         .matches(Validator.phoneRegex, "Phone không đúng định dạng")
         .min(9, "Phone  có 10 hoặc 11 ký tự")
         .max(12, "Phone  ckhương vượt quá 12 ký tự")
         .required("Phone  không được để trống"),
+
       fullname: yup.string().required("Họ và tên không được để trống"),
     })
     .required();
@@ -40,6 +42,11 @@ const InfoMail = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      email: account.email,
+      phone: account.phone,
+      fullname: account.fullname,
+    },
   });
 
   const handleOnSubmit = (data) => {
