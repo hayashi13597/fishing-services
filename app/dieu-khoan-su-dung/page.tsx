@@ -12,7 +12,7 @@ const structurePage = [
 ];
 const TermsOfUse = () => {
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto mb-8">
       <Breadcrumb structurePage={structurePage} title="Điều khoản sử dụng" />
       {termsOfUseConstants?.map((term, index) => (
         <div className="border p-5" key={index}>

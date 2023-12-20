@@ -88,7 +88,7 @@ const Breadcrumb = ({
         </ol>
       </nav>
       {isDisplay && (
-        <h1 className="text-center font-bold text-3xl md:text-5xl mt-5 md:mb-5 text-primary capitalize">
+        <h1 className="text-center font-bold text-3xl md:text-4xl mt-5 md:mb-5 text-primary capitalize">
           {titlePage ? titlePage : title}
         </h1>
       )}

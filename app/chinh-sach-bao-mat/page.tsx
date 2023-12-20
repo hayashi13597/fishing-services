@@ -11,7 +11,7 @@ const structurePage = [
 ];
 const PrivacyPolicy = () => {
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto mb-8">
       <Breadcrumb structurePage={structurePage} title="Chính sách bảo mật" />
 
       {privacyPolicy?.map((policy, index) => (
