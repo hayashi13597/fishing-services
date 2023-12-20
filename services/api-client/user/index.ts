@@ -43,6 +43,9 @@ const UserApi = {
   ResetAvatar(id: string) {
     return apiClient.post(this.path + "/resetavatar", { data: { id } });
   },
+  ResetPassword(id: string) {
+    return apiClient.post(this.path + "/rerespassword", { data: { id } });
+  },
   ChangeAvatar(data: IUploadAvata) {
     return apiClient({
       url: this.path + "/changeavatar",

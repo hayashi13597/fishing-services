@@ -18,6 +18,8 @@ import { LogoutAccount } from "../../redux/user";
 import { AddNewNotice, LogOutNotice } from "../../redux/notices";
 import { Validator } from "react-swisskit";
 import LoadingContent from "../screen/LoadingContent";
+import ModalStatus from "../modal/ModalStatus";
+import { useRouter } from "next/navigation";
 
 interface provincesI {
   name: string;
@@ -107,6 +109,7 @@ const listShipment = [
 ];
 
 const InfoComponent = ({ setShipment, shipment = 0 }: InfoComponentProps) => {
+  const router = useRouter();
   const [isLoading, setLoading] = useState(false);
   const provinces: { data: provincesI[] } = useFetchSelect("p");
   const districts = useFetchSelect("d");
@@ -233,10 +236,20 @@ const InfoComponent = ({ setShipment, shipment = 0 }: InfoComponentProps) => {
       });
   };
   const handlelogout = () => {
-    dispatch(LogoutAccount());
-    dispatch(LogOutNotice());
+    setIsOpenModalStatus(() => true);
   };
-
+  const [isOpenModalStatus, setIsOpenModalStatus] = useState(false);
+  const handleRedirect = (isChoose: boolean) => {
+    if (isChoose) {
+      dispatch(LogoutAccount());
+      dispatch(LogOutNotice());
+      const idTimeout = setTimeout(() => {
+        clearTimeout(idTimeout);
+        router.push("/dang-nhap");
+      }, 100);
+    }
+    setIsOpenModalStatus(() => false);
+  };
   return (
     <div className="w-full order-2 md:order-1 md:w-1/2">
       {isLoading ? (
@@ -268,10 +281,18 @@ const InfoComponent = ({ setShipment, shipment = 0 }: InfoComponentProps) => {
           <Link
             href={account.id ? "" : "/dang-nhap"}
             onClick={handlelogout}
-            className="hover:text-primary text-sm"
+            className="hover:text-primary text-sm cursor-pointer"
           >
             {account.id ? "Đăng xuất" : "Đăng nhập ngay"}
           </Link>
+          {isOpenModalStatus && (
+            <ModalStatus
+              btnAccept="Xác nhận"
+              btnCancel="Hủy"
+              title="Bạn muốn đăng nhập tài khoản khác?"
+              isCallback={handleRedirect}
+            />
+          )}
           {!account.id ? (
             <div>
               <span className="font-semibold">Lưu ý:</span>{" "}

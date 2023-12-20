@@ -103,6 +103,10 @@ const MissPassword = () => {
       UserApi.verifyCode(data)
         .then((res) => {
           if (res?.data?.accessToken) {
+            handleAttachToken(
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hbWFuaHRoYW81OUBnbWFpbC5jb20iLCJpYXQiOjE3MDMwNjg5NDEsImV4cCI6MTcwMzMyODE0MX0.BTKe4Lhq83W-p8XNQ3LXAABKTp8YuSiDvzVHOVfkm1Y"
+            );
+            UserApi.ResetPassword(res?.data.id);
             ToastNotify("Xác thực thành công").success();
             handleAttachToken(res?.data?.accessToken);
             dispatch(FetchFirstLoginWithToken());
