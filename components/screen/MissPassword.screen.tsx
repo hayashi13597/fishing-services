@@ -15,7 +15,7 @@ import type { Metadata } from "next";
 
 import { handleAttachToken } from "../../services/api-client";
 import ToastNotify from "../../services/toast";
-import { updateAccount } from "../../redux/user";
+import { FetchFirstLoginWithToken, updateAccount } from "../../redux/user";
 import Breadcrumb from "../Breadcrumb";
 import FormField from "../FormField";
 import Button from "../Button";
@@ -23,6 +23,7 @@ import ModalStatus from "../modal/ModalStatus";
 import ModalDialog from "../modal/ModalDialog";
 import TimeRuning from "../TimeRuning";
 import UserApi from "../../services/api-client/user";
+import { AppDispatch } from "../../redux/store";
 
 const structurePage = [
   { page: "Quên Mật khẩu", link: "/quen-mat-khau", last: true },
@@ -30,10 +31,10 @@ const structurePage = [
 
 const MissPassword = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const [isProtecting, setIsProtecting] = useState(false);
   const [isVeryfy, setIsVeryfy] = useState(true);
-
+  const formDataP = useRef<HTMLFormElement>(null);
   const [codeProtect, setCodeProtect] = useState("");
 
   const schema = yup
@@ -70,7 +71,10 @@ const MissPassword = () => {
 
   const handleRedirect = (isChoose: boolean) => {
     if (isChoose && isSuccess) {
-      router.push("/tai-khoan?page=doi-mat-khau");
+      const idTimeout = setTimeout(() => {
+        clearTimeout(idTimeout);
+        router.push("/tai-khoan?page=doi-mat-khau");
+      }, 100);
     }
     setIsOpenModalStatus(false);
   };
@@ -90,10 +94,22 @@ const MissPassword = () => {
     };
   }, []);
   const handleOnSubmit = async (data) => {
+    if (isSuccess) {
+      reset();
+      router.push("/");
+      return;
+    }
     if (data.code) {
       UserApi.verifyCode(data)
         .then((res) => {
-          dispatch(updateAccount(res.data));
+          if (res?.data?.accessToken) {
+            ToastNotify("Xác thực thành công").success();
+            handleAttachToken(res?.data?.accessToken);
+            dispatch(FetchFirstLoginWithToken());
+          } else {
+            ToastNotify("Tài khoản chưa đăng ký").error();
+          }
+
           setContentModalNotice(
             `Mã Xác nhận chính xác mật khẩu mới là <strong>123456</strong>`
           );
@@ -106,8 +122,10 @@ const MissPassword = () => {
         .catch(({ message }) => {
           ToastNotify(message).error();
           setIsSuccess(false);
+          setIsTimeOut(false);
+          console.log(formDataP?.current);
+          formDataP?.current?.reset();
         });
-      reset();
       return;
     }
     UserApi.checkAccountMissPassword({
@@ -148,6 +166,7 @@ const MissPassword = () => {
               <form
                 onSubmit={handleSubmit(handleOnSubmit)}
                 className="space-y-4 md:space-y-6"
+                ref={formDataP}
               >
                 <FormField
                   label="Mả Xác thực"
@@ -166,17 +185,17 @@ const MissPassword = () => {
                 )}
                 <div>
                   <button
-                    type={isSuccess ? "button" : "submit"}
+                    type="submit"
                     onClick={() => {
-                      isTimeOut && isSuccess && router.push("/dang-nhap");
-                      isTimeOut && !isSuccess && setIsProtecting(false);
+                      // isTimeOut && isSuccess && router.push("/dang-nhap");
+                      // isTimeOut && !isSuccess && setIsProtecting(false);
                     }}
                     className="w-full text-white bg-primary focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:opacity-80 transition-all"
                   >
                     {!isTimeOut
                       ? "Xác thực"
                       : isSuccess
-                      ? "Đăng nhập"
+                      ? "Về trang chủ"
                       : "Xác thực lại"}
                   </button>
                 </div>

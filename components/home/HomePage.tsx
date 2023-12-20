@@ -52,7 +52,7 @@ const HomePage = () => {
         )}
       </div>
 
-      <News listNews={listDataHome.listNews} />
+      <News listNews={listDataHome.listNews?.slice(0, 8)} />
       <div className="container mx-auto mb-10 md:mb-20">
         <Event ListEvent={listDataHome.listEvents} />
         <div className="my-10 md:my-20"></div>
