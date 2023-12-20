@@ -289,7 +289,7 @@ const InfoComponent = ({ setShipment, shipment = 0 }: InfoComponentProps) => {
             <ModalStatus
               btnAccept="Xác nhận"
               btnCancel="Hủy"
-              title="Bạn muốn đăng nhập tài khoản khác?"
+              title="Bạn muốn đổi tài khoản để mua hàng?"
               isCallback={handleRedirect}
             />
           )}
