@@ -1,16 +1,19 @@
 import React from "react";
 import { privacyPolicy } from "../../constants";
 import { Metadata } from "next";
+import Breadcrumb from "../../components/Breadcrumb";
 export const metadata: Metadata = {
   title: "Chính sách bảo mật",
   description: "Chính sách bảo mật vô cùng kỷ lưỡng tại chúng tôi",
 };
+const structurePage = [
+  { page: "Chính sách bảo mật", link: "/chinh-sach-bao-mat", last: true },
+];
 const PrivacyPolicy = () => {
   return (
     <div className="container mx-auto py-10">
-      <h1 className="uppercase text-3xl font-bold mb-10">
-        CHÍNH SÁCH BẢO MẬT THÔNG TIN
-      </h1>
+      <Breadcrumb structurePage={structurePage} title="Chính sách bảo mật" />
+
       {privacyPolicy?.map((policy, index) => (
         <div className="border p-5" key={index}>
           <h2 className="font-semibold text-lg uppercase">{policy.title}</h2>
