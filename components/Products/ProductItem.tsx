@@ -82,7 +82,7 @@ const ProductItem: React.FC<{ product: IProduct; isNew?: boolean }> = ({
       </div>
       <div
         className="w-7 h-7 absolute top-12 right-1 md:right-4 border opacity-0 rounded-full flex items-center justify-center cursor-pointer translate-y-5 hover:bg-primary hover:text-white hover:opacity-100 group-hover:translate-y-0 group-hover:opacity-70 transition-all duration-500"
-        title="Chia sẽ"
+        title="chia sẻ"
         onClick={handleShare}
       >
         <FaShareSquare />

@@ -31,7 +31,10 @@ export async function generateMetadata({ params }: ParamsBlog) {
       siteId: "1646660186759892992",
       creator: data.User.fullname,
       creatorId: "1646660186759892992",
-      images: [data.imageUrl],
+      images: {
+        url: data.imageUrl,
+        alt: data.name,
+      },
     },
     openGraph: {
       title: data.name,

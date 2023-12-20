@@ -19,7 +19,7 @@ const ShareSocial: React.FC<ShareSocialProps> = ({ link }) => {
           title="Chia sẻ lên Facebook"
           className="flex items-center gap-1 hover:text-primary hover:border-primary border-gray-400 rounded-full p-1 border-[0.5px]"
           target="_blank"
-          href={`https://www.facebook.com/sharer/sharer.php?u=${DOMAIN_HOST}/${link}&hashtag=baiviethay,zeckytintuc,top`}
+          href={`https://www.facebook.com/sharer/sharer.php?u=${DOMAIN_HOST}/${link}`}
         >
           <BiLogoFacebook />
         </Link>

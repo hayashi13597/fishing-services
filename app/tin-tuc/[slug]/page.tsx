@@ -125,7 +125,7 @@ const NewDetail = async ({ params }: ParamsBlog) => {
 
       <div className="container mx-auto">
         <Breadcrumb structurePage={structurePage} isDisplay={false} />
-        <div className="flex flex-col md:flex-row gap-10">
+        <div className="flex flex-col lg:flex-row gap-10">
           <NewContent newDetail={data} />
           <div>
             {listNewsTop?.length ? (

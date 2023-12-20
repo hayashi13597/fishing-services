@@ -13,13 +13,13 @@ interface NewContentPros {
 const NewContent = ({ newDetail }: NewContentPros) => {
   const router = useRouter();
   return (
-    <div className="w-full md:w-3/4 border-b-2 md:border-none">
+    <div className="w-full lg:w-3/4 border-b-2 lg:border-none">
       <div className="flex justify-between opacity-75">
         <p>{newDetail.isEvent ? "Sự kiện" : "Tin tức"}</p>
         <p>{formatDateTime(newDetail.updatedAt)}</p>
       </div>
       <h1 className="text-center font-bold text-primary my-5 ">
-        <span className="md:text-4xl text-3xl block text-center capitalize">
+        <span className="lg:text-4xl text-3xl block text-center capitalize">
           {newDetail.title}
         </span>
       </h1>

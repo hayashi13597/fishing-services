@@ -103,7 +103,7 @@ const ReviewModal = ({
             >
               <TextArea
                 rows={4}
-                placeholder="Hãy chia sẽ nhận xét cho sản phẩm này bạn nhé!"
+                placeholder="Hãy chia sẻ nhận xét cho sản phẩm này bạn nhé!"
                 className=" outline-none focus:outline-none focus:border-none border-[1px]"
               />
             </Form.Item>

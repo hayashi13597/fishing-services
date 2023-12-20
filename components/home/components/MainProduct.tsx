@@ -83,7 +83,7 @@ const MainProduct = ({
             </div>
             <div
               className="absolute top-12 right-2 bg-white p-2 rounded-full cursor-pointer text-text hover:bg-primary hover:text-white opacity-0 group-hover:opacity-100 transition-all duration-300"
-              title="Chia sẽ"
+              title="chia sẻ"
               onClick={() => handleShare(product)}
             >
               <FaShareSquare />
